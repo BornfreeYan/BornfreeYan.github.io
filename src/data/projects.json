@@ -1,0 +1,13 @@
+{
+  "projects": [
+    {
+      "id": "bornfree-blog",
+      "name": "Bornfree Blog",
+      "description": "我的个人博客与数字花园，使用 React + TypeScript + Tailwind CSS + Vite 构建，部署在 GitHub Pages。",
+      "tech": ["React", "TypeScript", "Tailwind CSS", "Vite"],
+      "github": "https://github.com/BornfreeYan/BornfreeYan",
+      "demo": "https://BornfreeYan.github.io",
+      "cover": ""
+    }
+  ]
+}

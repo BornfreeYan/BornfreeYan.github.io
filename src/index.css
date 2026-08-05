@@ -1,0 +1,194 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* 基础色 */
+  --color-ivory: #f5f1ec;
+  --color-ivory-dark: #1a1a1a;
+  --color-ink: #1a1a1a;
+  --color-ink-dark: #f5f1ec;
+  --color-ink-muted: #6b6b6b;
+  --color-ink-muted-dark: #a8a8a8;
+  --color-accent: #9c8c6b;
+  --color-accent-dark: #c4a77d;
+  --color-border: #e0d8cd;
+  --color-border-dark: #3a3a3a;
+  --color-card: #ffffff;
+  --color-card-dark: #242424;
+  --color-code-bg: #f4f3ec;
+  --color-code-bg-dark: #2a2a2a;
+
+  /* 字体 */
+  --font-heading: "Playfair Display", "Noto Serif SC", "Source Han Serif CN", Georgia, serif;
+  --font-sans: "Inter", "Noto Sans SC", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+}
+
+/* 基础设置 */
+:root {
+  color-scheme: light dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-ivory text-ink font-sans antialiased;
+  @apply dark:bg-ivory-dark dark:text-ink-dark;
+}
+
+/* 选择文字 */
+::selection {
+  @apply bg-accent/20 text-ink;
+  @apply dark:bg-accent-dark/20 dark:text-ink-dark;
+}
+
+/* 滚动条 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-border rounded-full;
+  @apply dark:bg-border-dark;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-accent/60;
+  @apply dark:bg-accent-dark/60;
+}
+
+/* 链接下划线动画 */
+.link-underline {
+  position: relative;
+  text-decoration: none;
+}
+
+.link-underline::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  @apply bg-accent;
+  @apply dark:bg-accent-dark;
+  transition: width 0.3s ease;
+}
+
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* Markdown 内容样式 */
+.prose-custom {
+  @apply text-ink dark:text-ink-dark leading-relaxed;
+}
+
+.prose-custom h1,
+.prose-custom h2,
+.prose-custom h3,
+.prose-custom h4,
+.prose-custom h5,
+.prose-custom h6 {
+  @apply font-heading font-semibold text-ink dark:text-ink-dark mt-8 mb-4;
+}
+
+.prose-custom h1 {
+  @apply text-4xl;
+}
+
+.prose-custom h2 {
+  @apply text-2xl;
+}
+
+.prose-custom h3 {
+  @apply text-xl;
+}
+
+.prose-custom p {
+  @apply mb-4;
+}
+
+.prose-custom a {
+  @apply text-accent dark:text-accent-dark;
+  position: relative;
+  text-decoration: none;
+}
+
+.prose-custom a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  @apply bg-accent;
+  @apply dark:bg-accent-dark;
+  transition: width 0.3s ease;
+}
+
+.prose-custom a:hover::after {
+  width: 100%;
+}
+
+.prose-custom ul,
+.prose-custom ol {
+  @apply mb-4 pl-6;
+}
+
+.prose-custom ul {
+  @apply list-disc;
+}
+
+.prose-custom ol {
+  @apply list-decimal;
+}
+
+.prose-custom li {
+  @apply mb-1;
+}
+
+.prose-custom blockquote {
+  @apply border-l-2 border-accent dark:border-accent-dark pl-4 italic my-6 text-ink-muted dark:text-ink-muted-dark;
+}
+
+.prose-custom code {
+  @apply font-mono text-sm bg-code-bg dark:bg-code-bg-dark px-1.5 py-0.5 rounded;
+}
+
+.prose-custom pre {
+  @apply bg-code-bg dark:bg-code-bg-dark rounded-xl p-4 overflow-x-auto mb-6;
+}
+
+.prose-custom pre code {
+  @apply bg-transparent px-0 py-0;
+}
+
+.prose-custom img {
+  @apply rounded-xl max-w-full;
+}
+
+.prose-custom hr {
+  @apply border-border dark:border-border-dark my-8;
+}
+
+.prose-custom table {
+  @apply w-full border-collapse mb-6;
+}
+
+.prose-custom th,
+.prose-custom td {
+  @apply border border-border dark:border-border-dark px-4 py-2 text-left;
+}
+
+.prose-custom th {
+  @apply bg-code-bg dark:bg-code-bg-dark font-semibold;
+}
