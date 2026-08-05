@@ -2,6 +2,8 @@
 
 个人数字档案馆 / 博客，部署在 GitHub Pages。
 
+**在线地址**：https://BornfreeYan.github.io
+
 ## 技术栈
 
 - [Vite](https://vitejs.dev/)
@@ -9,7 +11,7 @@
 - [TypeScript](https://www.typescriptlang.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [React Router](https://reactrouter.com/)
-- [gray-matter](https://github.com/jonschlinkert/gray-matter) + [react-markdown](https://github.com/remarkjs/react-markdown)
+- [yaml](https://github.com/eemeli/yaml) + [react-markdown](https://github.com/remarkjs/react-markdown)
 
 ## 本地开发
 
@@ -27,6 +29,8 @@ npm run build
 ## 部署
 
 项目使用 GitHub Actions 自动部署。每次 push 到 `main` 分支时，Actions 会自动构建并发布到 GitHub Pages。
+
+在首次部署前，请确保仓库 Settings > Pages 中的 Source 已选择 **GitHub Actions**。
 
 ## 目录结构
 
