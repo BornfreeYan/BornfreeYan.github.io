@@ -2,7 +2,7 @@
 
 个人数字档案馆 / 博客，部署在 GitHub Pages。
 
-**在线地址**：https://BornfreeYan.github.io/BornfreeYan
+**在线地址**：https://BornfreeYan.github.io
 
 ## 技术栈
 

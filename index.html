@@ -21,8 +21,7 @@
         const params = new URLSearchParams(window.location.search)
         const redirect = params.get('redirect')
         if (redirect) {
-          const basePath = '/BornfreeYan'
-          const cleanUrl = basePath + '/' + redirect.replace(/^\//, '') + window.location.hash
+          const cleanUrl = '/' + redirect.replace(/^\//, '') + window.location.hash
           window.history.replaceState(null, '', cleanUrl)
         }
       })()
