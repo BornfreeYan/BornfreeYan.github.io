@@ -16,12 +16,13 @@
   <body>
     <div id="root"></div>
     <script>
-      // GitHub Pages 客户端路由刷新重定向处理
+      // GitHub Pages 客户端路由刷新重定向处理（适配项目站点 /BornfreeYan/）
       (function () {
         const params = new URLSearchParams(window.location.search)
         const redirect = params.get('redirect')
         if (redirect) {
-          const cleanUrl = window.location.pathname + redirect.replace(/^\//, '') + window.location.hash
+          const basePath = '/BornfreeYan'
+          const cleanUrl = basePath + '/' + redirect.replace(/^\//, '') + window.location.hash
           window.history.replaceState(null, '', cleanUrl)
         }
       })()

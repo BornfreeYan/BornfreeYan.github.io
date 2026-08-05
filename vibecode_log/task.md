@@ -84,7 +84,7 @@
 
 | 任务 | 说明 | 输出 | 状态 |
 |---|---|---|---|
-| 9.1 配置 Vite base path | GitHub Pages 个人站点仓库通常部署在根路径，无需 base | `vite.config.ts` | ✅ |
+| 9.1 配置 Vite base path | 仓库名为 `BornfreeYan`，属于项目站点，base 为 `/BornfreeYan/` | `vite.config.ts` | ✅ |
 | 9.2 配置 GitHub Actions | 已确认：push 到 main 自动构建并部署到 gh-pages | `.github/workflows/deploy.yml` | ✅ |
 | 9.3 本地构建验证 | `npm run build` 无错误 | `dist/` | ✅ |
 | 9.4 首次部署 | push 到 GitHub，验证 Pages 生效 | 线上站点可访问 | ✅ GitHub Actions 部署成功 |
