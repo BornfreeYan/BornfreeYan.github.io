@@ -34,9 +34,8 @@ jobs:
         run: npm run build
 
       - name: Setup Pages
+        # 注意：需要先在仓库 Settings > Pages 中启用 GitHub Pages，并选择 Source 为 GitHub Actions
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
