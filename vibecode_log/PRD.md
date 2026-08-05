@@ -7,7 +7,7 @@ title: "Bornfree — 超级个体成长档案馆"
 version: "1.0.0"
 date: "2026-08-05"
 status: "需求已确认 / 待开工"
-repo: "https://github.com/BornfreeYan/BornfreeYan"
+repo: "https://github.com/BornfreeYan/BornfreeYan.github.io"
 local_project: "D:/Local Knowledge_Base/1 Job/17 Projects/Blog"
 ```
 

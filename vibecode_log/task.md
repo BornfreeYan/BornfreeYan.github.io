@@ -2,7 +2,7 @@
 
 ## 项目信息
 - **项目路径**：`D:/Local Knowledge_Base/1 Job/17 Projects/Blog`
-- **仓库**：`https://github.com/BornfreeYan/BornfreeYan`
+- **仓库**：`https://github.com/BornfreeYan/BornfreeYan.github.io`
 - **域名**：`https://BornfreeYan.github.io`
 - **技术栈**：Vite + React + TypeScript + Tailwind CSS
 - **部署**：GitHub Actions（建议）
