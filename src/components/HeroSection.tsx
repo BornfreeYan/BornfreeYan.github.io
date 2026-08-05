@@ -3,7 +3,7 @@
  */
 export function HeroSection() {
   return (
-    <section className="min-h-[70vh] flex flex-col md:flex-row items-center justify-center gap-12 py-16 md:py-24">
+    <section className="min-h-[45vh] md:min-h-[35vh] flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 py-10 md:py-14">
       {/* Manifesto */}
       <div className="flex-1 max-w-2xl order-2 md:order-1">
         <h1 className="font-heading text-3xl md:text-5xl lg:text-6xl font-semibold leading-tight text-ink dark:text-ink-dark mb-6">

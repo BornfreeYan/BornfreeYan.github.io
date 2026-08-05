@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom'
+import { useSearchParams, Link } from 'react-router-dom'
 import { Folder } from 'lucide-react'
 import { ArticleCard } from '../components/ArticleCard'
 import { getAllCategories, getArticlesByCategory } from '../lib/articles'
@@ -26,9 +26,9 @@ export function CategoriesPage() {
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-12">
         {categories.map((category) => (
-          <a
+          <Link
             key={category.name}
-            href={`/categories?category=${encodeURIComponent(category.name)}`}
+            to={`/categories?category=${encodeURIComponent(category.name)}`}
             className={`p-4 rounded-2xl border transition-all duration-300 ${
               selectedCategory === category.name
                 ? 'border-accent dark:border-accent-dark bg-accent/5 dark:bg-accent-dark/5'
@@ -42,7 +42,7 @@ export function CategoriesPage() {
             <div className="text-sm text-ink-muted dark:text-ink-muted-dark">
               {category.count} 篇文章
             </div>
-          </a>
+          </Link>
         ))}
       </div>
 

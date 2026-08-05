@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom'
+import { useSearchParams, Link } from 'react-router-dom'
 import { Hash } from 'lucide-react'
 import { ArticleCard } from '../components/ArticleCard'
 import { getAllTags, getArticlesByTag } from '../lib/articles'
@@ -30,9 +30,9 @@ export function TagsPage() {
         {tags.map((tag) => {
           const size = Math.max(0.875, 1 + (tag.count / maxCount) * 0.5)
           return (
-            <a
+            <Link
               key={tag.name}
-              href={`/tags?tag=${encodeURIComponent(tag.name)}`}
+              to={`/tags?tag=${encodeURIComponent(tag.name)}`}
               className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full border transition-all duration-300 ${
                 selectedTag === tag.name
                   ? 'border-accent dark:border-accent-dark bg-accent/5 dark:bg-accent-dark/5'
@@ -43,7 +43,7 @@ export function TagsPage() {
               <Hash className="w-4 h-4 text-accent dark:text-accent-dark" />
               <span className="text-ink dark:text-ink-dark">{tag.name}</span>
               <span className="text-ink-muted dark:text-ink-muted-dark text-sm">{tag.count}</span>
-            </a>
+            </Link>
           )
         })}
       </div>
