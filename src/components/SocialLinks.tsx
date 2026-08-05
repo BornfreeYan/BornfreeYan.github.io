@@ -48,9 +48,13 @@ const socialLinks = [
   },
 ]
 
-export function SocialLinks() {
+interface SocialLinksProps {
+  className?: string
+}
+
+export function SocialLinks({ className = '' }: SocialLinksProps) {
   return (
-    <div className="flex items-center justify-center gap-4 py-8">
+    <div className={`flex items-center gap-4 ${className}`}>
       {socialLinks.map((link) => {
         const Icon = link.icon
         return (

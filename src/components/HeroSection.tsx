@@ -1,32 +1,35 @@
+import { SocialLinks } from './SocialLinks'
+
 /**
  * 首页 Hero 区域
  */
 export function HeroSection() {
   return (
-    <section className="min-h-[45vh] md:min-h-[35vh] flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 py-10 md:py-14">
-      {/* Manifesto */}
+    <section className="min-h-[35vh] md:min-h-[30vh] flex flex-col md:flex-row items-start md:items-center justify-center gap-8 md:gap-12 py-8 md:py-12">
+      {/* Manifesto + Social Links */}
       <div className="flex-1 max-w-2xl order-2 md:order-1">
-        <h1 className="font-heading text-3xl md:text-5xl lg:text-6xl font-semibold leading-tight text-ink dark:text-ink-dark mb-6">
+        <h1 className="font-heading text-3xl md:text-5xl lg:text-6xl font-semibold leading-tight text-ink dark:text-ink-dark mb-4">
           Revere time, defend attention.
           <br />
           <span className="text-ink-muted dark:text-ink-muted-dark">
             Forever curious, forever optimistic.
           </span>
         </h1>
-        <p className="text-base md:text-lg text-ink-muted dark:text-ink-muted-dark leading-relaxed">
+        <p className="text-base md:text-lg text-ink-muted dark:text-ink-muted-dark leading-relaxed mb-6">
           敬畏时间，捍卫注意力。永远好奇，永远乐观。
         </p>
+        <SocialLinks className="justify-start" />
       </div>
 
       {/* Piano Placeholder */}
-      <div className="flex-1 max-w-md w-full order-1 md:order-2">
+      <div className="flex-1 max-w-sm w-full order-1 md:order-2">
         <div className="aspect-square rounded-3xl bg-card dark:bg-card-dark border border-border dark:border-border-dark shadow-sm flex items-center justify-center p-8">
           <div className="text-center">
-            <div className="w-24 h-24 mx-auto mb-4 rounded-2xl bg-ivory dark:bg-ivory-dark border border-border dark:border-border-dark flex items-center justify-center">
+            <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-ivory dark:bg-ivory-dark border border-border dark:border-border-dark flex items-center justify-center">
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
-                className="w-12 h-12 text-accent dark:text-accent-dark"
+                className="w-10 h-10 text-accent dark:text-accent-dark"
                 stroke="currentColor"
                 strokeWidth="1.5"
               >

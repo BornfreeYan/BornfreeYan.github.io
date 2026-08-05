@@ -1,5 +1,4 @@
 import { HeroSection } from '../components/HeroSection'
-import { SocialLinks } from '../components/SocialLinks'
 import { CoreShowcase } from '../components/CoreShowcase'
 import { StatsSection } from '../components/StatsSection'
 
@@ -10,7 +9,6 @@ export function HomePage() {
   return (
     <div>
       <HeroSection />
-      <SocialLinks />
       <CoreShowcase />
       <StatsSection />
     </div>
