@@ -82,13 +82,13 @@
 
 ## Phase 9: 构建与部署
 
-| 任务 | 说明 | 输出 |
-|---|---|---|
-| 9.1 配置 Vite base path | GitHub Pages 个人站点仓库通常部署在根路径，无需 base | `vite.config.ts` |
-| 9.2 配置 GitHub Actions | 已确认：push 到 main 自动构建并部署到 gh-pages | `.github/workflows/deploy.yml` |
-| 9.3 本地构建验证 | `npm run build` 无错误 | `dist/` |
-| 9.4 首次部署 | push 到 GitHub，验证 Pages 生效 | 线上站点可访问 |
-| 9.5 配置 404 重定向 | 解决客户端路由刷新 404 问题 | `public/404.html` + 重定向脚本 |
+| 任务 | 说明 | 输出 | 状态 |
+|---|---|---|---|
+| 9.1 配置 Vite base path | GitHub Pages 个人站点仓库通常部署在根路径，无需 base | `vite.config.ts` | ✅ |
+| 9.2 配置 GitHub Actions | 已确认：push 到 main 自动构建并部署到 gh-pages | `.github/workflows/deploy.yml` | ✅ |
+| 9.3 本地构建验证 | `npm run build` 无错误 | `dist/` | ✅ |
+| 9.4 首次部署 | push 到 GitHub，验证 Pages 生效 | 线上站点可访问 | ⏳ 需手动启用 Pages |
+| 9.5 配置 404 重定向 | 解决客户端路由刷新 404 问题 | `public/404.html` + 重定向脚本 | ✅ |
 
 ## Phase 10: 收尾与文档
 
