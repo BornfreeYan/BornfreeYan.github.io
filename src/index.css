@@ -3,21 +3,21 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* 基础色 */
-  --color-ivory: #f5f1ec;
-  --color-ivory-dark: #1a1a1a;
-  --color-ink: #1a1a1a;
-  --color-ink-dark: #f5f1ec;
-  --color-ink-muted: #6b6b6b;
-  --color-ink-muted-dark: #a8a8a8;
-  --color-accent: #9c8c6b;
-  --color-accent-dark: #c4a77d;
-  --color-border: #e0d8cd;
-  --color-border-dark: #3a3a3a;
+  /* 基础色：以经典编辑风为基调，米白为底，暖棕为墨，鎏金点缀 */
+  --color-ivory: #f7f4ef;
+  --color-ivory-dark: #1e1a16;
+  --color-ink: #2c2824;
+  --color-ink-dark: #f5f0e8;
+  --color-ink-muted: #7a7368;
+  --color-ink-muted-dark: #b8b0a4;
+  --color-accent: #c9a227;
+  --color-accent-dark: #e8c86a;
+  --color-border: #e8e0d5;
+  --color-border-dark: #3d3630;
   --color-card: #ffffff;
-  --color-card-dark: #242424;
-  --color-code-bg: #f4f3ec;
-  --color-code-bg-dark: #2a2a2a;
+  --color-card-dark: #2a2520;
+  --color-code-bg: #f4f1ea;
+  --color-code-bg-dark: #2d2823;
 
   /* 字体 */
   --font-heading: "Playfair Display", "Noto Serif SC", "Source Han Serif CN", Georgia, serif;
