@@ -1,5 +1,6 @@
 import { SocialLinks } from './SocialLinks'
 import { SunOrnament } from './SunOrnament'
+import { SeaScene } from './SeaScene'
 
 /**
  * 首页 Hero 区域
@@ -11,8 +12,8 @@ export function HeroSection() {
     <section className="full-bleed relative overflow-hidden min-h-[80vh] md:min-h-[85vh]">
       {/* 整体内容上移 8mm 的包装层 */}
       <div className="absolute inset-0 -translate-y-6 md:-translate-y-8">
-        {/* 背景层：巨型衬线水印 + 柔和辉光 + 太阳纹章 */}
-        <div className="absolute inset-0 pointer-events-none select-none" aria-hidden>
+        {/* 背景层：巨型衬线水印 + 柔和辉光 + 太阳纹章（z-2，位于水域之上、帆船之下） */}
+        <div className="absolute inset-0 z-[2] pointer-events-none select-none" aria-hidden>
           {/* 巨型衬线水印：斜体 + 倾斜 30°（以左下角为锚点，避免被裁掉），与正文格言区分 */}
           <span className="absolute left-[1%] bottom-[4%] origin-bottom-left whitespace-nowrap font-heading font-semibold italic leading-none tracking-tight text-accent/[0.09] dark:text-accent-dark/[0.08] text-[clamp(4.5rem,17vw,17rem)] skew-x-[-30deg]">
             Born&nbsp;Free.
@@ -50,6 +51,9 @@ export function HeroSection() {
           </div>
         </div>
       </div>
+
+      {/* 水域 + 帆船（贴底，不上移；z：水域1 < 天空层2 < 帆船3 < 文案10） */}
+      <SeaScene />
     </section>
   )
 }
