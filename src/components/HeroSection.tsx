@@ -1,4 +1,7 @@
+import { lazy, Suspense } from 'react'
 import { SocialLinks } from './SocialLinks'
+
+const PianoScene = lazy(() => import('./PianoScene'))
 
 /**
  * 首页 Hero 区域
@@ -23,32 +26,30 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Piano Placeholder */}
-      <div className="flex-1 max-w-md lg:max-w-md w-full order-1 md:order-2 animate-fade-in-up hero-enter-4">
-        <div className="aspect-[4/3] rounded-[2rem] bg-card dark:bg-card-dark border border-border dark:border-border-dark shadow-sm flex items-center justify-center p-10 card-hover">
-          <div className="text-center">
-            <div className="w-24 h-24 mx-auto mb-6 rounded-[1.25rem] bg-ivory dark:bg-ivory-dark border border-border dark:border-border-dark flex items-center justify-center">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                className="w-12 h-12 text-accent dark:text-accent-dark"
-                stroke="currentColor"
-                strokeWidth="1.5"
-              >
-                <rect x="3" y="10" width="18" height="10" rx="1" />
-                <path d="M6 10V7a2 2 0 0 1 4 0v3" />
-                <path d="M10 10V6a2 2 0 0 1 4 0v4" />
-                <path d="M14 10V7a2 2 0 0 1 4 0v3" />
-              </svg>
+      {/* 3D Piano */}
+      <div className="flex-1 max-w-md lg:max-w-lg w-full h-[340px] md:h-[420px] lg:h-[480px] order-1 md:order-2 animate-fade-in-up hero-enter-4">
+        <Suspense
+          fallback={
+            <div className="w-full h-full rounded-[2rem] bg-card dark:bg-card-dark border border-border dark:border-border-dark flex items-center justify-center">
+              <div className="w-24 h-24 rounded-[1.25rem] bg-ivory dark:bg-ivory-dark border border-border dark:border-border-dark flex items-center justify-center">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  className="w-12 h-12 text-accent dark:text-accent-dark"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                >
+                  <rect x="3" y="10" width="18" height="10" rx="1" />
+                  <path d="M6 10V7a2 2 0 0 1 4 0v3" />
+                  <path d="M10 10V6a2 2 0 0 1 4 0v4" />
+                  <path d="M14 10V7a2 2 0 0 1 4 0v3" />
+                </svg>
+              </div>
             </div>
-            <p className="text-base text-ink-muted dark:text-ink-muted-dark">
-              三角钢琴动效预留位
-            </p>
-            <p className="text-sm text-ink-muted/60 dark:text-ink-muted-dark/60 mt-2">
-              v1.1 接入 Three.js 3D 动画
-            </p>
-          </div>
-        </div>
+          }
+        >
+          <PianoScene />
+        </Suspense>
       </div>
     </section>
   )
