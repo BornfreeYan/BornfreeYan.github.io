@@ -237,6 +237,30 @@ body {
 .hero-enter-4 { animation-delay: 180ms; }
 .hero-enter-5 { animation-delay: 240ms; }
 
+/* ===== Hero 飞鸟图样动效 ===== */
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+.float-slow {
+  animation: float-slow 6s var(--ease-in-out) infinite;
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.sun-spin {
+  transform-origin: 50% 50%;
+  animation: spin-slow 70s linear infinite;
+}
+
 /* ===== 按钮/卡片通用按压反馈 ===== */
 .pressable {
   transition: transform 160ms var(--ease-out), box-shadow 200ms var(--ease-out);

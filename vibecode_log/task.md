@@ -32,11 +32,11 @@
 
 | 任务 | 说明 | 输出 |
 |---|---|---|
-| 3.1 Hero 区域布局 | 左侧宣言（中英双语），右侧钢琴占位区域，响应式上下堆叠 | `HeroSection.tsx` |
+| 3.1 Hero 区域布局 | 左侧宣言（中英双语），右侧视觉图样区域，响应式上下堆叠 | `HeroSection.tsx` |
 | 3.2 社媒图标栏 | X、公众号、Bilibili、小红书、RSS、Email 图标链接 | `SocialLinks.tsx` |
 | 3.3 三核心展示 | Article / Project / Memo 三栏卡片预览 | `CoreShowcase.tsx` |
 | 3.4 首页数据展示 | 文章数、项目数、运行天数等（位置待确认） | `StatsSection.tsx` |
-| 3.5 钢琴占位 | v1.0 先用抽象图形或 CSS 占位，v1.1 接入 Three.js | `PianoPlaceholder.tsx` |
+| 3.5 Hero 右侧视觉 | 最终采用 SVG 鎏金飞鸟图样（呼应 Born Free）；曾尝试 3D 三角钢琴，多次迭代不理想后废弃 | `BirdEmblem.tsx` |
 
 ## Phase 4: Article 频道
 
@@ -124,11 +124,11 @@ Phase 10 文档收尾
 | 阶段 | 任务 | 说明 | 输出 | 状态 |
 |---|---|---|---|---|
 | v1.1 | 交互与显示优化 | 基于 apple-design、emil-design-eng 优化字体层级、微交互、动效、材质 | 详见 `vibecode_log/v1.1-design-note.md` | 🔄 进行中 |
-| v1.1 | 三角钢琴 3D 动画 | 用 Three.js / React Three Fiber 替换右侧占位，并按参考图片优化琴身、琴腿、踏板 | `PianoScene.tsx` | ✅ 已细化 |
+| v1.1 | Hero 右侧视觉（SVG 飞鸟） | 3D 三角钢琴多次迭代仍不理想，废弃；改为纯 SVG 鎏金飞鸟图样，轻量零风险 | `BirdEmblem.tsx` | ✅ |
 
 ## 风险与阻塞项
 
-- **三角钢琴 3D 动画**：放到 v1.1，v1.0 先用占位。
+- ~~三角钢琴 3D 动画~~：已废弃。程序化 3D 建模在朝向、动效上多次迭代不理想，改为纯 SVG 图样，不再引入 Three.js 依赖。
 - **GitHub API 速率限制**：项目少时不影响，后续可加 token。
 - **GitHub Pages 部署路径**：个人站点仓库 `BornfreeYan/BornfreeYan` 通常部署在根路径，无需 `base`。
 

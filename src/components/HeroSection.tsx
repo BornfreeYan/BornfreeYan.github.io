@@ -1,7 +1,5 @@
-import { lazy, Suspense } from 'react'
 import { SocialLinks } from './SocialLinks'
-
-const PianoScene = lazy(() => import('./PianoScene'))
+import { BirdEmblem } from './BirdEmblem'
 
 /**
  * 首页 Hero 区域
@@ -26,30 +24,9 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* 3D Piano */}
+      {/* 飞鸟图样 */}
       <div className="flex-1 max-w-md lg:max-w-lg w-full h-[340px] md:h-[420px] lg:h-[480px] order-1 md:order-2 animate-fade-in-up hero-enter-4">
-        <Suspense
-          fallback={
-            <div className="w-full h-full rounded-[2rem] bg-card dark:bg-card-dark border border-border dark:border-border-dark flex items-center justify-center">
-              <div className="w-24 h-24 rounded-[1.25rem] bg-ivory dark:bg-ivory-dark border border-border dark:border-border-dark flex items-center justify-center">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  className="w-12 h-12 text-accent dark:text-accent-dark"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                >
-                  <rect x="3" y="10" width="18" height="10" rx="1" />
-                  <path d="M6 10V7a2 2 0 0 1 4 0v3" />
-                  <path d="M10 10V6a2 2 0 0 1 4 0v4" />
-                  <path d="M14 10V7a2 2 0 0 1 4 0v3" />
-                </svg>
-              </div>
-            </div>
-          }
-        >
-          <PianoScene />
-        </Suspense>
+        <BirdEmblem />
       </div>
     </section>
   )
