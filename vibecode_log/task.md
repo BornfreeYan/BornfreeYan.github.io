@@ -126,7 +126,7 @@ Phase 10 文档收尾
 | v1.1 | 交互与显示优化 | 基于 apple-design、emil-design-eng 优化字体层级、微交互、动效、材质 | 详见 `vibecode_log/v1.1-design-note.md` | 🔄 进行中 |
 | v1.1 | Hero 视觉（方案 A） | 巨型衬线水印 + 细线太阳纹章融入米白背景，无卡片无边框；纯 SVG/CSS | `SunOrnament.tsx` | ✅ |
 | v1.1 | Hero 精修（反馈迭代） | 太阳加渐变/纹理/更深金色；社媒移动端横向滑动；内容上移 8mm；水印改斜体+30°倾斜区分格言；格言加投影 | `SunOrnament.tsx` / `HeroSection.tsx` / `SocialLinks.tsx` | ✅ |
-| v1.1 | Hero 机械手表太阳 | 帆船/水域已撤；太阳改为金色机械手表（旋转表圈+机芯齿轮组+摆轮+宝石，时/分针实时指向北京时间） | `TimeGear.tsx` | ✅ |
+| v1.1 | Hero 机械手表太阳 | 帆船/水域已撤；太阳改为不对称齿轮传动链（中心太阳→G1→G2→G3→外圈大齿轮，Node 仿真验证咬合），时/分针实时指向北京时间 | `TimeGear.tsx` | ✅ |
 
 ## 风险与阻塞项
 

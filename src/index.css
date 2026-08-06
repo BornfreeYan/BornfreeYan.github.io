@@ -259,30 +259,17 @@ body {
     transform: rotate(360deg);
   }
 }
-.sun-spin {
-  transform-box: view-box;
-  transform-origin: 50% 50%;
-  animation: spin-slow 80s linear infinite;
-}
 
 @keyframes spin-rev {
   to {
     transform: rotate(-360deg);
   }
 }
-.spin-rev {
-  transform-box: view-box;
-  transform-origin: 50% 50%;
-  animation: spin-rev 90s linear infinite;
-}
 
 /* 绕自身中心旋转/摆动（用于偏心齿轮、摆轮） */
 .spin-center {
   transform-box: fill-box;
   transform-origin: 50% 50%;
-}
-.gear-sat {
-  animation: spin-slow 30s linear infinite;
 }
 
 @keyframes balance-swing {
