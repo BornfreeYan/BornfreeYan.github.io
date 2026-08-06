@@ -131,13 +131,24 @@ function GrandPiano() {
     return s
   }
 
+  // 琴盖轮廓：比琴身略大一圈，形成自然的悬挑（cover）
+  function makeLidShape() {
+    const s = new THREE.Shape()
+    s.moveTo(-0.84, 0)
+    s.lineTo(0.84, 0)
+    s.bezierCurveTo(0.97, 0.55, 0.74, 1.62, 0.26, 2.24)
+    s.bezierCurveTo(0.13, 2.32, -0.13, 2.32, -0.26, 2.24)
+    s.bezierCurveTo(-0.74, 1.62, -0.97, 0.55, -0.84, 0)
+    return s
+  }
+
   const bodyShape = useMemo(() => {
     const outer = makeOuterShape()
     outer.holes.push(makeInnerShape(0.88))
     return outer
   }, [])
 
-  const lidShape = useMemo(() => makeScaledShape(0.97), [])
+  const lidShape = useMemo(() => makeLidShape(), [])
   const soundboardShape = useMemo(() => makeScaledShape(0.88), [])
 
   const bodyExtrudeSettings = useMemo(
@@ -222,11 +233,12 @@ function GrandPiano() {
   function Leg({ position }: { position: [number, number, number] }) {
     return (
       <group position={position}>
-        <mesh material={blackBody} castShadow receiveShadow>
+        {/* 琴腿本体：lathe 默认向 +Y 生长，这里绕 X 翻转 180°，让腿从琴身向下生长到地面 */}
+        <mesh material={blackBody} rotation={[Math.PI, 0, 0]} castShadow receiveShadow>
           <latheGeometry args={[legProfile, 20]} />
         </mesh>
         {/* 顶部金色装饰环 */}
-        <mesh material={gold} position={[0, 0.02, 0]} castShadow receiveShadow>
+        <mesh material={gold} position={[0, -0.04, 0]} castShadow receiveShadow>
           <cylinderGeometry args={[0.095, 0.095, 0.04, 16]} />
         </mesh>
         {/* 底部金色脚轮杯 */}
@@ -291,14 +303,14 @@ function GrandPiano() {
         </mesh>
         {/* 铰链金色线 */}
         <mesh material={gold} position={[0, 0, 0.001]} rotation={[Math.PI / 2, 0, 0]} castShadow receiveShadow>
-          <cylinderGeometry args={[0.012, 0.012, 1.6, 8]} />
+          <cylinderGeometry args={[0.012, 0.012, 1.72, 8]} />
         </mesh>
       </group>
 
       {/* 三条琴腿 */}
       <Leg position={[-0.62, 0, 0.05]} />
       <Leg position={[0.62, 0, 0.05]} />
-      <Leg position={[0, 0, -1.65]} />
+      <Leg position={[0, 0, 2.0]} />
 
       {/* 踏板架 */}
       <group position={[0, 0, 0.2]}>
