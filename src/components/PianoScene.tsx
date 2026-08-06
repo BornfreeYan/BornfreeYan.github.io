@@ -1,6 +1,6 @@
 ﻿import { useRef, useMemo } from 'react'
 
-import { Canvas, useFrame } from '@react-three/fiber'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Environment, Lightformer } from '@react-three/drei'
 import * as THREE from 'three'
 
@@ -254,14 +254,14 @@ function GrandPiano() {
   }
 
   return (
-    <group ref={groupRef} scale={0.9} position={[0, 0.35, 0]}>
-      {/* 琴身主体：带孔洞的木质边框（scale.z=-1 让厚度向上生长） */}
-      <mesh material={blackBody} rotation={[Math.PI / 2, 0, 0]} scale={[1, 1, -1]} position={[0, 0, 0]} castShadow receiveShadow>
+    <group ref={groupRef} scale={0.9} position={[0, 0.35, 0.9]}>
+      {/* 琴身主体：带孔洞的木质边框（绕 X 轴 -90°：厚度向上生长，琴尾朝 -Z 远离观众，琴键朝 +Z） */}
+      <mesh material={blackBody} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} castShadow receiveShadow>
         <extrudeGeometry args={[bodyShape, bodyExtrudeSettings]} />
       </mesh>
 
       {/* 金色音板（在琴身内部） */}
-      <mesh material={soundboard} rotation={[Math.PI / 2, 0, 0]} position={[0, bodyHeight - 0.005, 0]} receiveShadow>
+      <mesh material={soundboard} rotation={[-Math.PI / 2, 0, 0]} position={[0, bodyHeight - 0.005, 0]} receiveShadow>
         <shapeGeometry args={[soundboardShape]} />
       </mesh>
 
@@ -291,18 +291,13 @@ function GrandPiano() {
         ))}
       </group>
 
-      {/* 前挡板 / 键盖 */}
-      <mesh material={blackBody} position={[0, bodyHeight + 0.05, 0.04]} castShadow receiveShadow>
-        <boxGeometry args={[1.7, 0.08, 0.08]} />
-      </mesh>
-
-      {/* 琴盖 — 闭合 */}
-      <group position={[0, bodyHeight + 0.02, 0]} rotation={[0, 0, 0]}>
-        <mesh material={blackBody} rotation={[Math.PI / 2, 0, 0]} scale={[1, 1, -1]} castShadow receiveShadow>
+      {/* 琴盖 — 打开约 45°，绕琴键侧铰链轴翻起 */}
+      <group position={[0, bodyHeight + 0.01, 0]} rotation={[Math.PI / 4, 0, 0]}>
+        <mesh material={blackBody} rotation={[-Math.PI / 2, 0, 0]} castShadow receiveShadow>
           <extrudeGeometry args={[lidShape, lidExtrudeSettings]} />
         </mesh>
-        {/* 铰链金色线 */}
-        <mesh material={gold} position={[0, 0, 0.001]} rotation={[Math.PI / 2, 0, 0]} castShadow receiveShadow>
+        {/* 铰链金色线（沿琴键侧边缘 X 方向，不是朝外戳的管子） */}
+        <mesh material={gold} rotation={[0, 0, Math.PI / 2]} castShadow receiveShadow>
           <cylinderGeometry args={[0.012, 0.012, 1.72, 8]} />
         </mesh>
       </group>
@@ -310,7 +305,7 @@ function GrandPiano() {
       {/* 三条琴腿 */}
       <Leg position={[-0.62, 0, 0.05]} />
       <Leg position={[0.62, 0, 0.05]} />
-      <Leg position={[0, 0, 2.0]} />
+      <Leg position={[0, 0, -2.0]} />
 
       {/* 踏板架 */}
       <group position={[0, 0, 0.2]}>
@@ -329,13 +324,13 @@ function GrandPiano() {
         <mesh material={gold} position={[0, pedalBeamY, 0]} rotation={[0, 0, Math.PI / 2]} castShadow receiveShadow>
           <cylinderGeometry args={[0.018, 0.018, 0.28, 8]} />
         </mesh>
-        {/* 三个踏板连杆 */}
+        {/* 三个踏板连杆（垂直向下） */}
         {[-0.08, 0, 0.08].map((x, i) => (
           <group key={i} position={[x, pedalBeamY, 0]}>
-            <mesh material={gold} rotation={[-Math.PI / 2, 0, 0]} castShadow receiveShadow>
-              <cylinderGeometry args={[0.012, 0.012, 0.45, 8]} />
+            <mesh material={gold} castShadow receiveShadow>
+              <cylinderGeometry args={[0.012, 0.012, 0.08, 8]} />
             </mesh>
-            <mesh material={gold} position={[0, 0, 0.45]} castShadow receiveShadow>
+            <mesh material={gold} position={[0, -0.08, 0]} castShadow receiveShadow>
               <boxGeometry args={[0.06, 0.02, 0.12]} />
             </mesh>
           </group>
@@ -345,15 +340,26 @@ function GrandPiano() {
   )
 }
 
+// 相机对准钢琴竖向中心，保证竖向上居中
+function CameraRig() {
+  const camera = useThree((state) => state.camera)
+  useFrame(() => {
+    camera.lookAt(0, 0.9, 0)
+  })
+  return null
+}
+
 export default function PianoScene() {
   return (
     <div className="w-full h-full">
       <Canvas
-        camera={{ position: [3.5, 1.5, 4.5], fov: 30, near: 0.1, far: 100 }}
+        camera={{ position: [3.5, 2.2, 5.5], fov: 40, near: 0.1, far: 100 }}
         gl={{ antialias: true, alpha: true }}
         dpr={[1, 2]}
         shadows
       >
+        {/* 相机对准钢琴竖向中心，保证竖向上居中 */}
+        <CameraRig />
         <ambientLight intensity={0.7} />
         <directionalLight position={[4, 6, 4]} intensity={1.4} castShadow color="#fff8ee" />
         <directionalLight position={[-2, 3, 5]} intensity={1.2} color="#ffffff" />
