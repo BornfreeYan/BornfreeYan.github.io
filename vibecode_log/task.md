@@ -124,7 +124,7 @@ Phase 10 文档收尾
 | 阶段 | 任务 | 说明 | 输出 | 状态 |
 |---|---|---|---|---|
 | v1.1 | 交互与显示优化 | 基于 apple-design、emil-design-eng 优化字体层级、微交互、动效、材质 | 详见 `vibecode_log/v1.1-design-note.md` | 🔄 进行中 |
-| v1.1 | 三角钢琴 3D 动画 | 用 Three.js / React Three Fiber 替换右侧占位 | `PianoScene.tsx` | ✅ 基础版已完成 |
+| v1.1 | 三角钢琴 3D 动画 | 用 Three.js / React Three Fiber 替换右侧占位，并按参考图片优化琴身、琴腿、踏板 | `PianoScene.tsx` | ✅ 已细化 |
 
 ## 风险与阻塞项
 
