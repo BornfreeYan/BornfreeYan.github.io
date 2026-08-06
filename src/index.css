@@ -44,6 +44,8 @@
   --sun-line: #b98a15;
   --sun-core: #d4a62b;
   --sun-deep: #9c7a08;
+  /* 机芯红宝石 */
+  --jewel: #b23a2e;
 }
 
 .dark {
@@ -51,6 +53,8 @@
   --sun-line: #e0b94e;
   --sun-core: #ecc35a;
   --sun-deep: #c9a227;
+  /* 机芯红宝石（暗色模式） */
+  --jewel: #d2543f;
 }
 
 html {
@@ -270,6 +274,28 @@ body {
   transform-box: view-box;
   transform-origin: 50% 50%;
   animation: spin-rev 90s linear infinite;
+}
+
+/* 绕自身中心旋转/摆动（用于偏心齿轮、摆轮） */
+.spin-center {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+}
+.gear-sat {
+  animation: spin-slow 30s linear infinite;
+}
+
+@keyframes balance-swing {
+  0%,
+  100% {
+    transform: rotate(-26deg);
+  }
+  50% {
+    transform: rotate(26deg);
+  }
+}
+.balance-swing {
+  animation: balance-swing 1.2s ease-in-out infinite;
 }
 
 @keyframes pulse-soft {
