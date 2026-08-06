@@ -63,7 +63,7 @@ export function SocialLinks({ className = '', size = 'md' }: SocialLinksProps) {
   const { button, icon } = sizeClasses[size]
 
   return (
-    <div className={`flex items-center gap-4 ${className}`}>
+    <div className={`flex items-center gap-4 flex-nowrap overflow-x-auto snap-x snap-proximity no-scrollbar ${className}`}>
       {socialLinks.map((link) => {
         const Icon = link.icon
         return (
@@ -72,7 +72,7 @@ export function SocialLinks({ className = '', size = 'md' }: SocialLinksProps) {
             href={link.href}
             target={link.href.startsWith('http') ? '_blank' : undefined}
             rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-            className={`group ${button} rounded-xl bg-card dark:bg-card-dark border border-border dark:border-border-dark text-ink-muted dark:text-ink-muted-dark hover:border-accent dark:hover:border-accent-dark hover:text-accent dark:hover:text-accent-dark hover:ring-2 hover:ring-accent/20 dark:hover:ring-accent-dark/20 pressable`}
+            className={`group shrink-0 snap-start ${button} rounded-xl bg-card dark:bg-card-dark border border-border dark:border-border-dark text-ink-muted dark:text-ink-muted-dark hover:border-accent dark:hover:border-accent-dark hover:text-accent dark:hover:text-accent-dark hover:ring-2 hover:ring-accent/20 dark:hover:ring-accent-dark/20 pressable`}
             aria-label={link.name}
           >
             <Icon className={icon} />

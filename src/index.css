@@ -40,6 +40,17 @@
 /* 基础设置 */
 :root {
   color-scheme: light dark;
+  /* 太阳纹章金色：比 "Born Free" 水印更深、更金黄 */
+  --sun-line: #b98a15;
+  --sun-core: #d4a62b;
+  --sun-deep: #9c7a08;
+}
+
+.dark {
+  /* 太阳纹章金色（暗色模式） */
+  --sun-line: #e0b94e;
+  --sun-core: #ecc35a;
+  --sun-deep: #c9a227;
 }
 
 html {
@@ -269,6 +280,15 @@ body {
 }
 .dark .hero-glow {
   background: radial-gradient(circle, rgba(232, 200, 106, 0.12) 0%, rgba(232, 200, 106, 0.04) 45%, transparent 70%);
+}
+
+/* 隐藏横向滚动条（社媒链接移动端滑动） */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* ===== 按钮/卡片通用按压反馈 ===== */
