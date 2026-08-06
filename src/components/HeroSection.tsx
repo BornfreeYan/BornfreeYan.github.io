@@ -1,6 +1,5 @@
 import { SocialLinks } from './SocialLinks'
-import { SunOrnament } from './SunOrnament'
-import { SeaScene } from './SeaScene'
+import { TimeGear } from './TimeGear'
 
 /**
  * 首页 Hero 区域
@@ -24,9 +23,9 @@ export function HeroSection() {
             <div className="w-full h-full rounded-full hero-glow glow-pulse" />
           </div>
 
-          {/* 太阳纹章 */}
+          {/* 时间齿轮太阳（z-2，位于水域之上、帆船之下） */}
           <div className="absolute right-[1%] top-1/2 -translate-y-1/2 w-[min(58vw,540px)] aspect-square">
-            <SunOrnament className="w-full h-full" />
+            <TimeGear className="w-full h-full" />
           </div>
         </div>
 
@@ -51,9 +50,6 @@ export function HeroSection() {
           </div>
         </div>
       </div>
-
-      {/* 水域 + 帆船（贴底，不上移；z：水域1 < 天空层2 < 帆船3 < 文案10） */}
-      <SeaScene />
     </section>
   )
 }
