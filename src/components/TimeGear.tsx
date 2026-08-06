@@ -84,21 +84,23 @@ function Gear({ g }: { g: Gear }) {
 function RimGear() {
   const teeth = Array.from({ length: RIM.N }, (_, k) => (360 / RIM.N) * k)
   return (
-    <g className="spin-center" style={gearSpin(RIM)} stroke="var(--sun-line)">
-      <circle r={RIM.r} strokeWidth="2" opacity="0.55" />
-      <circle r={RIM.r - 3} strokeWidth="0.8" opacity="0.4" />
-      {teeth.map((a) => (
-        <line
-          key={a}
-          x1="0"
-          y1={-(RIM.r + 1)}
-          x2="0"
-          y2={-(RIM.r - 4.5)}
-          strokeWidth="1.4"
-          opacity="0.6"
-          transform={`rotate(${a})`}
-        />
-      ))}
+    <g transform="translate(200 200)">
+      <g className="spin-center" style={gearSpin(RIM)} stroke="var(--sun-line)">
+        <circle r={RIM.r} strokeWidth="2" opacity="0.55" />
+        <circle r={RIM.r - 3} strokeWidth="0.8" opacity="0.4" />
+        {teeth.map((a) => (
+          <line
+            key={a}
+            x1="0"
+            y1={-(RIM.r + 1)}
+            x2="0"
+            y2={-(RIM.r - 4.5)}
+            strokeWidth="1.4"
+            opacity="0.6"
+            transform={`rotate(${a})`}
+          />
+        ))}
+      </g>
     </g>
   )
 }
@@ -192,13 +194,13 @@ export function TimeGear({ className }: { className?: string }) {
         ))}
       </g>
 
-      {/* 指针：北京时间（时 / 分） */}
+      {/* 指针：北京时间（时 / 分，加长） */}
       <g stroke="var(--sun-line)">
         <line
           x1="200"
-          y1="214"
+          y1="218"
           x2="200"
-          y2="168"
+          y2="155"
           strokeWidth="2.4"
           strokeLinecap="round"
           opacity="0.9"
@@ -206,9 +208,9 @@ export function TimeGear({ className }: { className?: string }) {
         />
         <line
           x1="200"
-          y1="220"
+          y1="222"
           x2="200"
-          y2="155"
+          y2="138"
           strokeWidth="1.5"
           strokeLinecap="round"
           opacity="0.9"
