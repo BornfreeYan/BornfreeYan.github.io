@@ -5,27 +5,27 @@ import { SocialLinks } from './SocialLinks'
  */
 export function HeroSection() {
   return (
-    <section className="min-h-[90vh] md:min-h-[92vh] flex flex-col md:flex-row items-center justify-center gap-10 md:gap-16 lg:gap-24 py-12 md:py-16">
+    <section className="min-h-screen flex flex-col md:flex-row items-center justify-center gap-10 md:gap-12 lg:gap-20 py-12 md:py-16">
       {/* Manifesto + Social Links */}
-      <div className="flex-1 max-w-2xl order-2 md:order-1">
-        <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-semibold leading-[1.05] tracking-tight text-ink dark:text-ink-dark mb-5 animate-fade-in-up hero-enter-1">
+      <div className="flex-[1.2] max-w-2xl order-2 md:order-1">
+        <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold leading-[1.05] tracking-tight text-ink dark:text-ink-dark mb-6 animate-fade-in-up hero-enter-1">
           Revere time, defend attention.
           <br />
           <span className="text-ink-muted dark:text-ink-muted-dark">
             Forever curious, forever optimistic.
           </span>
         </h1>
-        <p className="text-lg md:text-xl text-ink-muted dark:text-ink-muted-dark leading-relaxed mb-8 max-w-lg animate-fade-in-up hero-enter-2">
+        <p className="text-xl md:text-2xl text-ink-muted dark:text-ink-muted-dark leading-relaxed mb-10 max-w-xl animate-fade-in-up hero-enter-2">
           敬畏时间，捍卫注意力。永远好奇，永远乐观。
         </p>
         <div className="animate-fade-in-up hero-enter-3">
-          <SocialLinks className="justify-start" />
+          <SocialLinks className="justify-start" size="lg" />
         </div>
       </div>
 
       {/* Piano Placeholder */}
       <div className="flex-1 max-w-md lg:max-w-lg w-full order-1 md:order-2 animate-fade-in-up hero-enter-4">
-        <div className="aspect-[3/4] rounded-[2rem] bg-card dark:bg-card-dark border border-border dark:border-border-dark shadow-sm flex items-center justify-center p-10 card-hover">
+        <div className="aspect-square rounded-[2rem] bg-card dark:bg-card-dark border border-border dark:border-border-dark shadow-sm flex items-center justify-center p-10 card-hover">
           <div className="text-center">
             <div className="w-24 h-24 mx-auto mb-6 rounded-[1.25rem] bg-ivory dark:bg-ivory-dark border border-border dark:border-border-dark flex items-center justify-center">
               <svg
