@@ -55,6 +55,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
@@ -289,6 +290,12 @@ body {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Hero 全幅出血：脱离 max-w 容器，铺满整个视口，避免水印/太阳被裁 */
+.full-bleed {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
 }
 
 /* ===== 按钮/卡片通用按压反馈 ===== */
