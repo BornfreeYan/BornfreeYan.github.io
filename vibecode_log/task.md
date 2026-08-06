@@ -85,7 +85,7 @@
 | 任务 | 说明 | 输出 | 状态 |
 |---|---|---|---|
 | 9.1 配置 Vite base path | 仓库已重命名为 `BornfreeYan.github.io`，用户站点，base 为 `/` | `vite.config.ts` | ✅ |
-| 9.2 配置 GitHub Actions | 已确认：push 到 main 自动构建并部署到 gh-pages | `.github/workflows/deploy.yml` | ✅ |
+| 9.2 配置 GitHub Actions | 已确认：push 到 main 自动构建，`dist` 推送到 `gh-pages` 分支（peaceiris/actions-gh-pages，避开 deploy-pages API 不稳定）；需 Settings > Pages > Source 选 "Deploy from a branch" > gh-pages | `.github/workflows/deploy.yml` | ✅ |
 | 9.3 本地构建验证 | `npm run build` 无错误 | `dist/` | ✅ |
 | 9.4 首次部署 | push 到 GitHub，验证 Pages 生效 | 线上站点可访问 | ✅ GitHub Actions 部署成功 |
 | 9.5 配置 404 重定向 | 解决客户端路由刷新 404 问题 | `public/404.html` + 重定向脚本 | ✅ |
