@@ -36,7 +36,7 @@
 | 3.2 社媒图标栏 | X、公众号、Bilibili、小红书、RSS、Email 图标链接 | `SocialLinks.tsx` |
 | 3.3 三核心展示 | Article / Project / Memo 三栏卡片预览 | `CoreShowcase.tsx` |
 | 3.4 首页数据展示 | 文章数、项目数、运行天数等（位置待确认） | `StatsSection.tsx` |
-| 3.5 Hero 右侧视觉 | 最终采用 SVG 鎏金飞鸟图样（呼应 Born Free）；曾尝试 3D 三角钢琴，多次迭代不理想后废弃 | `BirdEmblem.tsx` |
+| 3.5 Hero 视觉 | 最终采用方案 A：巨型衬线水印 "Born Free." + 细线太阳纹章，融入米白背景（曾试 3D 钢琴与飞鸟图样，均已废弃） | `SunOrnament.tsx` |
 
 ## Phase 4: Article 频道
 
@@ -124,11 +124,11 @@ Phase 10 文档收尾
 | 阶段 | 任务 | 说明 | 输出 | 状态 |
 |---|---|---|---|---|
 | v1.1 | 交互与显示优化 | 基于 apple-design、emil-design-eng 优化字体层级、微交互、动效、材质 | 详见 `vibecode_log/v1.1-design-note.md` | 🔄 进行中 |
-| v1.1 | Hero 右侧视觉（SVG 飞鸟） | 3D 三角钢琴多次迭代仍不理想，废弃；改为纯 SVG 鎏金飞鸟图样，轻量零风险 | `BirdEmblem.tsx` | ✅ |
+| v1.1 | Hero 视觉（方案 A） | 巨型衬线水印 + 细线太阳纹章融入米白背景，无卡片无边框；纯 SVG/CSS | `SunOrnament.tsx` | ✅ |
 
 ## 风险与阻塞项
 
-- ~~三角钢琴 3D 动画~~：已废弃。程序化 3D 建模在朝向、动效上多次迭代不理想，改为纯 SVG 图样，不再引入 Three.js 依赖。
+- ~~三角钢琴 3D 动画 / SVG 飞鸟图样~~：均已废弃。最终采用方案 A（巨型衬线水印 + 太阳纹章融入背景），全程纯 SVG/CSS，无 Three.js 依赖。
 - **GitHub API 速率限制**：项目少时不影响，后续可加 token。
 - **GitHub Pages 部署路径**：个人站点仓库 `BornfreeYan/BornfreeYan` 通常部署在根路径，无需 `base`。
 
