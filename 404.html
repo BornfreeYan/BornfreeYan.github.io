@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Bornfree</title>
+    <script>
+      // GitHub Pages 404 重定向：保存原始路径和查询参数，跳转回首页由 SPA 处理
+      const path = window.location.pathname.slice(1) + window.location.search
+      const redirect = '/?redirect=' + encodeURIComponent(path)
+      window.location.replace(redirect)
+    </script>
+  </head>
+  <body>
+    Redirecting...
+  </body>
+</html>
