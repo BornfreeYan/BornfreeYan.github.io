@@ -8,22 +8,24 @@ export function HeroSection() {
     <section className="min-h-[35vh] md:min-h-[30vh] flex flex-col md:flex-row items-start md:items-center justify-center gap-8 md:gap-12 py-8 md:py-12">
       {/* Manifesto + Social Links */}
       <div className="flex-1 max-w-2xl order-2 md:order-1">
-        <h1 className="font-heading text-3xl md:text-5xl lg:text-6xl font-semibold leading-tight text-ink dark:text-ink-dark mb-4">
+        <h1 className="font-heading text-3xl md:text-5xl lg:text-6xl font-semibold leading-[1.1] tracking-tight text-ink dark:text-ink-dark mb-4 animate-fade-in-up hero-enter-1">
           Revere time, defend attention.
           <br />
           <span className="text-ink-muted dark:text-ink-muted-dark">
             Forever curious, forever optimistic.
           </span>
         </h1>
-        <p className="text-base md:text-lg text-ink-muted dark:text-ink-muted-dark leading-relaxed mb-6">
+        <p className="text-base md:text-lg text-ink-muted dark:text-ink-muted-dark leading-relaxed mb-6 animate-fade-in-up hero-enter-2">
           敬畏时间，捍卫注意力。永远好奇，永远乐观。
         </p>
-        <SocialLinks className="justify-start" />
+        <div className="animate-fade-in-up hero-enter-3">
+          <SocialLinks className="justify-start" />
+        </div>
       </div>
 
       {/* Piano Placeholder */}
-      <div className="flex-1 max-w-sm w-full order-1 md:order-2">
-        <div className="aspect-square rounded-3xl bg-card dark:bg-card-dark border border-border dark:border-border-dark shadow-sm flex items-center justify-center p-8">
+      <div className="flex-1 max-w-sm w-full order-1 md:order-2 animate-fade-in-up hero-enter-4">
+        <div className="aspect-square rounded-3xl bg-card dark:bg-card-dark border border-border dark:border-border-dark shadow-sm flex items-center justify-center p-8 card-hover">
           <div className="text-center">
             <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-ivory dark:bg-ivory-dark border border-border dark:border-border-dark flex items-center justify-center">
               <svg

@@ -63,7 +63,7 @@ export function SocialLinks({ className = '' }: SocialLinksProps) {
             href={link.href}
             target={link.href.startsWith('http') ? '_blank' : undefined}
             rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-            className="group p-3 rounded-xl bg-card dark:bg-card-dark border border-border dark:border-border-dark text-ink-muted dark:text-ink-muted-dark hover:border-accent dark:hover:border-accent-dark hover:text-accent dark:hover:text-accent-dark transition-all duration-300"
+            className="group p-3 rounded-xl bg-card dark:bg-card-dark border border-border dark:border-border-dark text-ink-muted dark:text-ink-muted-dark hover:border-accent dark:hover:border-accent-dark hover:text-accent dark:hover:text-accent-dark hover:ring-2 hover:ring-accent/20 dark:hover:ring-accent-dark/20 pressable"
             aria-label={link.name}
           >
             <Icon className="w-5 h-5" />

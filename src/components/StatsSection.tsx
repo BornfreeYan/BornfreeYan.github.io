@@ -30,7 +30,7 @@ export function StatsSection() {
           return (
             <div
               key={stat.label}
-              className="text-center p-6 rounded-2xl bg-card dark:bg-card-dark border border-border dark:border-border-dark"
+              className="text-center p-6 rounded-2xl bg-card dark:bg-card-dark border border-border dark:border-border-dark card-hover pressable"
             >
               <Icon className="w-6 h-6 mx-auto mb-3 text-accent dark:text-accent-dark" />
               <div className="font-heading text-3xl font-semibold text-ink dark:text-ink-dark mb-1">

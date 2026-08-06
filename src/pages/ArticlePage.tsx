@@ -18,7 +18,7 @@ export function ArticlePage() {
     <article className="max-w-3xl mx-auto">
       <Link
         to="/articles"
-        className="inline-flex items-center gap-1 text-sm text-ink-muted dark:text-ink-muted-dark hover:text-accent dark:hover:text-accent-dark transition-colors mb-8"
+        className="inline-flex items-center gap-1 text-sm text-ink-muted dark:text-ink-muted-dark hover:text-accent dark:hover:text-accent-dark transition-colors pressable mb-8 rounded-lg"
       >
         <ArrowLeft className="w-4 h-4" />
         返回文章列表
@@ -41,7 +41,7 @@ export function ArticlePage() {
                 <Link
                   key={category}
                   to={`/categories?category=${encodeURIComponent(category)}`}
-                  className="hover:text-accent dark:hover:text-accent-dark transition-colors"
+                  className="hover:text-accent dark:hover:text-accent-dark transition-colors nav-link-underline"
                 >
                   {category}
                 </Link>
@@ -57,7 +57,7 @@ export function ArticlePage() {
               <Link
                 key={tag}
                 to={`/tags?tag=${encodeURIComponent(tag)}`}
-                className="text-sm px-3 py-1 rounded-full bg-ivory dark:bg-ivory-dark text-ink-muted dark:text-ink-muted-dark hover:text-accent dark:hover:text-accent-dark transition-colors"
+                className="text-sm px-3 py-1 rounded-full bg-ivory dark:bg-ivory-dark text-ink-muted dark:text-ink-muted-dark hover:text-accent dark:hover:text-accent-dark transition-colors pressable tracking-wide"
               >
                 {tag}
               </Link>

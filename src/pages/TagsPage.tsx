@@ -18,7 +18,7 @@ export function TagsPage() {
   return (
     <div className="max-w-4xl mx-auto">
       <header className="mb-12 text-center">
-        <h1 className="font-heading text-4xl font-semibold text-ink dark:text-ink-dark mb-4">
+        <h1 className="font-heading text-4xl font-semibold tracking-tight text-ink dark:text-ink-dark mb-4">
           Tags
         </h1>
         <p className="text-ink-muted dark:text-ink-muted-dark">
@@ -33,7 +33,7 @@ export function TagsPage() {
             <Link
               key={tag.name}
               to={`/tags?tag=${encodeURIComponent(tag.name)}`}
-              className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full border transition-all duration-300 ${
+              className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full border card-hover pressable ${
                 selectedTag === tag.name
                   ? 'border-accent dark:border-accent-dark bg-accent/5 dark:bg-accent-dark/5'
                   : 'border-border dark:border-border-dark bg-card dark:bg-card-dark hover:border-accent dark:hover:border-accent-dark'

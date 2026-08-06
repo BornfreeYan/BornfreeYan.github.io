@@ -21,21 +21,21 @@ export function Footer() {
               href="https://github.com/BornfreeYan/BornfreeYan"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-lg text-ink-muted dark:text-ink-muted-dark hover:bg-ivory dark:hover:bg-ivory-dark/50 hover:text-ink dark:hover:text-ink-dark transition-colors"
+              className="p-2 rounded-lg text-ink-muted dark:text-ink-muted-dark hover:bg-ivory dark:hover:bg-ivory-dark/50 hover:text-ink dark:hover:text-ink-dark transition-colors pressable"
               aria-label="GitHub"
             >
               <Github className="w-4 h-4" />
             </a>
             <a
               href="/rss.xml"
-              className="p-2 rounded-lg text-ink-muted dark:text-ink-muted-dark hover:bg-ivory dark:hover:bg-ivory-dark/50 hover:text-ink dark:hover:text-ink-dark transition-colors"
+              className="p-2 rounded-lg text-ink-muted dark:text-ink-muted-dark hover:bg-ivory dark:hover:bg-ivory-dark/50 hover:text-ink dark:hover:text-ink-dark transition-colors pressable"
               aria-label="RSS"
             >
               <Rss className="w-4 h-4" />
             </a>
             <button
               onClick={scrollToTop}
-              className="p-2 rounded-lg text-ink-muted dark:text-ink-muted-dark hover:bg-ivory dark:hover:bg-ivory-dark/50 hover:text-ink dark:hover:text-ink-dark transition-colors"
+              className="p-2 rounded-lg text-ink-muted dark:text-ink-muted-dark hover:bg-ivory dark:hover:bg-ivory-dark/50 hover:text-ink dark:hover:text-ink-dark transition-colors pressable"
               aria-label="回到顶部"
             >
               <ArrowUp className="w-4 h-4" />

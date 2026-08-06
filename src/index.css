@@ -23,6 +23,18 @@
   --font-heading: "Playfair Display", "Noto Serif SC", "Source Han Serif CN", Georgia, serif;
   --font-sans: "Inter", "Noto Sans SC", system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+
+  /* 动效曲线（apple-design + emil-design-eng） */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+
+  /* 阴影层级 */
+  --shadow-sm: 0 1px 2px rgba(44, 40, 36, 0.04);
+  --shadow-md: 0 4px 12px rgba(44, 40, 36, 0.06);
+  --shadow-lg: 0 12px 32px rgba(44, 40, 36, 0.08);
+  --shadow-dark-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-dark-md: 0 4px 12px rgba(0, 0, 0, 0.24);
+  --shadow-dark-lg: 0 12px 32px rgba(0, 0, 0, 0.32);
 }
 
 /* 基础设置 */
@@ -191,4 +203,133 @@ body {
 
 .prose-custom th {
   @apply bg-code-bg dark:bg-code-bg-dark font-semibold;
+}
+
+/* ===== 入场动画 ===== */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fade-in 200ms var(--ease-out) both;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 250ms var(--ease-out) both;
+}
+
+/* Hero 错开入场：每个元素用同一个动画，通过 animation-delay 错开 */
+.hero-enter-1 { animation-delay: 0ms; }
+.hero-enter-2 { animation-delay: 60ms; }
+.hero-enter-3 { animation-delay: 120ms; }
+.hero-enter-4 { animation-delay: 180ms; }
+.hero-enter-5 { animation-delay: 240ms; }
+
+/* ===== 按钮/卡片通用按压反馈 ===== */
+.pressable {
+  transition: transform 160ms var(--ease-out), box-shadow 200ms var(--ease-out);
+}
+
+.pressable:active {
+  transform: scale(0.97);
+}
+
+/* ===== 卡片 hover 上浮 ===== */
+@media (hover: hover) and (pointer: fine) {
+  .card-hover {
+    transition: transform 200ms var(--ease-out), box-shadow 200ms var(--ease-out), border-color 200ms var(--ease-out);
+  }
+
+  .card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .dark .card-hover:hover {
+    box-shadow: var(--shadow-dark-lg);
+  }
+}
+
+/* ===== 导航链接下划线动画 ===== */
+.nav-link-underline {
+  position: relative;
+  text-decoration: none;
+}
+
+.nav-link-underline::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 300ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nav-link-underline:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+.dark .nav-link-underline::after {
+  background-color: var(--color-accent-dark);
+}
+
+/* ===== 下拉菜单入场 ===== */
+.dropdown-menu {
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 200ms var(--ease-out), transform 200ms var(--ease-out);
+  @starting-style {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+.dropdown-menu.is-open {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== 减少运动偏好 ===== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .animate-fade-in,
+  .animate-fade-in-up {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ===== 触摸设备 hover 保护 ===== */
+@media (hover: none) {
+  .card-hover:hover {
+    transform: none;
+    box-shadow: none;
+  }
 }

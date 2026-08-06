@@ -42,13 +42,13 @@ export function Navbar() {
             onMouseEnter={() => setArticleDropdownOpen(true)}
             onMouseLeave={() => setArticleDropdownOpen(false)}
           >
-            <button className="flex items-center gap-1 text-sm text-ink-muted dark:text-ink-muted-dark hover:text-ink dark:hover:text-ink-dark transition-colors">
+            <button className="flex items-center gap-1 text-sm text-ink-muted dark:text-ink-muted-dark hover:text-ink dark:hover:text-ink-dark transition-colors nav-link-underline">
               Article
               <ChevronDown className={`w-3 h-3 transition-transform ${articleDropdownOpen ? 'rotate-180' : ''}`} />
             </button>
             {articleDropdownOpen && (
-              <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2">
-                <div className="bg-card dark:bg-card-dark border border-border dark:border-border-dark rounded-xl shadow-lg py-2 px-1 min-w-[120px]">
+              <div className={`absolute top-full left-1/2 -translate-x-1/2 pt-2 dropdown-menu ${articleDropdownOpen ? 'is-open' : ''}`}>
+                <div className="bg-card/95 dark:bg-card-dark/95 backdrop-blur-md border border-border dark:border-border-dark rounded-xl shadow-lg py-2 px-1 min-w-[120px]">
                   <Link
                     to="/categories"
                     className="block px-4 py-2 text-sm text-ink-muted dark:text-ink-muted-dark hover:text-ink dark:hover:text-ink-dark hover:bg-ivory dark:hover:bg-ivory-dark/50 rounded-lg transition-colors"
@@ -75,7 +75,7 @@ export function Navbar() {
           <NavLink
             to="/projects"
             className={({ isActive }) =>
-              `text-sm transition-colors ${isActive ? 'text-ink dark:text-ink-dark' : 'text-ink-muted dark:text-ink-muted-dark hover:text-ink dark:hover:text-ink-dark'
+              `text-sm transition-colors nav-link-underline ${isActive ? 'text-ink dark:text-ink-dark' : 'text-ink-muted dark:text-ink-muted-dark hover:text-ink dark:hover:text-ink-dark'
             }`}
           >
             Project
@@ -83,7 +83,7 @@ export function Navbar() {
           <NavLink
             to="/memos"
             className={({ isActive }) =>
-              `text-sm transition-colors ${isActive ? 'text-ink dark:text-ink-dark' : 'text-ink-muted dark:text-ink-muted-dark hover:text-ink dark:hover:text-ink-dark'
+              `text-sm transition-colors nav-link-underline ${isActive ? 'text-ink dark:text-ink-dark' : 'text-ink-muted dark:text-ink-muted-dark hover:text-ink dark:hover:text-ink-dark'
             }`}
           >
             Memo
@@ -91,7 +91,7 @@ export function Navbar() {
           <NavLink
             to="/about"
             className={({ isActive }) =>
-              `text-sm transition-colors ${isActive ? 'text-ink dark:text-ink-dark' : 'text-ink-muted dark:text-ink-muted-dark hover:text-ink dark:hover:text-ink-dark'
+              `text-sm transition-colors nav-link-underline ${isActive ? 'text-ink dark:text-ink-dark' : 'text-ink-muted dark:text-ink-muted-dark hover:text-ink dark:hover:text-ink-dark'
             }`}
           >
             About
@@ -99,7 +99,7 @@ export function Navbar() {
 
           <button
             onClick={cycleTheme}
-            className="p-2 rounded-lg text-ink-muted dark:text-ink-muted-dark hover:bg-ivory dark:hover:bg-ivory-dark/50 hover:text-ink dark:hover:text-ink-dark transition-colors"
+            className="p-2 rounded-lg text-ink-muted dark:text-ink-muted-dark hover:bg-ivory dark:hover:bg-ivory-dark/50 hover:text-ink dark:hover:text-ink-dark transition-colors pressable"
             title={`当前主题: ${theme}`}
           >
             {themeIcon[theme]}
@@ -110,13 +110,13 @@ export function Navbar() {
         <div className="flex items-center gap-2 md:hidden">
           <button
             onClick={cycleTheme}
-            className="p-2 rounded-lg text-ink-muted dark:text-ink-muted-dark hover:bg-ivory dark:hover:bg-ivory-dark/50 transition-colors"
+            className="p-2 rounded-lg text-ink-muted dark:text-ink-muted-dark hover:bg-ivory dark:hover:bg-ivory-dark/50 transition-colors pressable"
           >
             {themeIcon[theme]}
           </button>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-lg text-ink-muted dark:text-ink-muted-dark hover:bg-ivory dark:hover:bg-ivory-dark/50 transition-colors"
+            className="p-2 rounded-lg text-ink-muted dark:text-ink-muted-dark hover:bg-ivory dark:hover:bg-ivory-dark/50 transition-colors pressable"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -125,7 +125,7 @@ export function Navbar() {
 
       {/* Mobile Nav */}
       {mobileMenuOpen && (
-        <nav className="md:hidden border-t border-border dark:border-border-dark bg-ivory dark:bg-ivory-dark px-6 py-4 space-y-4">
+        <nav className="md:hidden border-t border-border dark:border-border-dark bg-ivory dark:bg-ivory-dark px-6 py-4 space-y-4 animate-fade-in-up">
           <Link
             to="/articles"
             onClick={() => setMobileMenuOpen(false)}

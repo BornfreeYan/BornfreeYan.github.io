@@ -24,7 +24,7 @@ export function CoreShowcase() {
             <h2 className="font-heading text-2xl font-semibold text-ink dark:text-ink-dark">Article</h2>
             <Link
               to="/articles"
-              className="inline-flex items-center gap-1 text-sm text-ink-muted dark:text-ink-muted-dark hover:text-accent dark:hover:text-accent-dark transition-colors"
+              className="inline-flex items-center gap-1 text-sm text-ink-muted dark:text-ink-muted-dark hover:text-accent dark:hover:text-accent-dark transition-colors nav-link-underline"
             >
               全部
               <ArrowRight className="w-4 h-4" />
@@ -45,7 +45,7 @@ export function CoreShowcase() {
             <h2 className="font-heading text-2xl font-semibold text-ink dark:text-ink-dark">Project</h2>
             <Link
               to="/projects"
-              className="inline-flex items-center gap-1 text-sm text-ink-muted dark:text-ink-muted-dark hover:text-accent dark:hover:text-accent-dark transition-colors"
+              className="inline-flex items-center gap-1 text-sm text-ink-muted dark:text-ink-muted-dark hover:text-accent dark:hover:text-accent-dark transition-colors nav-link-underline"
             >
               全部
               <ArrowRight className="w-4 h-4" />
@@ -66,7 +66,7 @@ export function CoreShowcase() {
             <h2 className="font-heading text-2xl font-semibold text-ink dark:text-ink-dark">Memo</h2>
             <Link
               to="/memos"
-              className="inline-flex items-center gap-1 text-sm text-ink-muted dark:text-ink-muted-dark hover:text-accent dark:hover:text-accent-dark transition-colors"
+              className="inline-flex items-center gap-1 text-sm text-ink-muted dark:text-ink-muted-dark hover:text-accent dark:hover:text-accent-dark transition-colors nav-link-underline"
             >
               全部
               <ArrowRight className="w-4 h-4" />

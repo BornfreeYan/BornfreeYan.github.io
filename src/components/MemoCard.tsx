@@ -14,7 +14,7 @@ export function MemoCard({ memo }: MemoCardProps) {
       {/* Timeline dot */}
       <div className="absolute left-[-5px] top-1 w-2.5 h-2.5 rounded-full bg-accent dark:bg-accent-dark ring-4 ring-ivory dark:ring-ivory-dark" />
 
-      <div className="p-5 rounded-2xl bg-card dark:bg-card-dark border border-border dark:border-border-dark">
+      <div className="p-5 rounded-2xl bg-card dark:bg-card-dark border border-border dark:border-border-dark card-hover pressable">
         <div className="text-xs text-ink-muted dark:text-ink-muted-dark mb-2">
           {formatMemoDate(memo.date)}
         </div>
@@ -40,7 +40,7 @@ export function MemoCard({ memo }: MemoCardProps) {
             {memo.tags.map((tag) => (
               <span
                 key={tag}
-                className="text-xs px-2 py-1 rounded-full bg-ivory dark:bg-ivory-dark text-ink-muted dark:text-ink-muted-dark"
+                className="text-xs px-2 py-1 rounded-full bg-ivory dark:bg-ivory-dark text-ink-muted dark:text-ink-muted-dark tracking-wide"
               >
                 #{tag}
               </span>

@@ -10,7 +10,7 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <div className="group p-5 rounded-2xl bg-card dark:bg-card-dark border border-border dark:border-border-dark hover:border-accent dark:hover:border-accent-dark hover:shadow-sm transition-all duration-300">
+    <div className="group p-5 rounded-2xl bg-card dark:bg-card-dark border border-border dark:border-border-dark hover:border-accent dark:hover:border-accent-dark card-hover pressable">
       <div className="flex items-start justify-between gap-4 mb-3">
         <h3 className="font-heading text-lg font-semibold text-ink dark:text-ink-dark group-hover:text-accent dark:group-hover:text-accent-dark transition-colors">
           {project.name || project.id}
@@ -32,7 +32,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
           {project.tech.map((tech) => (
             <span
               key={tech}
-              className="text-xs px-2 py-1 rounded-full bg-ivory dark:bg-ivory-dark text-ink-muted dark:text-ink-muted-dark border border-border dark:border-border-dark"
+              className="text-xs px-2 py-1 rounded-full bg-ivory dark:bg-ivory-dark text-ink-muted dark:text-ink-muted-dark border border-border dark:border-border-dark tracking-wide"
             >
               {tech}
             </span>

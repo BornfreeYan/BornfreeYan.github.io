@@ -11,7 +11,7 @@ export function ArchivePage() {
   return (
     <div className="max-w-3xl mx-auto">
       <header className="mb-12 text-center">
-        <h1 className="font-heading text-4xl font-semibold text-ink dark:text-ink-dark mb-4">
+        <h1 className="font-heading text-4xl font-semibold tracking-tight text-ink dark:text-ink-dark mb-4">
           Archive
         </h1>
         <p className="text-ink-muted dark:text-ink-muted-dark">
@@ -38,7 +38,7 @@ export function ArchivePage() {
                       <Link
                         key={article.slug}
                         to={`/articles/${article.slug}`}
-                        className="group flex items-center justify-between p-4 rounded-xl bg-card dark:bg-card-dark border border-border dark:border-border-dark hover:border-accent dark:hover:border-accent-dark transition-all duration-300"
+                        className="group flex items-center justify-between p-4 rounded-xl bg-card dark:bg-card-dark border border-border dark:border-border-dark hover:border-accent dark:hover:border-accent-dark card-hover pressable"
                       >
                         <span className="font-medium text-ink dark:text-ink-dark group-hover:text-accent dark:group-hover:text-accent-dark transition-colors">
                           {article.title}

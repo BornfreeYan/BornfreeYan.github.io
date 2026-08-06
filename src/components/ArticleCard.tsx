@@ -15,7 +15,7 @@ export function ArticleCard({ article, compact = false }: ArticleCardProps) {
   return (
     <Link
       to={`/articles/${article.slug}`}
-      className="group block p-5 rounded-2xl bg-card dark:bg-card-dark border border-border dark:border-border-dark hover:border-accent dark:hover:border-accent-dark hover:shadow-sm transition-all duration-300"
+      className="group block p-5 rounded-2xl bg-card dark:bg-card-dark border border-border dark:border-border-dark hover:border-accent dark:hover:border-accent-dark card-hover pressable"
     >
       <div className="flex items-center gap-2 text-xs text-ink-muted dark:text-ink-muted-dark mb-2">
         <Calendar className="w-3 h-3" />
@@ -37,7 +37,7 @@ export function ArticleCard({ article, compact = false }: ArticleCardProps) {
           {article.tags.slice(0, 3).map((tag) => (
             <span
               key={tag}
-              className="inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-ivory dark:bg-ivory-dark text-ink-muted dark:text-ink-muted-dark"
+              className="inline-flex items-center gap-1 text-xs px-2 py-1 rounded-full bg-ivory dark:bg-ivory-dark text-ink-muted dark:text-ink-muted-dark tracking-wide"
             >
               <Tag className="w-3 h-3" />
               {tag}

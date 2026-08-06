@@ -16,7 +16,7 @@ export function CategoriesPage() {
   return (
     <div className="max-w-4xl mx-auto">
       <header className="mb-12 text-center">
-        <h1 className="font-heading text-4xl font-semibold text-ink dark:text-ink-dark mb-4">
+        <h1 className="font-heading text-4xl font-semibold tracking-tight text-ink dark:text-ink-dark mb-4">
           Categories
         </h1>
         <p className="text-ink-muted dark:text-ink-muted-dark">
@@ -29,7 +29,7 @@ export function CategoriesPage() {
           <Link
             key={category.name}
             to={`/categories?category=${encodeURIComponent(category.name)}`}
-            className={`p-4 rounded-2xl border transition-all duration-300 ${
+            className={`p-4 rounded-2xl border card-hover pressable ${
               selectedCategory === category.name
                 ? 'border-accent dark:border-accent-dark bg-accent/5 dark:bg-accent-dark/5'
                 : 'border-border dark:border-border-dark bg-card dark:bg-card-dark hover:border-accent dark:hover:border-accent-dark'
