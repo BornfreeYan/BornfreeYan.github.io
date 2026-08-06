@@ -5,17 +5,17 @@ import { SocialLinks } from './SocialLinks'
  */
 export function HeroSection() {
   return (
-    <section className="min-h-[35vh] md:min-h-[30vh] flex flex-col md:flex-row items-start md:items-center justify-center gap-8 md:gap-12 py-8 md:py-12">
+    <section className="min-h-[90vh] md:min-h-[92vh] flex flex-col md:flex-row items-center justify-center gap-10 md:gap-16 lg:gap-24 py-12 md:py-16">
       {/* Manifesto + Social Links */}
       <div className="flex-1 max-w-2xl order-2 md:order-1">
-        <h1 className="font-heading text-3xl md:text-5xl lg:text-6xl font-semibold leading-[1.1] tracking-tight text-ink dark:text-ink-dark mb-4 animate-fade-in-up hero-enter-1">
+        <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-semibold leading-[1.05] tracking-tight text-ink dark:text-ink-dark mb-5 animate-fade-in-up hero-enter-1">
           Revere time, defend attention.
           <br />
           <span className="text-ink-muted dark:text-ink-muted-dark">
             Forever curious, forever optimistic.
           </span>
         </h1>
-        <p className="text-base md:text-lg text-ink-muted dark:text-ink-muted-dark leading-relaxed mb-6 animate-fade-in-up hero-enter-2">
+        <p className="text-lg md:text-xl text-ink-muted dark:text-ink-muted-dark leading-relaxed mb-8 max-w-lg animate-fade-in-up hero-enter-2">
           敬畏时间，捍卫注意力。永远好奇，永远乐观。
         </p>
         <div className="animate-fade-in-up hero-enter-3">
@@ -24,14 +24,14 @@ export function HeroSection() {
       </div>
 
       {/* Piano Placeholder */}
-      <div className="flex-1 max-w-sm w-full order-1 md:order-2 animate-fade-in-up hero-enter-4">
-        <div className="aspect-square rounded-3xl bg-card dark:bg-card-dark border border-border dark:border-border-dark shadow-sm flex items-center justify-center p-8 card-hover">
+      <div className="flex-1 max-w-md lg:max-w-lg w-full order-1 md:order-2 animate-fade-in-up hero-enter-4">
+        <div className="aspect-[3/4] rounded-[2rem] bg-card dark:bg-card-dark border border-border dark:border-border-dark shadow-sm flex items-center justify-center p-10 card-hover">
           <div className="text-center">
-            <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-ivory dark:bg-ivory-dark border border-border dark:border-border-dark flex items-center justify-center">
+            <div className="w-24 h-24 mx-auto mb-6 rounded-[1.25rem] bg-ivory dark:bg-ivory-dark border border-border dark:border-border-dark flex items-center justify-center">
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
-                className="w-10 h-10 text-accent dark:text-accent-dark"
+                className="w-12 h-12 text-accent dark:text-accent-dark"
                 stroke="currentColor"
                 strokeWidth="1.5"
               >
@@ -41,10 +41,10 @@ export function HeroSection() {
                 <path d="M14 10V7a2 2 0 0 1 4 0v3" />
               </svg>
             </div>
-            <p className="text-sm text-ink-muted dark:text-ink-muted-dark">
+            <p className="text-base text-ink-muted dark:text-ink-muted-dark">
               三角钢琴动效预留位
             </p>
-            <p className="text-xs text-ink-muted/60 dark:text-ink-muted-dark/60 mt-1">
+            <p className="text-sm text-ink-muted/60 dark:text-ink-muted-dark/60 mt-2">
               v1.1 接入 Three.js 3D 动画
             </p>
           </div>
