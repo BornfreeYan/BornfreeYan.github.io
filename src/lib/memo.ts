@@ -18,6 +18,7 @@ const CDN_URL = (path: string) =>
 const RAW_URL = (path: string) =>
   `https://raw.githubusercontent.com/${siteConfig.memoRepo}/${siteConfig.memoBranch}/${path}`
 const API_FILE_URL = `https://api.github.com/repos/${siteConfig.memoRepo}/contents/${siteConfig.memoFile}`
+const API_FILE_REF = `${API_FILE_URL}?ref=${siteConfig.memoBranch}`
 const API_IMAGE_URL = (name: string) =>
   `https://api.github.com/repos/${siteConfig.memoRepo}/contents/${siteConfig.memoImagesDir}/${name}`
 
@@ -45,9 +46,9 @@ function decodeBase64(b64: string): string {
 export async function fetchMemos(): Promise<Memo[]> {
   const sources: { url: string; auth?: boolean }[] = []
   if (getToken()) {
-    sources.push({ url: API_FILE_URL, auth: true })
+    sources.push({ url: API_FILE_REF, auth: true })
   }
-  sources.push({ url: API_FILE_URL, auth: false })
+  sources.push({ url: API_FILE_REF, auth: false })
   sources.push({ url: CDN_URL(siteConfig.memoFile), auth: false })
   sources.push({ url: RAW_URL(siteConfig.memoFile), auth: false })
 
@@ -61,7 +62,7 @@ export async function fetchMemos(): Promise<Memo[]> {
       clearTimeout(timer)
       if (!res.ok) continue
       let file: MemoFile
-      if (url === API_FILE_URL) {
+      if (url === API_FILE_REF) {
         const json = await res.json()
         file = JSON.parse(decodeBase64(json.content))
       } else {
@@ -110,7 +111,7 @@ async function apiRequest(method: string, url: string, body?: unknown): Promise<
 async function readMemoFileWithToken(): Promise<{ memos: Memo[]; sha: string | null }> {
   let json: any
   try {
-    json = await apiRequest('GET', API_FILE_URL)
+    json = await apiRequest('GET', API_FILE_REF)
   } catch (err) {
     if (err instanceof ApiError && err.status === 404) {
       return { memos: [], sha: null }
@@ -137,6 +138,7 @@ async function writeMemoFile(memos: Memo[], sha: string | null, retried = false)
       message: 'memo: update memos',
       content: encodeBase64(content),
       sha: sha ?? undefined,
+      branch: siteConfig.memoBranch,
     })
   } catch (err) {
     if (!retried && err instanceof Error && /sha|409|conflict/i.test(err.message)) {
@@ -161,6 +163,7 @@ export async function postMemo(text: string, images: File[]): Promise<void> {
     await apiRequest('PUT', API_IMAGE_URL(name), {
       message: `memo: add image ${name}`,
       content: compressed,
+      branch: siteConfig.memoBranch,
     })
     imagePaths.push(`${siteConfig.memoImagesDir}/${name}`)
   }

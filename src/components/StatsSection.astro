@@ -41,5 +41,15 @@ const showUptime = siteConfig.uptimeBadgeUrl !== ''
       }
     </div>
   </div>
-  <script src="//busuanzi.ibruce.info/busuanzi?jsonpCallback=BusuanziCallback" async is:inline></script>
+  <script src="https://busuanzi.icpc.net/busuanzi?jsonpCallback=BusuanziCallback" async is:inline></script>
+  <script is:inline>
+    setTimeout(() => {
+      const el = document.getElementById('busuanzi_value_site_pv')
+      if (el && el.textContent.trim() === '—') {
+        el.textContent = '服务暂不可用'
+        el.classList.remove('text-accent', 'text-3xl')
+        el.classList.add('text-muted', 'text-sm')
+      }
+    }, 12000)
+  </script>
 </section>

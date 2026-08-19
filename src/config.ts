@@ -55,6 +55,7 @@ export const siteConfig: SiteConfig = {
       icon: 'email',
     },
   ],
+  // UptimeRobot 状态徽章地址；留空则不显示徽章（显示 "—" 占位）
   uptimeBadgeUrl: '',
   memoRepo: 'BornfreeYan/BornfreeYan.github.io',
   memoBranch: 'data',
