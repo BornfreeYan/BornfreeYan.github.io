@@ -82,22 +82,18 @@ tags:
 
 ## Memo（在线发布）
 
-Memo 是碎碎念，存在**独立私有数据仓库**（默认 `BornfreeYan/blog-data`），通过 GitHub API 在线读写，**不需要重新构建**。
+Memo 是碎碎念，存在**本仓库的 `data` 分支**上（不占额外仓库、不影响 `main` 发布），通过 GitHub API 在线读写，**不需要重新构建**。
 
 ### 首次设置
 
-1. 在 GitHub 创建私有仓库 `BornfreeYan/blog-data`，并初始化一个空 `memos.json`：
-   ```json
-   { "version": 1, "memos": [] }
-   ```
-2. 生成 fine-grained token（Settings → Developer settings → Fine-grained tokens）：
-   - Repository access：仅 `blog-data`
+1. 生成 fine-grained token（Settings → Developer settings → Fine-grained tokens）：
+   - Repository access：仅 `BornfreeYan/BornfreeYan.github.io`
    - Permissions → Contents：**Read and write**
-3. 打开站点 `/memos`，粘贴 token 连接（token 只存本浏览器 localStorage）
+2. 打开站点 `/memos`，粘贴 token 连接（token 只存本浏览器 localStorage）
 
 之后就能在 Memo 页发文字、传照片（浏览器自动压缩后上传）、删除，实时生效。
 
-> 数据仓库名可在 `src/config.ts` 的 `memoRepo` 修改。
+> 读取顺序：带 token 走 GitHub API（实时）→ 无 token 走 API → jsDelivr CDN → raw.githubusercontent，层层降级。数据分支、文件路径可在 `src/config.ts` 的 `memoRepo` / `memoBranch` 修改。
 
 ## 配置站点信息
 
