@@ -7,31 +7,34 @@ const socials = visibleSocials()
 
 <div class="marquee" aria-label="社交链接">
   <div class="marquee-track">
-    {
-      socials.map((s) => (
-        <a
-          href={s.url}
-          target={s.url.startsWith('http') ? '_blank' : undefined}
-          rel={s.url.startsWith('http') ? 'noopener noreferrer' : undefined}
-          class="flex items-center gap-2 rounded-full border border-line bg-surface px-5 py-2.5 text-sm text-muted transition-colors hover:border-accent hover:text-accent"
-        >
-          <Icon name={s.icon} class="h-4 w-4" />
-          {s.label}
-        </a>
-      ))
-    }
-    {
-      socials.map((s) => (
-        <a
-          href={s.url}
-          target={s.url.startsWith('http') ? '_blank' : undefined}
-          rel={s.url.startsWith('http') ? 'noopener noreferrer' : undefined}
-          class="flex items-center gap-2 rounded-full border border-line bg-surface px-5 py-2.5 text-sm text-muted transition-colors hover:border-accent hover:text-accent"
-        >
-          <Icon name={s.icon} class="h-4 w-4" />
-          {s.label}
-        </a>
-      ))
-    }
+    <div class="marquee-group">
+      {
+        socials.map((s) => (
+          <a
+            href={s.url}
+            target={s.url.startsWith('http') ? '_blank' : undefined}
+            rel={s.url.startsWith('http') ? 'noopener noreferrer' : undefined}
+            class="flex items-center gap-3 rounded-full border border-line bg-surface px-8 py-4 text-base text-muted transition-colors hover:border-accent hover:text-accent"
+          >
+            <Icon name={s.icon} class="h-5 w-5" />
+            {s.label}
+          </a>
+        ))
+      }
+    </div>
+    <div class="marquee-group" aria-hidden="true">
+      {
+        socials.map((s) => (
+          <a
+            href={s.url}
+            tabindex="-1"
+            class="flex items-center gap-3 rounded-full border border-line bg-surface px-8 py-4 text-base text-muted transition-colors hover:border-accent hover:text-accent"
+          >
+            <Icon name={s.icon} class="h-5 w-5" />
+            {s.label}
+          </a>
+        ))
+      }
+    </div>
   </div>
 </div>

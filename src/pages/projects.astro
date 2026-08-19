@@ -27,16 +27,3 @@ const projects = (projectsData as { projects: Project[] }).projects
     </div>
   </div>
 </Layout>
-
-<script>
-  import { fetchRepoStars } from '../lib/github'
-
-  document.querySelectorAll<HTMLElement>('[data-stars]').forEach(async (el) => {
-    const url = el.getAttribute('data-stars') ?? ''
-    const stars = await fetchRepoStars(url)
-    const value = el.querySelector<HTMLElement>('[data-stars-value]')
-    if (stars !== null && value) {
-      value.textContent = stars > 0 ? String(stars) : '0'
-    }
-  })
-</script>

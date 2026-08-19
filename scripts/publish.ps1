@@ -14,7 +14,7 @@ function Check-LastExit {
 }
 
 Write-Host "==> [1/4] 构建站点..."
-npm run build
+pnpm run build
 Check-LastExit '构建'
 
 Write-Host "==> [2/4] 提交并推送源码 (main)..."

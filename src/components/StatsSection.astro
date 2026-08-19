@@ -7,14 +7,19 @@ interface Props {
 
 const { wordCount } = Astro.props
 const showUptime = siteConfig.uptimeBadgeUrl !== ''
+const showStats = siteConfig.stats51laId !== ''
 ---
 
 <section class="mx-auto max-w-5xl px-4 pb-24">
   <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
     <div class="rounded-2xl border border-line bg-surface p-6 text-center">
-      <p class="text-3xl font-semibold text-accent" id="busuanzi_value_site_pv">
-        —
-      </p>
+      {
+        showStats ? (
+          <p id="site_pv" class="text-3xl font-semibold text-accent">—</p>
+        ) : (
+          <p class="text-sm text-muted">统计待接入</p>
+        )
+      }
       <p class="mt-1 text-sm text-muted">网站访问量</p>
     </div>
     <div class="rounded-2xl border border-line bg-surface p-6 text-center">
@@ -41,15 +46,4 @@ const showUptime = siteConfig.uptimeBadgeUrl !== ''
       }
     </div>
   </div>
-  <script src="https://busuanzi.icpc.net/busuanzi?jsonpCallback=BusuanziCallback" async is:inline></script>
-  <script is:inline>
-    setTimeout(() => {
-      const el = document.getElementById('busuanzi_value_site_pv')
-      if (el && el.textContent.trim() === '—') {
-        el.textContent = '服务暂不可用'
-        el.classList.remove('text-accent', 'text-3xl')
-        el.classList.add('text-muted', 'text-sm')
-      }
-    }, 12000)
-  </script>
 </section>

@@ -15,6 +15,7 @@
     "@astrojs/markdown-remark": "^7.2.3",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.3",
+    "@fontsource/cormorant-garamond": "^5.3.0",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.2.3",
     "pagefind": "^1.5.2",
