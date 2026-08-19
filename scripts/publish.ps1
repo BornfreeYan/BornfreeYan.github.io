@@ -36,6 +36,8 @@ if (Test-Path $tmp) {
 }
 $null = git clone --quiet --branch main --single-branch $root $tmp 2>&1
 Check-LastExit '临时克隆'
+$remoteUrl = (git remote get-url origin).Trim()
+$null = git -C $tmp remote set-url origin $remoteUrl 2>&1
 
 Push-Location $tmp
 try {
