@@ -4,10 +4,7 @@ import Hero from '../components/Hero.astro'
 import ArticleCard from '../components/ArticleCard.astro'
 import ProjectCard from '../components/ProjectCard.astro'
 import RecentMemos from '../components/RecentMemos.astro'
-import StatsSection from '../components/StatsSection.astro'
 import { getSortedArticles } from '../lib/articles'
-import { countWords } from '../lib/format'
-import { siteConfig } from '../config'
 import projectsData from '../data/projects.json'
 import type { Project } from '../types'
 
@@ -15,29 +12,6 @@ const articles = await getSortedArticles()
 const recentArticles = articles.slice(0, 5)
 const projects = (projectsData as { projects: Project[] }).projects
 const recentProjects = projects.slice(0, 5)
-
-let memoWords = 0
-try {
-  const ctrl = new AbortController()
-  const timer = setTimeout(() => ctrl.abort(), 5000)
-  const res = await fetch(
-    `https://cdn.jsdelivr.net/gh/${siteConfig.memoRepo}@${siteConfig.memoBranch}/${siteConfig.memoFile}`,
-    { signal: ctrl.signal }
-  )
-  clearTimeout(timer)
-  if (res.ok) {
-    const data = await res.json()
-    memoWords = (data.memos ?? []).reduce(
-      (sum: number, m: { text?: string }) => sum + countWords(m.text ?? ''),
-      0
-    )
-  }
-} catch {
-  memoWords = 0
-}
-
-const articleWords = articles.reduce((sum, a) => sum + countWords(a.body ?? ''), 0)
-const wordCount = articleWords + memoWords
 ---
 
 <Layout>
@@ -95,6 +69,4 @@ const wordCount = articleWords + memoWords
       </section>
     </div>
   </section>
-
-  <StatsSection wordCount={wordCount} />
 </Layout>

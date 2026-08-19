@@ -13,8 +13,6 @@ export interface SiteConfig {
   author: string
   lang: string
   socials: Social[]
-  uptimeBadgeUrl: string
-  stats51laId: string
   memoRepo: string
   memoBranch: string
   memoFile: string
@@ -31,6 +29,11 @@ export const siteConfig: SiteConfig = {
   lang: 'zh-CN',
   socials: [
     {
+      label: 'GitHub',
+      url: 'https://github.com/BornfreeYan',
+      icon: 'github',
+    },
+    {
       label: '小红书',
       url: 'https://xhslink.cn/m/5DbIxl50YGT',
       icon: 'book',
@@ -41,25 +44,16 @@ export const siteConfig: SiteConfig = {
       icon: 'x',
     },
     {
-      label: 'GitHub',
-      url: 'https://github.com/BornfreeYan',
-      icon: 'github',
-    },
-    {
       label: 'RSS',
       url: '/rss.xml',
       icon: 'rss',
     },
     {
       label: 'Email',
-      url: 'mailto:1700807190@qq.com',
+      url: '1700807190@qq.com',
       icon: 'email',
     },
   ],
-  // UptimeRobot 状态徽章地址；留空则不显示徽章（显示 "—" 占位）
-  uptimeBadgeUrl: '',
-  // 51.la 站点 ID（https://www.51.la 注册后获取）；留空则统计卡片显示"待接入"
-  stats51laId: '',
   memoRepo: 'BornfreeYan/BornfreeYan.github.io',
   memoBranch: 'data',
   memoFile: 'memos.json',

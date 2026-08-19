@@ -1,36 +1,73 @@
 ---
 import { siteConfig, visibleSocials } from '../config'
-import Marquee from './Marquee.astro'
 import Icon from './Icon.astro'
 
 const socials = visibleSocials()
+const email = socials.find((s) => s.icon === 'email')
+const links = socials.filter((s) => s.icon !== 'email')
 ---
 
 <section class="relative flex min-h-svh flex-col overflow-hidden">
-  <div class="flex flex-1 flex-col items-center justify-center px-6 pb-10 pt-28 text-center">
-    <p class="max-w-6xl font-display text-4xl italic leading-[1.15] tracking-wide text-ink sm:text-5xl md:text-6xl lg:text-7xl">
+  <div class="flex flex-1 flex-col items-center justify-center px-6 pb-12 pt-28 text-center">
+    <p
+      class="max-w-6xl font-display text-5xl font-semibold italic leading-[1.12] tracking-wide text-ink sm:text-6xl md:text-7xl lg:text-8xl"
+    >
       {siteConfig.sloganEn}
     </p>
-    <p class="mt-6 text-base text-muted sm:text-lg md:text-xl">
+    <p class="mt-7 text-sm text-muted sm:text-base md:text-lg">
       {siteConfig.sloganZh}
     </p>
-    <div class="mt-10 flex items-center gap-3">
+    <div class="mt-14 flex flex-wrap items-center justify-center gap-4">
       {
-        socials.map((s) => (
+        links.map((s) => (
           <a
             href={s.url}
-            target={s.url.startsWith('http') ? '_blank' : undefined}
-            rel={s.url.startsWith('http') ? 'noopener noreferrer' : undefined}
+            target="_blank"
+            rel="noopener noreferrer"
             aria-label={s.label}
-            class="flex h-11 w-11 items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:text-accent"
+            title={s.label}
+            class="flex h-14 w-14 items-center justify-center rounded-full border border-line text-muted transition-all hover:-translate-y-1 hover:border-accent hover:text-accent"
           >
-            <Icon name={s.icon} class="h-4 w-4" />
+            <Icon name={s.icon} class="h-5 w-5" />
           </a>
         ))
       }
+      {
+        email && (
+          <button
+            data-copy-email
+            data-addr={email.url}
+            type="button"
+            aria-label="复制邮箱"
+            class="flex items-center gap-2.5 rounded-full border border-line px-5 py-3.5 text-sm text-muted transition-colors hover:border-accent hover:text-accent"
+          >
+            <Icon name="email" class="h-4 w-4" />
+            <span>{email.url}</span>
+          </button>
+        )
+      }
     </div>
   </div>
-  <div class="w-full pb-8">
-    <Marquee />
-  </div>
 </section>
+
+<script is:inline>
+  const btn = document.querySelector('[data-copy-email]')
+  const label = btn?.querySelector('span')
+  const original = label?.textContent ?? ''
+  btn?.addEventListener('click', async () => {
+    const addr = btn.getAttribute('data-addr') ?? ''
+    try {
+      await navigator.clipboard.writeText(addr)
+      if (label) {
+        label.textContent = '已复制 ✓'
+        btn.classList.add('text-accent')
+        setTimeout(() => {
+          label.textContent = original
+          btn.classList.remove('text-accent')
+        }, 1500)
+      }
+    } catch {
+      if (label) label.textContent = addr
+    }
+  })
+</script>
