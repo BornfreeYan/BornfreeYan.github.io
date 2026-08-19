@@ -1,0 +1,32 @@
+---
+import Layout from '../../../layouts/Layout.astro'
+import ArticleCard from '../../../components/ArticleCard.astro'
+import Pagination from '../../../components/Pagination.astro'
+import { getSortedArticles, getPageCount, PAGE_SIZE } from '../../../lib/articles'
+
+export async function getStaticPaths() {
+  const all = await getSortedArticles()
+  const pageCount = getPageCount(all.length)
+  return Array.from({ length: pageCount - 1 }, (_, i) => i + 2).map((n) => ({
+    params: { page: String(n) },
+    props: { pageNum: n, pageCount, articles: all.slice((n - 1) * PAGE_SIZE, n * PAGE_SIZE) },
+  }))
+}
+
+const { pageNum, pageCount, articles } = Astro.props
+---
+
+<Layout title={`Articles · 第 ${pageNum} 页`}>
+  <div class="mx-auto max-w-5xl px-4 py-16">
+    <div class="mb-8 flex items-end justify-between">
+      <h1 class="font-serif text-3xl font-semibold">Articles</h1>
+      <a href="/articles" class="text-sm text-muted transition-colors hover:text-accent">
+        全部文章 →
+      </a>
+    </div>
+    <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+      {articles.map((a) => <ArticleCard article={a} />)}
+    </div>
+    <Pagination current={pageNum} pageCount={pageCount} />
+  </div>
+</Layout>

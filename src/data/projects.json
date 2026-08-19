@@ -1,0 +1,24 @@
+{
+  "projects": [
+    {
+      "title": "BornfreeYan.github.io",
+      "description": "本站：个人超级个体展示站点，Astro 静态博客 + 在线 Memo。",
+      "github": "https://github.com/BornfreeYan/BornfreeYan.github.io",
+      "tags": ["Astro", "GitHub Pages"],
+      "featured": true
+    },
+    {
+      "title": "WebDesk",
+      "description": "浏览器里的虚拟桌面，通过 GitHub token 实时修改布局（JSON 存储）。",
+      "github": "https://github.com/BornfreeYan/WebDesk",
+      "tags": ["Web", "GitHub API"],
+      "featured": true
+    },
+    {
+      "title": "backend2agent",
+      "description": "FastAPI + MySQL + Redis 后端学习项目，练手代码与笔记同步迭代。",
+      "tags": ["FastAPI", "MySQL", "Redis"],
+      "featured": true
+    }
+  ]
+}

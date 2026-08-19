@@ -1,0 +1,108 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Hero from '../components/Hero.astro'
+import ArticleCard from '../components/ArticleCard.astro'
+import ProjectCard from '../components/ProjectCard.astro'
+import RecentMemos from '../components/RecentMemos.astro'
+import StatsSection from '../components/StatsSection.astro'
+import { getSortedArticles } from '../lib/articles'
+import { countWords } from '../lib/format'
+import { siteConfig } from '../config'
+import projectsData from '../data/projects.json'
+import type { Project } from '../types'
+import Icon from '../components/Icon.astro'
+
+const articles = await getSortedArticles()
+const recentArticles = articles.slice(0, 5)
+const projects = (projectsData as { projects: Project[] }).projects
+const recentProjects = projects.slice(0, 5)
+
+let memoWords = 0
+try {
+  const ctrl = new AbortController()
+  const timer = setTimeout(() => ctrl.abort(), 5000)
+  const res = await fetch(
+    `https://cdn.jsdelivr.net/gh/${siteConfig.memoRepo}@${siteConfig.memoBranch}/${siteConfig.memoFile}`,
+    { signal: ctrl.signal }
+  )
+  clearTimeout(timer)
+  if (res.ok) {
+    const data = await res.json()
+    memoWords = (data.memos ?? []).reduce(
+      (sum: number, m: { text?: string }) => sum + countWords(m.text ?? ''),
+      0
+    )
+  }
+} catch {
+  memoWords = 0
+}
+
+const articleWords = articles.reduce((sum, a) => sum + countWords(a.body ?? ''), 0)
+const wordCount = articleWords + memoWords
+---
+
+<Layout>
+  <Hero />
+
+  <section class="mx-auto max-w-5xl px-4 pb-8">
+    <div class="grid grid-cols-1 gap-10 md:grid-cols-3">
+      <section>
+        <div class="mb-4 flex items-center justify-between">
+          <h2 class="flex items-center gap-2 font-serif text-lg font-semibold">
+            <Icon name="file-text" class="h-4 w-4 text-accent" />
+            最新文章
+          </h2>
+          <a href="/articles" class="text-sm text-muted transition-colors hover:text-accent">
+            全部 →
+          </a>
+        </div>
+        <div class="flex flex-col gap-3">
+          {
+            recentArticles.length > 0 ? (
+              recentArticles.map((a) => <ArticleCard article={a} compact />)
+            ) : (
+              <p class="rounded-xl border border-line bg-surface p-4 text-sm text-muted">暂无文章</p>
+            )
+          }
+        </div>
+      </section>
+
+      <section>
+        <div class="mb-4 flex items-center justify-between">
+          <h2 class="flex items-center gap-2 font-serif text-lg font-semibold">
+            <Icon name="folder" class="h-4 w-4 text-accent" />
+            最新项目
+          </h2>
+          <a href="/projects" class="text-sm text-muted transition-colors hover:text-accent">
+            全部 →
+          </a>
+        </div>
+        <div class="flex flex-col gap-3">
+          {
+            recentProjects.length > 0 ? (
+              recentProjects.map((p) => <ProjectCard project={p} />)
+            ) : (
+              <p class="rounded-xl border border-line bg-surface p-4 text-sm text-muted">暂无项目</p>
+            )
+          }
+        </div>
+      </section>
+
+      <section>
+        <div class="mb-4 flex items-center justify-between">
+          <h2 class="flex items-center gap-2 font-serif text-lg font-semibold">
+            <Icon name="message-square" class="h-4 w-4 text-accent" />
+            最新 Memo
+          </h2>
+          <a href="/memos" class="text-sm text-muted transition-colors hover:text-accent">
+            全部 →
+          </a>
+        </div>
+        <RecentMemos />
+      </section>
+    </div>
+  </section>
+
+  <div class="h-16"></div>
+  <StatsSection wordCount={wordCount} />
+</Layout>

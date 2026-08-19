@@ -1,0 +1,48 @@
+---
+import '../styles/global.css'
+import Navbar from '../components/Navbar.astro'
+import Footer from '../components/Footer.astro'
+import SearchOverlay from '../components/SearchOverlay.astro'
+import { siteConfig } from '../config'
+
+interface Props {
+  title?: string
+  description?: string
+}
+
+const { title, description = siteConfig.description } = Astro.props
+const pageTitle = title ? `${title} · ${siteConfig.title}` : siteConfig.title
+---
+
+<!doctype html>
+<html lang={siteConfig.lang} data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{pageTitle}</title>
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate" type="application/rss+xml" title={siteConfig.title} href="/rss.xml" />
+    <script is:inline>
+      (function () {
+        var stored = localStorage.getItem('theme')
+        var dark =
+          window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        var theme =
+          stored === 'light' || stored === 'dark' ? stored : dark ? 'dark' : 'light'
+        document.documentElement.setAttribute('data-theme', theme)
+      })()
+    </script>
+  </head>
+  <body>
+    <Navbar />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <SearchOverlay />
+  </body>
+</html>
