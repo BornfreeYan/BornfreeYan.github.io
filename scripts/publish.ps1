@@ -47,7 +47,7 @@ try {
   git add -A
   $null = git commit -m "deploy: $(Get-Date -Format 'yyyy-MM-dd HH:mm')" 2>&1
   Check-LastExit 'gh-pages 提交'
-  $null = git push origin gh-pages 2>&1
+  $null = git push --force origin gh-pages 2>&1
   Check-LastExit 'push gh-pages'
 } finally {
   Pop-Location

@@ -43,29 +43,48 @@ function decodeBase64(b64: string): string {
 }
 
 export async function fetchMemos(): Promise<Memo[]> {
-  const sources = [CDN_URL(siteConfig.memoFile), RAW_URL(siteConfig.memoFile), API_FILE_URL]
-  for (const url of sources) {
+  const sources: { url: string; auth?: boolean }[] = []
+  if (getToken()) {
+    sources.push({ url: API_FILE_URL, auth: true })
+  }
+  sources.push({ url: API_FILE_URL, auth: false })
+  sources.push({ url: CDN_URL(siteConfig.memoFile), auth: false })
+  sources.push({ url: RAW_URL(siteConfig.memoFile), auth: false })
+
+  for (const { url, auth } of sources) {
     try {
       const controller = new AbortController()
       const timer = setTimeout(() => controller.abort(), 8000)
-      const res = await fetch(url, { signal: controller.signal })
+      const headers: Record<string, string> = {}
+      if (auth) headers.Authorization = `Bearer ${getToken()}`
+      const res = await fetch(url, { signal: controller.signal, headers })
       clearTimeout(timer)
       if (!res.ok) continue
       let file: MemoFile
-      if (url.startsWith('https://api.github.com')) {
+      if (url === API_FILE_URL) {
         const json = await res.json()
         file = JSON.parse(decodeBase64(json.content))
       } else {
         file = await res.json()
       }
       if (file && Array.isArray(file.memos)) {
-        return file.memos.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+        return file.memos.sort(
+          (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        )
       }
     } catch {
       continue
     }
   }
   return []
+}
+
+class ApiError extends Error {
+  status: number
+  constructor(message: string, status: number) {
+    super(message)
+    this.status = status
+  }
 }
 
 async function apiRequest(method: string, url: string, body?: unknown): Promise<any> {
@@ -83,13 +102,21 @@ async function apiRequest(method: string, url: string, body?: unknown): Promise<
   if (!res.ok) {
     const detail = await res.json().catch(() => null)
     const message = detail?.message ?? `GitHub API 请求失败 (${res.status})`
-    throw new Error(message)
+    throw new ApiError(message, res.status)
   }
   return res.json()
 }
 
-async function readMemoFileWithToken(): Promise<{ memos: Memo[]; sha: string }> {
-  const json = await apiRequest('GET', API_FILE_URL)
+async function readMemoFileWithToken(): Promise<{ memos: Memo[]; sha: string | null }> {
+  let json: any
+  try {
+    json = await apiRequest('GET', API_FILE_URL)
+  } catch (err) {
+    if (err instanceof ApiError && err.status === 404) {
+      return { memos: [], sha: null }
+    }
+    throw err
+  }
   const file: MemoFile = JSON.parse(decodeBase64(json.content))
   return { memos: file.memos ?? [], sha: json.sha }
 }

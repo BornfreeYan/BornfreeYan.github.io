@@ -56,8 +56,8 @@ export const siteConfig: SiteConfig = {
     },
   ],
   uptimeBadgeUrl: '',
-  memoRepo: 'BornfreeYan/blog-data',
-  memoBranch: 'main',
+  memoRepo: 'BornfreeYan/BornfreeYan.github.io',
+  memoBranch: 'data',
   memoFile: 'memos.json',
   memoImagesDir: 'images',
 }
