@@ -39,7 +39,7 @@
           day: 'numeric',
         })
         const text = (m.text || '').replace(/\n+/g, ' ').slice(0, 80)
-        return `<a href="/memos" class="group rounded-xl border border-line bg-surface p-4 transition-colors hover:border-accent/40">
+        return `<a href="/memos" class="group block rounded-xl border border-line bg-surface p-4 transition-colors hover:border-accent/40">
           <p class="line-clamp-2 text-sm group-hover:text-accent">${escapeHtml(text || '（图片）')}</p>
           <p class="mt-2 text-xs text-muted">${date}</p>
         </a>`
