@@ -25,8 +25,14 @@ const readMin = Math.max(1, Math.round(words / 300))
 <Layout title={title}>
   <div
     data-reading-bar
-    class="fixed inset-x-0 top-0 z-[60] h-0.5 origin-left scale-x-0 bg-accent"
-  ></div>
+    class="pointer-events-none fixed inset-x-0 top-0 z-[60] h-0.5 bg-line/60"
+  >
+    <div
+      data-reading-fill
+      class="h-full origin-left bg-accent"
+      style="transform: scaleX(0)"
+    ></div>
+  </div>
   <article class="mx-auto max-w-3xl px-4 py-16">
     <header class="mb-10">
       <div class="flex flex-wrap items-center gap-2 text-sm text-muted">
@@ -92,12 +98,13 @@ const readMin = Math.max(1, Math.round(words / 300))
 
 <script>
   const bar = document.querySelector<HTMLElement>('[data-reading-bar]')
-  if (bar) {
+  const fill = document.querySelector<HTMLElement>('[data-reading-fill]')
+  if (bar && fill) {
     const update = () => {
       const doc = document.documentElement
       const total = doc.scrollHeight - window.innerHeight
       const p = total > 0 ? window.scrollY / total : 0
-      bar.style.transform = `scaleX(${Math.min(1, Math.max(0, p))})`
+      fill.style.transform = `scaleX(${Math.min(1, Math.max(0, p))})`
     }
     addEventListener('scroll', update, { passive: true })
     addEventListener('resize', update)
