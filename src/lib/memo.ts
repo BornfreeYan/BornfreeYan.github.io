@@ -5,6 +5,7 @@ export interface Memo {
   text: string
   images: string[]
   createdAt: string
+  replyTo?: string
 }
 
 interface MemoFile {
@@ -28,6 +29,29 @@ export function getToken(): string {
 
 export function setToken(token: string) {
   localStorage.setItem(TOKEN_KEY, token)
+}
+
+export async function validateToken(token: string): Promise<{ ok: boolean; message?: string }> {
+  const res = await fetch(API_FILE_REF, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28',
+    },
+  })
+  if (res.ok) return { ok: true }
+  if (res.status === 401) return { ok: false, message: 'Token 无效或已过期（bad credentials）' }
+  if (res.status === 403) {
+    const detail = await res.json().catch(() => null)
+    if (detail?.message && /rate limit/i.test(String(detail.message))) {
+      return { ok: false, message: 'GitHub API 请求过于频繁，请稍后再试' }
+    }
+    return { ok: false, message: 'Token 有效但权限不足，需要该仓库 Contents 读写权限' }
+  }
+  if (res.status === 404) {
+    return { ok: false, message: '找不到数据文件，请确认仓库与分支配置' }
+  }
+  return { ok: false, message: `连接失败（${res.status}）` }
 }
 
 export function clearToken() {
@@ -150,7 +174,7 @@ async function writeMemoFile(memos: Memo[], sha: string | null, retried = false)
   }
 }
 
-export async function postMemo(text: string, images: File[]): Promise<void> {
+export async function postMemo(text: string, images: File[], replyTo?: string): Promise<void> {
   const trimmed = text.trim()
   if (!trimmed && images.length === 0) return
 
@@ -174,6 +198,7 @@ export async function postMemo(text: string, images: File[]): Promise<void> {
     text: trimmed,
     images: imagePaths,
     createdAt: new Date().toISOString(),
+    ...(replyTo ? { replyTo } : {}),
   })
   await writeMemoFile(memos, sha)
 }

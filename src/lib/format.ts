@@ -5,6 +5,18 @@ export function formatDate(date: Date): string {
   return `${y}-${m}-${d}`
 }
 
+export function formatMemoDate(iso: string): string {
+  const d = new Date(iso)
+  const now = new Date()
+  const sameYear = d.getFullYear() === now.getFullYear()
+  return d.toLocaleDateString(
+    'en-US',
+    sameYear
+      ? { month: 'short', day: 'numeric' }
+      : { month: 'short', day: 'numeric', year: 'numeric' }
+  )
+}
+
 export function formatDateTime(date: Date): string {
   const h = String(date.getHours()).padStart(2, '0')
   const min = String(date.getMinutes()).padStart(2, '0')

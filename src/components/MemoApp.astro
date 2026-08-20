@@ -1,7 +1,8 @@
 ---
 ---
 
-<div data-memo-app class="space-y-6">
+<div data-memo-app class="space-y-5">
+  <div data-memo-auth class="relative flex justify-end"></div>
   <div data-memo-composer></div>
   <p data-memo-error class="hidden rounded-xl border border-red-400/40 bg-red-400/10 p-3 text-sm text-red-500"></p>
   <div data-memo-list class="space-y-4"></div>
@@ -17,15 +18,21 @@
     deleteMemo,
     getToken,
     setToken,
+    validateToken,
     memoImageUrl,
     type Memo,
   } from '../lib/memo'
   import { siteConfig } from '../config'
+  import { formatMemoDate } from '../lib/format'
 
   const MAX_IMAGES = 4
 
+  const TRASH_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>`
+  const REPLY_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5"><path d="M9 17l-5-5 5-5"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></svg>`
+
   const app = document.querySelector<HTMLElement>('[data-memo-app]')
   if (!app) throw new Error('memo app element missing')
+  const authBox = document.querySelector<HTMLElement>('[data-memo-auth]')!
   const composerBox = document.querySelector<HTMLElement>('[data-memo-composer]')!
   const listBox = document.querySelector<HTMLElement>('[data-memo-list]')!
   const emptyBox = document.querySelector<HTMLElement>('[data-memo-empty]')!
@@ -33,6 +40,7 @@
 
   let memos: Memo[] = []
   let pendingImages: File[] = []
+  let pendingReply: Memo | null = null
 
   function esc(s: string): string {
     return s
@@ -40,6 +48,10 @@
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;')
+  }
+
+  function shortId(id: string): string {
+    return id.length > 14 ? id.slice(0, 13) + '…' : id
   }
 
   function showError(msg: string) {
@@ -52,51 +64,102 @@
     errorBox.textContent = ''
   }
 
-  function formatTime(iso: string): string {
-    const d = new Date(iso)
-    const diff = Date.now() - d.getTime()
-    const min = Math.floor(diff / 60000)
-    if (min < 1) return '刚刚'
-    if (min < 60) return `${min} 分钟前`
-    const hour = Math.floor(min / 60)
-    if (hour < 24) return `${hour} 小时前`
-    const day = Math.floor(hour / 24)
-    if (day < 7) return `${day} 天前`
-    return d.toLocaleString('zh-CN', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
+  function renderAuth() {
+    if (getToken()) {
+      authBox.innerHTML = `<button data-logout type="button" class="flex items-center gap-1.5 rounded-full border border-line px-3.5 py-1.5 text-xs text-muted transition-colors hover:border-red-500 hover:text-red-500">
+        <span class="h-1.5 w-1.5 rounded-full bg-accent"></span>已连接 · 断开
+      </button>`
+    } else {
+      authBox.innerHTML = `
+        <button data-auth-toggle type="button" class="rounded-full border border-line px-3.5 py-1.5 text-xs text-muted transition-colors hover:border-accent hover:text-accent">连接</button>
+        <div data-auth-panel class="absolute right-0 top-full z-10 mt-2 hidden w-72 rounded-xl border border-line bg-surface p-4 shadow-lg">
+          <p class="text-xs text-muted">粘贴 GitHub fine-grained token（仅保存在本浏览器）</p>
+          <input data-token-input type="password" placeholder="github_pat_…" autocomplete="off" class="mt-2 w-full rounded-lg border border-line bg-transparent px-3 py-2 text-sm outline-none placeholder:text-muted focus:border-accent">
+          <p data-token-error class="mt-2 hidden text-xs text-red-500"></p>
+          <div class="mt-3 flex justify-end gap-2">
+            <button data-auth-cancel type="button" class="rounded-lg px-3 py-1.5 text-xs text-muted transition-colors hover:text-ink">取消</button>
+            <button data-token-save type="button" class="rounded-lg bg-accent px-4 py-1.5 text-xs text-bg transition-opacity hover:opacity-90">连接</button>
+          </div>
+        </div>`
+    }
+    bindAuth()
+  }
+
+  function bindAuth() {
+    const panel = authBox.querySelector<HTMLElement>('[data-auth-panel]')
+    const tokenError = authBox.querySelector<HTMLElement>('[data-token-error]')
+
+    authBox.querySelector('[data-auth-toggle]')?.addEventListener('click', () => {
+      panel?.classList.toggle('hidden')
+      if (tokenError) tokenError.classList.add('hidden')
+    })
+    authBox.querySelector('[data-auth-cancel]')?.addEventListener('click', () => {
+      panel?.classList.add('hidden')
+      if (tokenError) tokenError.classList.add('hidden')
+    })
+    authBox.querySelector('[data-logout]')?.addEventListener('click', () => {
+      const c = confirm('确定断开？本地 token 将被清除。')
+      if (!c) return
+      localStorage.removeItem('bfy_memo_token')
+      pendingImages = []
+      pendingReply = null
+      renderAuth()
+      renderComposer()
+    })
+    authBox.querySelector('[data-token-save]')?.addEventListener('click', async () => {
+      const input = authBox.querySelector<HTMLInputElement>('[data-token-input]')
+      const btn = authBox.querySelector<HTMLButtonElement>('[data-token-save]')
+      const token = input?.value.trim() ?? ''
+      if (!token) return
+      btn!.disabled = true
+      btn!.textContent = '验证中…'
+      const res = await validateToken(token)
+      if (!res.ok) {
+        if (tokenError) {
+          tokenError.textContent = res.message ?? '连接失败'
+          tokenError.classList.remove('hidden')
+        }
+        btn!.disabled = false
+        btn!.textContent = '连接'
+        return
+      }
+      setToken(token)
+      renderAuth()
+      renderComposer()
+      load()
     })
   }
 
   function renderComposer() {
-    if (getToken()) {
-      composerBox.innerHTML = `
-        <div class="rounded-2xl border border-line bg-surface p-4">
-          <textarea data-composer-text rows="3" placeholder="写点什么…" class="w-full resize-none bg-transparent text-sm leading-relaxed outline-none placeholder:text-muted"></textarea>
-          <div data-composer-preview class="mt-3 flex flex-wrap gap-2"></div>
-          <div class="mt-3 flex items-center justify-between gap-3">
-            <div class="flex items-center gap-2">
-              <button data-attach type="button" class="flex items-center gap-1.5 rounded-lg border border-line px-3 py-1.5 text-xs text-muted transition-colors hover:border-accent hover:text-accent">📷 图片 (最多 4 张)</button>
-              <input data-file-input type="file" accept="image/*" multiple class="hidden">
-              <button data-logout type="button" class="rounded-lg px-3 py-1.5 text-xs text-muted transition-colors hover:text-red-500">断开</button>
-            </div>
-            <button data-submit type="button" class="rounded-lg bg-accent px-5 py-1.5 text-sm text-bg transition-opacity hover:opacity-90">发布</button>
-          </div>
-        </div>`
-    } else {
-      composerBox.innerHTML = `
-        <div class="rounded-2xl border border-dashed border-line bg-surface p-5">
-          <p class="text-sm text-muted">发 Memo 需要连接 GitHub 数据仓库 <code class="rounded bg-line/60 px-1.5 py-0.5 text-xs">${esc(siteConfig.memoRepo)}</code>。Token 仅保存在本浏览器，请用只有该仓库读写权限的 fine-grained token。</p>
-          <div class="mt-4 flex flex-col gap-2 sm:flex-row">
-            <input data-token-input type="password" placeholder="粘贴 fine-grained token" autocomplete="off" class="flex-1 rounded-lg border border-line bg-transparent px-3 py-2 text-sm outline-none placeholder:text-muted focus:border-accent">
-            <button data-token-save type="button" class="rounded-lg bg-accent px-5 py-2 text-sm text-bg transition-opacity hover:opacity-90">连接</button>
-          </div>
-        </div>`
+    if (!getToken()) {
+      composerBox.innerHTML = ''
+      return
     }
+    composerBox.innerHTML = `
+      <div class="rounded-2xl border border-line bg-surface p-4">
+        ${
+          pendingReply
+            ? `<div data-reply-chip class="mb-3 flex items-center gap-2 rounded-lg border-l-2 border-accent bg-line/40 px-3 py-2 text-xs">
+                <span class="font-medium text-accent">引用 @${esc(shortId(pendingReply.id))}</span>
+                <span class="line-clamp-1 flex-1 text-muted">${esc(pendingReply.text || '（图片）')}</span>
+                <button data-reply-clear type="button" class="shrink-0 text-muted transition-colors hover:text-red-500" title="取消引用">×</button>
+              </div>`
+            : ''
+        }
+        <textarea data-composer-text rows="3" placeholder="写点什么…" class="w-full resize-none bg-transparent text-sm leading-relaxed outline-none placeholder:text-muted"></textarea>
+        <div data-composer-preview class="mt-3 flex flex-wrap gap-2"></div>
+        <div class="mt-3 flex items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <button data-attach type="button" class="flex items-center gap-1.5 rounded-lg border border-line px-3 py-1.5 text-xs text-muted transition-colors hover:border-accent hover:text-accent">📷 图片 (最多 4 张)</button>
+            <input data-file-input type="file" accept="image/*" multiple class="hidden">
+          </div>
+          <button data-submit type="button" class="rounded-lg bg-accent px-5 py-1.5 text-sm text-bg transition-opacity hover:opacity-90">发布</button>
+        </div>
+      </div>`
+    bindComposer()
+  }
 
+  function bindComposer() {
     composerBox.querySelector('[data-attach]')?.addEventListener('click', () => {
       composerBox.querySelector<HTMLInputElement>('[data-file-input]')?.click()
     })
@@ -107,20 +170,10 @@
       input.value = ''
       renderPreview()
     })
-    composerBox.querySelector('[data-logout]')?.addEventListener('click', () => {
-      const c = confirm('确定断开？本地 token 将被清除。')
-      if (!c) return
-      localStorage.removeItem('bfy_memo_token')
-      pendingImages = []
+    composerBox.querySelector('[data-reply-clear]')?.addEventListener('click', () => {
+      pendingReply = null
       renderComposer()
-    })
-    composerBox.querySelector('[data-token-save]')?.addEventListener('click', () => {
-      const input = composerBox.querySelector<HTMLInputElement>('[data-token-input]')
-      const token = input?.value.trim() ?? ''
-      if (!token) return
-      setToken(token)
-      renderComposer()
-      load()
+      renderPreview()
     })
     composerBox.querySelector('[data-submit]')?.addEventListener('click', async (e) => {
       const btn = e.currentTarget as HTMLButtonElement
@@ -131,9 +184,11 @@
       btn.textContent = '发布中…'
       clearError()
       try {
-        await postMemo(text, pendingImages)
+        await postMemo(text, pendingImages, pendingReply?.id)
         textarea!.value = ''
         pendingImages = []
+        pendingReply = null
+        renderComposer()
         renderPreview()
         await load()
       } catch (err) {
@@ -179,33 +234,38 @@
     listBox.innerHTML = memos
       .map(
         (m) => `
-        <div class="rounded-2xl border border-line bg-surface p-5">
+        <div data-memo-id="${m.id}" class="rounded-2xl border border-line bg-surface p-5">
           <div class="flex items-center gap-3">
             <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent/15 font-serif text-lg text-accent">B</div>
             <div class="min-w-0">
               <p class="text-sm font-semibold">${esc(siteConfig.author)}</p>
-              <p class="text-xs text-muted">${esc(formatTime(m.createdAt))}</p>
+              <p class="text-xs text-muted">${esc(formatMemoDate(m.createdAt))}</p>
             </div>
-            ${getToken() ? `<button data-delete="${m.id}" type="button" class="ml-auto rounded-lg px-2 py-1 text-muted transition-colors hover:text-red-500" title="删除">🗑</button>` : ''}
+            <div class="ml-auto flex items-center gap-1">
+              ${
+                getToken()
+                  ? `<button data-reply="${m.id}" type="button" class="flex h-7 w-7 items-center justify-center rounded-full text-muted transition-colors hover:bg-line/60 hover:text-accent" title="引用">${REPLY_SVG}</button>
+                  <button data-delete="${m.id}" type="button" class="flex h-7 w-7 items-center justify-center rounded-full text-muted transition-colors hover:bg-red-500/10 hover:text-red-500" title="删除">${TRASH_SVG}</button>`
+                  : ''
+              }
+            </div>
           </div>
+          ${m.replyTo ? renderQuote(m) : ''}
           ${m.text ? `<p class="mt-3 whitespace-pre-wrap text-sm leading-relaxed">${esc(m.text)}</p>` : ''}
           ${renderImages(m.images)}
         </div>`
       )
       .join('')
+    bindList()
+  }
 
-    listBox.querySelectorAll<HTMLButtonElement>('[data-delete]').forEach((btn) => {
-      btn.addEventListener('click', async () => {
-        if (!confirm('确定删除这条 Memo？')) return
-        clearError()
-        try {
-          await deleteMemo(btn.dataset.delete ?? '')
-          await load()
-        } catch (err) {
-          showError(err instanceof Error ? err.message : '删除失败')
-        }
-      })
-    })
+  function renderQuote(m: Memo): string {
+    const target = memos.find((x) => x.id === m.replyTo)
+    const snippet = (target?.text || '（已删除的 memo）').slice(0, 80)
+    return `<div data-jump="${m.replyTo}" class="mt-3 flex cursor-pointer items-center gap-2 rounded-lg border-l-2 border-accent/40 bg-line/40 px-3 py-2 text-xs text-muted transition-colors hover:text-accent">
+      <span class="font-medium">@${esc(shortId(m.replyTo!))}</span>
+      <span class="line-clamp-1 flex-1">${esc(snippet)}</span>
+    </div>`
   }
 
   function renderImages(images: string[]): string {
@@ -221,6 +281,42 @@
     </div>`
   }
 
+  function bindList() {
+    listBox.querySelectorAll<HTMLButtonElement>('[data-delete]').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        if (!confirm('确定删除这条 Memo？')) return
+        clearError()
+        try {
+          await deleteMemo(btn.dataset.delete ?? '')
+          await load()
+        } catch (err) {
+          showError(err instanceof Error ? err.message : '删除失败')
+        }
+      })
+    })
+    listBox.querySelectorAll<HTMLButtonElement>('[data-reply]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const m = memos.find((x) => x.id === btn.dataset.reply)
+        if (!m) return
+        pendingReply = m
+        renderComposer()
+        renderPreview()
+        composerBox.querySelector<HTMLTextAreaElement>('[data-composer-text]')?.focus()
+      })
+    })
+    listBox.querySelectorAll<HTMLElement>('[data-jump]').forEach((el) => {
+      el.addEventListener('click', () => {
+        const id = el.getAttribute('data-jump')
+        if (!id) return
+        const target = listBox.querySelector<HTMLElement>(`[data-memo-id="${id}"]`)
+        if (!target) return
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        target.classList.add('ring-2', 'ring-accent')
+        setTimeout(() => target.classList.remove('ring-2', 'ring-accent'), 2000)
+      })
+    })
+  }
+
   async function load() {
     clearError()
     listBox.innerHTML = `<p class="p-4 text-center text-sm text-muted">加载中…</p>`
@@ -232,6 +328,7 @@
     renderList()
   }
 
+  renderAuth()
   renderComposer()
   load()
 </script>

@@ -10,6 +10,7 @@
 
 <script>
   import { fetchMemos } from '../lib/memo'
+  import { formatMemoDate } from '../lib/format'
 
   async function load() {
     const list = document.querySelector<HTMLElement>('[data-memo-recent]')
@@ -32,12 +33,7 @@
     list.classList.remove('hidden')
     list.innerHTML = recent
       .map((m) => {
-        const d = new Date(m.createdAt)
-        const date = d.toLocaleDateString('zh-CN', {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric',
-        })
+        const date = formatMemoDate(m.createdAt)
         const text = (m.text || '').replace(/\n+/g, ' ').slice(0, 80)
         return `<a href="/memos" class="group block rounded-xl border border-line bg-surface p-4 transition-colors hover:border-accent/40">
           <p class="line-clamp-2 text-sm group-hover:text-accent">${escapeHtml(text || '（图片）')}</p>
