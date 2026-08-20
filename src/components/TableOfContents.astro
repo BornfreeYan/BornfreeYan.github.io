@@ -19,19 +19,22 @@ const toc = headings.filter((h) => h.depth >= 1 && h.depth <= 3)
       <h2 class="font-display text-xs font-medium uppercase tracking-[0.2em] text-muted">
         目录
       </h2>
-      <ul class="mt-4 space-y-2 border-l border-line">
+      <ul class="relative mt-4 space-y-1 border-l border-line">
         {toc.map((h) => (
           <li
             class:list={[
-              'leading-snug',
-              h.depth === 1 && 'pl-3',
+              'relative leading-snug',
+              h.depth === 1 && 'pl-3.5',
               h.depth === 2 && 'pl-5',
               h.depth === 3 && 'pl-7',
             ]}
           >
+            <span
+              class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"
+            />
             <a
               href={`#${h.slug}`}
-              class="toc-link block text-sm text-muted transition-colors hover:text-accent"
+              class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent"
               data-slug={h.slug}
             >
               {h.text}
@@ -64,6 +67,11 @@ const toc = headings.filter((h) => h.depth >= 1 && h.depth <= 3)
         const active = link.dataset.slug === activeId
         link.classList.toggle('text-accent', active)
         link.classList.toggle('font-medium', active)
+        const indicator = link.previousElementSibling as HTMLElement | null
+        if (indicator && indicator.classList.contains('toc-indicator')) {
+          indicator.classList.toggle('opacity-0', !active)
+          indicator.classList.toggle('opacity-100', active)
+        }
       })
     }
 
