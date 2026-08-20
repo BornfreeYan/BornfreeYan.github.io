@@ -11,6 +11,39 @@
   </p>
 </div>
 
+<div
+  data-lightbox
+  class="fixed inset-0 z-[70] hidden items-center justify-center bg-bg/95 backdrop-blur-sm p-4"
+  aria-hidden="true"
+>
+  <button
+    data-lightbox-close
+    type="button"
+    class="absolute right-4 top-4 rounded-full p-2 text-ink transition-colors hover:text-accent"
+    aria-label="关闭"
+  >
+    <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+  </button>
+  <button
+    data-lightbox-prev
+    type="button"
+    class="absolute left-4 top-1/2 -translate-y-1/2 rounded-full p-2 text-ink transition-colors hover:text-accent"
+    aria-label="上一张"
+  >
+    <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <button
+    data-lightbox-next
+    type="button"
+    class="absolute right-4 top-1/2 -translate-y-1/2 rounded-full p-2 text-ink transition-colors hover:text-accent"
+    aria-label="下一张"
+  >
+    <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+  <img data-lightbox-img class="max-h-[90vh] max-w-[90vw] rounded-xl object-contain" src="" alt="" />
+  <div data-lightbox-counter class="absolute bottom-4 left-1/2 -translate-x-1/2 text-sm text-muted"></div>
+</div>
+
 <script>
   import {
     fetchMemos,
@@ -25,7 +58,7 @@
   import { siteConfig } from '../config'
   import { formatMemoDate } from '../lib/format'
 
-  const MAX_IMAGES = 4
+  const MAX_IMAGES = 6
 
   const TRASH_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>`
   const REPLY_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5"><path d="M9 17l-5-5 5-5"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></svg>`
@@ -42,6 +75,9 @@
   let pendingImages: File[] = []
   let pendingExternalImages: string[] = []
   let pendingReply: Memo | null = null
+
+  let lightboxImages: string[] = []
+  let lightboxIndex = 0
 
   function esc(s: string): string {
     return s
@@ -345,9 +381,9 @@
     return `<div class="mt-3 grid ${cols} gap-2">
       ${images
         .map(
-          (p) => {
+          (p, i) => {
             const url = esc(memoImageUrl(p))
-            return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="block overflow-hidden rounded-xl border border-line bg-line/30 transition-opacity hover:opacity-95">
+            return `<a href="${url}" data-lightbox-open data-lightbox-index="${i}" data-lightbox-url="${url}" class="block overflow-hidden rounded-xl border border-line bg-line/30 transition-opacity hover:opacity-95">
               <img src="${url}" loading="lazy" class="w-full object-contain" style="max-height:24rem">
             </a>`
           }
@@ -355,6 +391,63 @@
         .join('')}
     </div>`
   }
+
+  const lightbox = document.querySelector<HTMLElement>('[data-lightbox]')
+  const lightboxImg = document.querySelector<HTMLImageElement>('[data-lightbox-img]')
+  const lightboxCounter = document.querySelector<HTMLElement>('[data-lightbox-counter]')
+
+  function openLightbox(urls: string[], index: number) {
+    lightboxImages = urls
+    lightboxIndex = Math.max(0, Math.min(index, urls.length - 1))
+    updateLightbox()
+    lightbox?.classList.remove('hidden')
+    lightbox?.classList.add('flex')
+    lightbox?.setAttribute('aria-hidden', 'false')
+    document.body.style.overflow = 'hidden'
+  }
+
+  function closeLightbox() {
+    lightbox?.classList.add('hidden')
+    lightbox?.classList.remove('flex')
+    lightbox?.setAttribute('aria-hidden', 'true')
+    document.body.style.overflow = ''
+  }
+
+  function updateLightbox() {
+    if (lightboxImg) lightboxImg.src = lightboxImages[lightboxIndex]
+    if (lightboxCounter) lightboxCounter.textContent = `${lightboxIndex + 1} / ${lightboxImages.length}`
+  }
+
+  function showPrev() {
+    if (lightboxImages.length <= 1) return
+    lightboxIndex = (lightboxIndex - 1 + lightboxImages.length) % lightboxImages.length
+    updateLightbox()
+  }
+
+  function showNext() {
+    if (lightboxImages.length <= 1) return
+    lightboxIndex = (lightboxIndex + 1) % lightboxImages.length
+    updateLightbox()
+  }
+
+  lightbox?.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox()
+  })
+  document.querySelector('[data-lightbox-close]')?.addEventListener('click', closeLightbox)
+  document.querySelector('[data-lightbox-prev]')?.addEventListener('click', (e) => {
+    e.stopPropagation()
+    showPrev()
+  })
+  document.querySelector('[data-lightbox-next]')?.addEventListener('click', (e) => {
+    e.stopPropagation()
+    showNext()
+  })
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox || lightbox.classList.contains('hidden')) return
+    if (e.key === 'Escape') closeLightbox()
+    if (e.key === 'ArrowLeft') showPrev()
+    if (e.key === 'ArrowRight') showNext()
+  })
 
   function bindList() {
     listBox.querySelectorAll<HTMLButtonElement>('[data-delete]').forEach((btn) => {
@@ -388,6 +481,18 @@
         target.scrollIntoView({ behavior: 'smooth', block: 'center' })
         target.classList.add('ring-2', 'ring-accent')
         setTimeout(() => target.classList.remove('ring-2', 'ring-accent'), 2000)
+      })
+    })
+
+    listBox.querySelectorAll<HTMLElement>('[data-lightbox-open]').forEach((el) => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault()
+        const card = el.closest('[data-memo-id]')
+        const urls = Array.from(card?.querySelectorAll<HTMLElement>('[data-lightbox-url]') ?? [])
+          .map((a) => a.dataset.lightboxUrl ?? '')
+          .filter(Boolean)
+        const index = Number(el.dataset.lightboxIndex)
+        openLightbox(urls, index)
       })
     })
   }
