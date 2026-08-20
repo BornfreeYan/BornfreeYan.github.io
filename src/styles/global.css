@@ -34,15 +34,51 @@
 
 html {
   scroll-behavior: smooth;
+  font-optical-sizing: auto;
 }
 
 body {
   @apply bg-bg text-ink font-sans antialiased;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 ::selection {
   background: var(--accent);
   color: var(--bg);
+}
+
+button:not([disabled]):active {
+  transform: scale(0.97);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001s !important;
+    transition-duration: 0.001s !important;
+  }
+}
+
+html[data-theme='dark'] .astro-code {
+  background-color: var(--shiki-dark-bg) !important;
+  color: var(--shiki-dark) !important;
+}
+html[data-theme='dark'] .astro-code span {
+  color: var(--shiki-dark) !important;
 }
 
 .prose {
