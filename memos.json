@@ -1,11 +1,4 @@
 {
   "version": 1,
-  "memos": [
-    {
-      "id": "20260819-1201-vfi",
-      "text": "memo test",
-      "images": [],
-      "createdAt": "2026-08-19T04:01:44.980Z"
-    }
-  ]
+  "memos": []
 }
