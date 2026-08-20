@@ -1,6 +1,7 @@
 ---
 import { siteConfig, visibleSocials } from '../config'
 import Icon from './Icon.astro'
+import EmailCopy from './EmailCopy.astro'
 
 const socials = visibleSocials()
 const year = new Date().getFullYear()
@@ -14,17 +15,21 @@ const year = new Date().getFullYear()
     </div>
     <div class="flex items-center gap-2.5">
       {
-        socials.map((s) => (
-          <a
-            href={s.url}
-            target={s.url.startsWith('http') ? '_blank' : undefined}
-            rel={s.url.startsWith('http') ? 'noopener noreferrer' : undefined}
-            class="flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:text-accent"
-            aria-label={s.label}
-          >
-            <Icon name={s.icon} class="h-4 w-4" />
-          </a>
-        ))
+        socials.map((s) =>
+          s.icon === 'email' ? (
+            <EmailCopy variant="sm" />
+          ) : (
+            <a
+              href={s.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:text-accent"
+              aria-label={s.label}
+            >
+              <Icon name={s.icon} class="h-4 w-4" />
+            </a>
+          )
+        )
       }
     </div>
     <p>
