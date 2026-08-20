@@ -2,6 +2,13 @@
   "version": 1,
   "memos": [
     {
+      "id": "20260820-2009-bv8",
+      "text": "citation test",
+      "images": [],
+      "createdAt": "2026-08-20T12:09:34.777Z",
+      "replyTo": "20260820-2009-qur"
+    },
+    {
       "id": "20260820-2009-qur",
       "text": "test",
       "images": [],
