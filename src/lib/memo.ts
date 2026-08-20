@@ -59,6 +59,7 @@ export function clearToken() {
 }
 
 export function memoImageUrl(path: string): string {
+  if (/^https?:\/\//.test(path)) return path
   return CDN_URL(path)
 }
 
@@ -174,9 +175,14 @@ async function writeMemoFile(memos: Memo[], sha: string | null, retried = false)
   }
 }
 
-export async function postMemo(text: string, images: File[], replyTo?: string): Promise<void> {
+export async function postMemo(
+  text: string,
+  images: File[],
+  externalImages: string[],
+  replyTo?: string
+): Promise<void> {
   const trimmed = text.trim()
-  if (!trimmed && images.length === 0) return
+  if (!trimmed && images.length === 0 && externalImages.length === 0) return
 
   const id = genId()
   const imagePaths: string[] = []
@@ -191,6 +197,8 @@ export async function postMemo(text: string, images: File[], replyTo?: string): 
     })
     imagePaths.push(`${siteConfig.memoImagesDir}/${name}`)
   }
+
+  imagePaths.push(...externalImages.filter((url) => /^https?:\/\//.test(url)))
 
   const { memos, sha } = await readMemoFileWithToken()
   memos.unshift({

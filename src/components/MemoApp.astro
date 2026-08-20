@@ -40,6 +40,7 @@
 
   let memos: Memo[] = []
   let pendingImages: File[] = []
+  let pendingExternalImages: string[] = []
   let pendingReply: Memo | null = null
 
   function esc(s: string): string {
@@ -58,6 +59,10 @@
   function clearError() {
     errorBox.classList.add('hidden')
     errorBox.textContent = ''
+  }
+
+  function isImageUrl(s: string): boolean {
+    return /^https?:\/\//.test(s.trim())
   }
 
   function renderAuth() {
@@ -98,6 +103,7 @@
       if (!c) return
       localStorage.removeItem('bfy_memo_token')
       pendingImages = []
+      pendingExternalImages = []
       pendingReply = null
       renderAuth()
       renderComposer()
@@ -144,9 +150,15 @@
         }
         <textarea data-composer-text rows="3" placeholder="写点什么…" class="w-full resize-none bg-transparent text-sm leading-relaxed outline-none placeholder:text-muted"></textarea>
         <div data-composer-preview class="mt-3 flex flex-wrap gap-2"></div>
+        <div data-url-input-area class="hidden mt-3 flex items-center gap-2">
+          <input data-url-input type="text" placeholder="https://你的图床.com/xxx.png" class="min-w-0 flex-1 rounded-lg border border-line bg-transparent px-3 py-2 text-sm outline-none placeholder:text-muted focus:border-accent">
+          <button data-url-add type="button" class="rounded-lg bg-accent px-3 py-2 text-xs text-bg transition-opacity hover:opacity-90">添加</button>
+          <button data-url-cancel type="button" class="rounded-lg px-3 py-2 text-xs text-muted transition-colors hover:text-ink">取消</button>
+        </div>
         <div class="mt-3 flex items-center justify-between gap-3">
           <div class="flex items-center gap-2">
-            <button data-attach type="button" class="flex items-center gap-1.5 rounded-lg border border-line px-3 py-1.5 text-xs text-muted transition-colors hover:border-accent hover:text-accent">📷 图片 (最多 4 张)</button>
+            <button data-attach type="button" class="flex items-center gap-1.5 rounded-lg border border-line px-3 py-1.5 text-xs text-muted transition-colors hover:border-accent hover:text-accent">📷 本地上传</button>
+            <button data-attach-url type="button" class="flex items-center gap-1.5 rounded-lg border border-line px-3 py-1.5 text-xs text-muted transition-colors hover:border-accent hover:text-accent">🔗 图床链接</button>
             <input data-file-input type="file" accept="image/*" multiple class="hidden">
           </div>
           <button data-submit type="button" class="rounded-lg bg-accent px-5 py-1.5 text-sm text-bg transition-opacity hover:opacity-90">发布</button>
@@ -162,8 +174,44 @@
     composerBox.querySelector<HTMLInputElement>('[data-file-input]')?.addEventListener('change', (e) => {
       const input = e.target as HTMLInputElement
       const files = Array.from(input.files ?? [])
+      const total = pendingImages.length + pendingExternalImages.length + files.length
+      if (total > MAX_IMAGES) {
+        showError(`最多 ${MAX_IMAGES} 张图片`)
+        input.value = ''
+        return
+      }
       pendingImages = [...pendingImages, ...files].slice(0, MAX_IMAGES)
       input.value = ''
+      renderPreview()
+    })
+    composerBox.querySelector('[data-attach-url]')?.addEventListener('click', () => {
+      const area = composerBox.querySelector<HTMLElement>('[data-url-input-area]')
+      area?.classList.remove('hidden')
+      composerBox.querySelector<HTMLInputElement>('[data-url-input]')?.focus()
+    })
+    composerBox.querySelector('[data-url-cancel]')?.addEventListener('click', () => {
+      const area = composerBox.querySelector<HTMLElement>('[data-url-input-area]')
+      const input = composerBox.querySelector<HTMLInputElement>('[data-url-input]')
+      area?.classList.add('hidden')
+      if (input) input.value = ''
+    })
+    composerBox.querySelector('[data-url-add]')?.addEventListener('click', () => {
+      const input = composerBox.querySelector<HTMLInputElement>('[data-url-input]')
+      const area = composerBox.querySelector<HTMLElement>('[data-url-input-area]')
+      const url = input?.value.trim() ?? ''
+      if (!url) return
+      if (!isImageUrl(url)) {
+        showError('请输入以 http:// 或 https:// 开头的图片链接')
+        return
+      }
+      const total = pendingImages.length + pendingExternalImages.length + 1
+      if (total > MAX_IMAGES) {
+        showError(`最多 ${MAX_IMAGES} 张图片`)
+        return
+      }
+      pendingExternalImages.push(url)
+      if (input) input.value = ''
+      area?.classList.add('hidden')
       renderPreview()
     })
     composerBox.querySelector('[data-reply-clear]')?.addEventListener('click', () => {
@@ -175,14 +223,15 @@
       const btn = e.currentTarget as HTMLButtonElement
       const textarea = composerBox.querySelector<HTMLTextAreaElement>('[data-composer-text]')
       const text = textarea?.value ?? ''
-      if (!text.trim() && pendingImages.length === 0) return
+      if (!text.trim() && pendingImages.length === 0 && pendingExternalImages.length === 0) return
       btn.disabled = true
       btn.textContent = '发布中…'
       clearError()
       try {
-        await postMemo(text, pendingImages, pendingReply?.id)
+        await postMemo(text, pendingImages, pendingExternalImages, pendingReply?.id)
         textarea!.value = ''
         pendingImages = []
+        pendingExternalImages = []
         pendingReply = null
         renderComposer()
         renderPreview()
@@ -199,11 +248,13 @@
   function renderPreview() {
     const preview = composerBox.querySelector<HTMLElement>('[data-composer-preview]')
     if (!preview) return
-    if (pendingImages.length === 0) {
+    const total = pendingImages.length + pendingExternalImages.length
+    if (total === 0) {
       preview.innerHTML = ''
       return
     }
-    preview.innerHTML = pendingImages
+
+    const fileItems = pendingImages
       .map((f, i) => {
         const url = URL.createObjectURL(f)
         return `<div class="relative">
@@ -211,13 +262,36 @@
           <button data-remove-img="${i}" type="button" class="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">×</button>
         </div>`
       })
-      .join('')
+
+    const urlItems = pendingExternalImages
+      .map((url, i) => {
+        return `<div class="relative">
+          <img src="${esc(url)}" class="h-20 w-20 rounded-lg border border-line object-cover">
+          <button data-remove-url="${i}" type="button" class="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">×</button>
+        </div>`
+      })
+
+    preview.innerHTML = [...fileItems, ...urlItems].join('')
+
     preview.querySelectorAll<HTMLButtonElement>('[data-remove-img]').forEach((btn) => {
       btn.addEventListener('click', () => {
         pendingImages = pendingImages.filter((_, i) => i !== Number(btn.dataset.removeImg))
         renderPreview()
       })
     })
+    preview.querySelectorAll<HTMLButtonElement>('[data-remove-url]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        pendingExternalImages = pendingExternalImages.filter((_, i) => i !== Number(btn.dataset.removeUrl))
+        renderPreview()
+      })
+    })
+  }
+
+  function renderAvatar(): string {
+    if (siteConfig.avatar) {
+      return `<img src="${esc(siteConfig.avatar)}" alt="${esc(siteConfig.author)}" class="h-10 w-10 shrink-0 rounded-full object-cover" />`
+    }
+    return `<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent/15 font-serif text-lg text-accent">${esc(siteConfig.author.charAt(0).toUpperCase())}</div>`
   }
 
   function renderList() {
@@ -232,19 +306,7 @@
         (m) => `
         <div data-memo-id="${m.id}" class="rounded-2xl border border-line bg-surface p-5">
           <div class="flex items-center gap-3">
-            {
-              siteConfig.avatar ? (
-                <img
-                  src={siteConfig.avatar}
-                  alt={siteConfig.author}
-                  class="h-10 w-10 shrink-0 rounded-full object-cover"
-                />
-              ) : (
-                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent/15 font-serif text-lg text-accent">
-                  {siteConfig.author.charAt(0).toUpperCase()}
-                </div>
-              )
-            }
+            ${renderAvatar()}
             <div class="min-w-0">
               <p class="text-sm font-semibold">${esc(siteConfig.author)}</p>
               <p class="text-xs text-muted">${esc(formatMemoDate(m.createdAt))}</p>
