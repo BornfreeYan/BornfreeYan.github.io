@@ -7,34 +7,93 @@ const socials = visibleSocials()
 ---
 
 <section class="relative flex min-h-svh flex-col overflow-hidden">
-  <div class="flex flex-1 flex-col items-center justify-center px-6 pb-12 pt-28 text-center">
-    <p
-      class="max-w-6xl font-display text-5xl font-medium italic leading-[1.12] tracking-[0.03em] text-ink sm:text-6xl md:text-7xl lg:text-8xl"
-    >
-      {siteConfig.sloganEn}
-    </p>
-    <p class="mt-7 text-sm text-muted sm:text-base md:text-lg">
-      {siteConfig.sloganZh}
-    </p>
-    <div class="mt-14 flex flex-wrap items-center justify-center gap-4">
-      {
-        socials.map((s) =>
-          s.icon === 'email' ? (
-            <EmailCopy variant="lg" />
-          ) : (
-            <a
-              href={s.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={s.label}
-              title={s.label}
-              class="flex h-14 w-14 items-center justify-center rounded-full border border-line text-muted transition-all hover:-translate-y-1 hover:border-accent hover:text-accent"
-            >
-              <Icon name={s.icon} class="h-5 w-5" />
-            </a>
-          )
-        )
-      }
+  <div class="flex flex-1 items-center px-6 py-28">
+    <div class="mx-auto grid w-full max-w-7xl gap-12 lg:grid-cols-[1fr_420px] lg:items-center">
+      {/* Left: slogan + socials */}
+      <div class="flex flex-col items-center text-center lg:items-start lg:text-left">
+        <p
+          class="max-w-4xl font-display text-5xl font-medium italic leading-[1.12] tracking-[0.03em] text-ink sm:text-6xl md:text-7xl lg:text-7xl"
+        >
+          {siteConfig.sloganEn}
+        </p>
+        <p class="mt-7 text-sm text-muted sm:text-base md:text-lg">
+          {siteConfig.sloganZh}
+        </p>
+        <div class="mt-14 flex flex-wrap items-center justify-center gap-4 lg:justify-start">
+          {
+            socials.map((s) =>
+              s.icon === 'email' ? (
+                <EmailCopy variant="lg" />
+              ) : (
+                <a
+                  href={s.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.label}
+                  title={s.label}
+                  class="flex h-14 w-14 items-center justify-center rounded-full border border-line text-muted transition-all hover:-translate-y-1 hover:border-accent hover:text-accent"
+                >
+                  <Icon name={s.icon} class="h-5 w-5" />
+                </a>
+              )
+            )
+          }
+        </div>
+      </div>
+
+      {/* Right: about card */}
+      <aside
+        class="group relative rounded-2xl border border-line bg-surface/50 p-8 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md"
+      >
+        <div class="absolute left-0 top-8 h-16 w-0.5 bg-accent"></div>
+
+        <a
+          href="/about"
+          class="inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-[0.2em] text-muted transition-colors hover:text-accent"
+        >
+          About
+          <span class="transition-transform group-hover:translate-x-1">→</span>
+        </a>
+
+        <h2 class="mt-3 font-display text-4xl font-medium text-ink">{siteConfig.author}</h2>
+
+        <div class="mt-6 space-y-6 divide-y divide-line">
+          <div>
+            <h3 class="text-xs font-medium uppercase tracking-[0.15em] text-muted">Focus</h3>
+            <p class="mt-1.5 leading-relaxed text-ink">
+              Python / FastAPI / MySQL / Redis
+              <br />
+              Agent Dev · LLM · System Design
+            </p>
+          </div>
+
+          <div class="pt-6">
+            <h3 class="text-xs font-medium uppercase tracking-[0.15em] text-muted">Short-term</h3>
+            <p class="mt-1.5 leading-relaxed text-ink">
+              构建生活秩序 · 改掉坏习惯 · 独立的时间 / 空间 / 金钱
+            </p>
+          </div>
+
+          <div class="pt-6">
+            <h3 class="text-xs font-medium uppercase tracking-[0.15em] text-muted">Long-term</h3>
+            <p class="mt-1.5 leading-relaxed text-ink">
+              find my passion, live in the moment, savor the world
+            </p>
+          </div>
+
+          <div class="pt-6">
+            <h3 class="text-xs font-medium uppercase tracking-[0.15em] text-muted">Next</h3>
+            <p class="mt-1.5 leading-relaxed text-ink">
+              Indie hacking · digital influence · investing · cognitive upgrade
+            </p>
+          </div>
+
+          <div class="pt-6">
+            <h3 class="text-xs font-medium uppercase tracking-[0.15em] text-muted">Language</h3>
+            <p class="mt-1.5 leading-relaxed text-ink">Aiming for IELTS 7.5</p>
+          </div>
+        </div>
+      </aside>
     </div>
   </div>
 </section>

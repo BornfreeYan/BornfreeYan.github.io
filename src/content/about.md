@@ -1,16 +1,33 @@
-# About Bornfree
+## About
 
-这里放关于我的介绍。
+### **Core**
 
-## 我在做什么
+财务独立，自主掌控人生时间线，摆脱熟人社会的束缚。
 
-- 后端开发方向：Python / FastAPI / MySQL / Redis
-- 记录技术学习、方法论与思考
-- 敬畏时间，捍卫注意力
+### **Position**
 
-## 联系方式
+大四 EE 转 CS 方向。考研窗口已过，我要的也不是考上后去当穷学生 / cheap labor —— 学生时代已经消磨掉太多本应属于这个年纪的锐气与热情。
 
-- GitHub：https://github.com/BornfreeYan
-- 更多链接见首页社媒
+把生活装进行李箱。不求头衔，只求进退自如的选择权。
 
-> 此页面为占位内容，请替换成你自己的介绍。
+短期目标：从零到一搭建自己的生活秩序，改掉坏习惯，拥有独立的时间、空间与金钱。
+
+长远目标是 **find my passion, live in the moment, savor the world**。
+
+### **Tech**
+
+Backend 速成中：Python / FastAPI / MySQL / Redis，Java 体系备选。
+
+Agent Dev | LLM | System Design | Product
+
+### **Language**
+
+Aiming for IELTS 7.5 — for mastery, not just a certificate.
+
+### **Next horizon**
+
+Indie hacking, digital influence, investing, and cognitive upgrade.
+
+---
+
+*Revere time, defend your attention. Forever curious, forever optimistic.*
