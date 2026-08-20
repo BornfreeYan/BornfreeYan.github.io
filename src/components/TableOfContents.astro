@@ -1,0 +1,76 @@
+---
+export interface Heading {
+  depth: number
+  slug: string
+  text: string
+}
+
+interface Props {
+  headings: Heading[]
+}
+
+const { headings } = Astro.props
+const toc = headings.filter((h) => h.depth >= 1 && h.depth <= 3)
+---
+
+{
+  toc.length > 0 && (
+    <nav class="toc-sidebar" aria-label="文章目录">
+      <h2 class="font-display text-xs font-medium uppercase tracking-[0.2em] text-muted">
+        目录
+      </h2>
+      <ul class="mt-4 space-y-2 border-l border-line">
+        {toc.map((h) => (
+          <li
+            class:list={[
+              'leading-snug',
+              h.depth === 1 && 'pl-3',
+              h.depth === 2 && 'pl-5',
+              h.depth === 3 && 'pl-7',
+            ]}
+          >
+            <a
+              href={`#${h.slug}`}
+              class="toc-link block text-sm text-muted transition-colors hover:text-accent"
+              data-slug={h.slug}
+            >
+              {h.text}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )
+}
+
+<script>
+  function initToc() {
+    const links = document.querySelectorAll<HTMLAnchorElement>('.toc-link')
+    if (links.length === 0) return
+
+    const headings = Array.from(document.querySelectorAll<HTMLElement>('h1[id], h2[id], h3[id]'))
+    if (headings.length === 0) return
+
+    const update = () => {
+      const offset = 120
+      let activeId = headings[0].id
+      for (const h of headings) {
+        const top = h.getBoundingClientRect().top
+        if (top < offset) activeId = h.id
+        else break
+      }
+
+      links.forEach((link) => {
+        const active = link.dataset.slug === activeId
+        link.classList.toggle('text-accent', active)
+        link.classList.toggle('font-medium', active)
+      })
+    }
+
+    window.addEventListener('scroll', update, { passive: true })
+    window.addEventListener('resize', update)
+    update()
+  }
+
+  initToc()
+</script>
