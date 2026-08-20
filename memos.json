@@ -1,11 +1,4 @@
 {
   "version": 1,
-  "memos": [
-    {
-      "id": "20260820-2009-qur",
-      "text": "test",
-      "images": [],
-      "createdAt": "2026-08-20T12:09:13.699Z"
-    }
-  ]
+  "memos": []
 }
