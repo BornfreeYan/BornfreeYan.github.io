@@ -11,6 +11,7 @@ export interface SiteConfig {
   sloganEn: string
   sloganZh: string
   author: string
+  avatar: string
   lang: string
   socials: Social[]
   memoRepo: string
@@ -26,6 +27,7 @@ export const siteConfig: SiteConfig = {
   sloganEn: 'Revere time, defend your attention. Forever curious, forever optimistic',
   sloganZh: '敬畏时间，捍卫注意力。永远好奇，永远乐观',
   author: 'Bornfree',
+  avatar: '',
   lang: 'zh-CN',
   socials: [
     {

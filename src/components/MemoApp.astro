@@ -232,7 +232,19 @@
         (m) => `
         <div data-memo-id="${m.id}" class="rounded-2xl border border-line bg-surface p-5">
           <div class="flex items-center gap-3">
-            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent/15 font-serif text-lg text-accent">B</div>
+            {
+              siteConfig.avatar ? (
+                <img
+                  src={siteConfig.avatar}
+                  alt={siteConfig.author}
+                  class="h-10 w-10 shrink-0 rounded-full object-cover"
+                />
+              ) : (
+                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent/15 font-serif text-lg text-accent">
+                  {siteConfig.author.charAt(0).toUpperCase()}
+                </div>
+              )
+            }
             <div class="min-w-0">
               <p class="text-sm font-semibold">${esc(siteConfig.author)}</p>
               <p class="text-xs text-muted">${esc(formatMemoDate(m.createdAt))}</p>
