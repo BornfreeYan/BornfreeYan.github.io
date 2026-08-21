@@ -18,7 +18,7 @@ const idx = all.findIndex((a) => a.id === article.id)
 const prev = idx > 0 ? all[idx - 1] : null
 const next = idx < all.length - 1 ? all[idx + 1] : null
 
-const { title, date, categories, tags } = article.data
+const { title, date, categories, tags, cover } = article.data
 const words = countWords(article.body ?? '')
 const readMin = Math.max(1, Math.round(words / 300))
 ---
@@ -55,17 +55,24 @@ const readMin = Math.max(1, Math.round(words / 300))
             ))}
           </div>
           <h1 class="mt-4 font-serif text-3xl font-semibold leading-tight sm:text-4xl">{title}</h1>
-          <div class="mt-4 flex flex-wrap gap-1.5">
-            {tags.map((t) => (
-              <a
-                href={`/tags/${encodeURIComponent(t)}`}
-                class="rounded-full border border-line px-2 py-0.5 text-xs text-muted transition-colors hover:border-accent hover:text-accent"
-              >
-                #{t}
-              </a>
-            ))}
+      <div class="mt-4 flex flex-wrap gap-1.5">
+        {tags.map((t) => (
+          <a
+            href={`/tags/${encodeURIComponent(t)}`}
+            class="rounded-full border border-line px-2 py-0.5 text-xs text-muted transition-colors hover:border-accent hover:text-accent"
+          >
+            #{t}
+          </a>
+        ))}
+      </div>
+      {
+        cover && (
+          <div class="mt-6 aspect-video w-full overflow-hidden rounded-xl border border-line bg-line/50">
+            <img src={cover} alt={title} class="h-full w-full object-cover" />
           </div>
-        </header>
+        )
+      }
+    </header>
 
         <div class="prose">
           <Content />

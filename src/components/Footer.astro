@@ -34,8 +34,9 @@ const year = new Date().getFullYear()
         )
       }
     </div>
-    <p>
-      © {year} {siteConfig.author}
-    </p>
+    <div class="text-center md:text-right">
+      <p>© {year} {siteConfig.author}</p>
+      <p class="mt-1 text-xs text-muted">Powered by Astro</p>
+    </div>
   </div>
 </footer>

@@ -119,6 +119,14 @@ html[data-theme='dark'] .astro-code span {
   @apply rounded-xl;
 }
 
+.copy-code-btn {
+  @apply absolute right-2 top-2 rounded-lg border border-line bg-bg/90 px-2 py-1 text-xs text-muted opacity-0 transition-all hover:border-accent hover:text-accent;
+}
+.prose pre:hover .copy-code-btn,
+.copy-code-btn:focus {
+  opacity: 1;
+}
+
 .prose a {
   @apply text-accent underline underline-offset-2;
 }

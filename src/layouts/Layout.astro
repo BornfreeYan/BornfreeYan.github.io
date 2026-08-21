@@ -40,6 +40,37 @@ const pageTitle = title ? `${title} · ${siteConfig.title}` : siteConfig.title
         document.documentElement.setAttribute('data-theme', theme)
       })()
     </script>
+    <script is:inline>
+      (function () {
+        function initCopyButtons() {
+          document.querySelectorAll('.prose pre').forEach(function (pre) {
+            if (pre.querySelector('.copy-code-btn')) return
+            var btn = document.createElement('button')
+            btn.type = 'button'
+            btn.className = 'copy-code-btn'
+            btn.setAttribute('aria-label', '复制代码')
+            btn.textContent = '复制'
+            btn.addEventListener('click', function () {
+              var code = pre.querySelector('code')
+              var text = code ? code.textContent : pre.textContent
+              navigator.clipboard.writeText(text || '').then(function () {
+                btn.textContent = '已复制'
+                setTimeout(function () {
+                  btn.textContent = '复制'
+                }, 1500)
+              })
+            })
+            pre.style.position = 'relative'
+            pre.appendChild(btn)
+          })
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initCopyButtons)
+        } else {
+          initCopyButtons()
+        }
+      })()
+    </script>
   </head>
   <body>
     <Navbar />
