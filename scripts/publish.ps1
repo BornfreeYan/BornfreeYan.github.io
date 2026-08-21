@@ -149,6 +149,9 @@ if ($DryRun) {
 
 # [2] 构建站点
 Write-Host "==> [2/5] 构建站点..."
+# 清理旧内容缓存与产物，避免已删除的文章残留
+$null = Remove-Item (Join-Path $root 'node_modules\.astro') -Recurse -Force -ErrorAction SilentlyContinue
+$null = Remove-Item (Join-Path $root 'dist') -Recurse -Force -ErrorAction SilentlyContinue
 pnpm run build
 Check-LastExit '构建'
 

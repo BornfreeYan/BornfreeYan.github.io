@@ -121,6 +121,16 @@ Memo 就像朋友圈，直接在网页上发：
 
 ---
 
+## 5.5 删除文章
+
+1. 删除知识库里的文章 md 文件
+2. 运行发布脚本（它会自动清理旧缓存和旧产物，被删的文章不会残留）：
+   ```powershell
+   powershell -ExecutionPolicy Bypass -File "D:\Local Knowledge_Base\1 Job\17 Projects\BornfreeYan\scripts\publish.ps1"
+   ```
+
+> 提示：之前版本出现过"删除后文章还在"的问题，根因是 Astro 的内容缓存（`node_modules/.astro/data-store.json`）没失效。现在脚本已内置构建前清理，直接跑脚本即可，**不用手动删除 `dist/` 或缓存**。
+
 ## 6. 常见问题
 
 | 问题 | 处理 |
