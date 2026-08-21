@@ -1,0 +1,127 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="敬畏时间，捍卫注意力。永远好奇，永远乐观"><title>Projects · Bornfree</title><meta property="og:title" content="Projects · Bornfree"><meta property="og:description" content="敬畏时间，捍卫注意力。永远好奇，永远乐观"><meta property="og:type" content="website"><link rel="icon" type="image/png" href="/favicon.png"><link rel="alternate" type="application/rss+xml" title="Bornfree" href="/rss.xml"><script>
+      (function () {
+        var stored = localStorage.getItem('theme')
+        var dark =
+          window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        var theme =
+          stored === 'light' || stored === 'dark' ? stored : dark ? 'dark' : 'light'
+        document.documentElement.setAttribute('data-theme', theme)
+      })()
+    </script><script>
+      (function () {
+        function initCopyButtons() {
+          document.querySelectorAll('.prose pre').forEach(function (pre) {
+            if (pre.querySelector('.copy-code-btn')) return
+            var btn = document.createElement('button')
+            btn.type = 'button'
+            btn.className = 'copy-code-btn'
+            btn.setAttribute('aria-label', '复制代码')
+            btn.textContent = '复制'
+            btn.addEventListener('click', function () {
+              var code = pre.querySelector('code')
+              var text = code ? code.textContent : pre.textContent
+              navigator.clipboard.writeText(text || '').then(function () {
+                btn.textContent = '已复制'
+                setTimeout(function () {
+                  btn.textContent = '复制'
+                }, 1500)
+              })
+            })
+            pre.style.position = 'relative'
+            pre.appendChild(btn)
+          })
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initCopyButtons)
+        } else {
+          initCopyButtons()
+        }
+      })()
+    </script><link rel="stylesheet" href="/_astro/Layout.VKxrmrKy.css"></head><body><header class="sticky top-0 z-40 border-b border-line bg-bg/80 backdrop-blur"><nav class="mx-auto flex h-14 max-w-5xl items-center gap-1 px-4"><a href="/" class="mr-3 flex shrink-0 items-center gap-2.5 font-serif text-lg font-semibold"><img src="/favicon.png" alt="{siteConfig.title}" class="h-7 w-7 rounded-full object-cover"><span>Bornfree</span></a><div class="hidden items-center gap-0.5 md:flex"><a href="/" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Home</a><a href="/projects" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Project</a><div class="group relative"><span class="flex cursor-default items-center gap-1 rounded-lg px-3 py-2 text-sm text-muted transition-colors">Article<div class="h-3.5 w-3.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><path d="m6 9 6 6 6-6"/></svg></div></span><div class="invisible absolute left-0 top-full pt-2 opacity-0 transition-all duration-150 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100"><div class="w-44 rounded-xl border border-line bg-surface p-1.5 shadow-lg"><a href="/categories" class="block rounded-lg px-3 py-2 text-sm text-ink transition-colors hover:bg-line/60">Categories</a><a href="/tags" class="block rounded-lg px-3 py-2 text-sm text-ink transition-colors hover:bg-line/60">Tags</a><a href="/archive" class="block rounded-lg px-3 py-2 text-sm text-ink transition-colors hover:bg-line/60">Archive</a></div></div></div><a href="/memos" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Memo</a><a href="/about" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">About</a></div><div class="ml-auto flex items-center gap-0.5"><button data-search-open class="rounded-lg p-2 text-muted transition-colors hover:text-ink" aria-label="搜索"><div class="h-5 w-5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div></button><button data-theme-toggle class="rounded-lg p-2 text-muted transition-colors hover:text-ink" aria-label="切换明暗模式"><div class="hidden h-5 w-5 [data-theme='dark']:block"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></div><div class="block h-5 w-5 [data-theme='dark']:hidden"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></div></button><button data-menu-toggle class="rounded-lg p-2 text-muted transition-colors hover:text-ink md:hidden" aria-label="打开菜单"><div class="h-5 w-5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg></div></button></div></nav><div data-mobile-menu class="hidden border-t border-line md:hidden"><div class="mx-auto flex max-w-5xl flex-col gap-1 px-4 py-3"><a href="/" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Home</a><a href="/projects" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Project</a><div class="flex flex-col"><span class="flex items-center gap-1 px-3 py-2 text-sm font-semibold text-ink">Article<div class="h-3.5 w-3.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><path d="m6 9 6 6 6-6"/></svg></div></span><div class="mb-1 flex flex-col pl-4"><a href="/categories" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Categories</a><a href="/tags" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Tags</a><a href="/archive" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Archive</a></div></div><a href="/memos" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Memo</a><a href="/about" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">About</a></div></div></header><script type="module">document.querySelector(`[data-theme-toggle]`)?.addEventListener(`click`,()=>{let e=document.documentElement,t=e.getAttribute(`data-theme`)===`dark`?`light`:`dark`;e.setAttribute(`data-theme`,t),localStorage.setItem(`theme`,t)});var e=document.querySelector(`[data-menu-toggle]`),t=document.querySelector(`[data-mobile-menu]`);e?.addEventListener(`click`,()=>{let n=t?.classList.toggle(`hidden`)??!0;e.setAttribute(`aria-label`,n?`打开菜单`:`关闭菜单`)});</script><main><div class="mx-auto max-w-5xl px-4 py-16"><h1 class="font-serif text-3xl font-semibold">Projects</h1><p class="mt-2 text-muted">我的项目。<a href="https://github.com/BornfreeYan" target="_blank" rel="noopener noreferrer" class="text-accent underline underline-offset-2">GitHub</a>→</p><div class="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"><article class="flex flex-col rounded-2xl border border-line bg-surface p-5 transition-all hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-md"><div class="flex items-start justify-between gap-3"><h3 class="font-serif text-lg font-semibold leading-snug">WebDesk</h3><span data-stars="https://github.com/BornfreeYan/WebDesk" class="flex shrink-0 items-center gap-1 rounded-full border border-line px-2 py-0.5 text-xs text-muted"><div class="h-3 w-3 text-accent"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="100%" height="100%"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span data-stars-value>…</span></span></div><p class="mt-2 flex-1 text-sm leading-relaxed text-muted">浏览器里的虚拟桌面，通过 GitHub token 实时修改布局（JSON 存储）。</p><div class="mt-3 flex flex-wrap gap-1.5"><span class="rounded-full bg-line/60 px-2 py-0.5 text-xs text-muted">Web</span><span class="rounded-full bg-line/60 px-2 py-0.5 text-xs text-muted">GitHub API</span></div><div class="mt-4 flex gap-2"><a href="https://github.com/BornfreeYan/WebDesk" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 rounded-lg border border-line px-3 py-1.5 text-sm text-muted transition-colors hover:border-accent hover:text-accent">GitHub<div class="h-3.5 w-3.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg></div></a></div></article><script type="module">async function e(e){let t=e.match(/github\.com\/([^/]+)\/([^/]+)/);if(!t)return null;let n=t[1],r=t[2].replace(/\.git$/,``),i=`repo_stars_${n}_${r}`,a=localStorage.getItem(i);if(a)try{let e=JSON.parse(a);if(e.timestamp&&Date.now()-e.timestamp<864e5)return e.stars}catch{localStorage.removeItem(i)}try{let e=new AbortController,t=setTimeout(()=>e.abort(),8e3),a=await fetch(`https://api.github.com/repos/${n}/${r}`,{headers:{Accept:`application/vnd.github+json`},signal:e.signal});if(clearTimeout(t),!a.ok)return null;let o=(await a.json()).stargazers_count??0;return localStorage.setItem(i,JSON.stringify({stars:o,timestamp:Date.now()})),o}catch{return null}}document.querySelectorAll(`[data-stars]`).forEach(async t=>{let n=await e(t.getAttribute(`data-stars`)??``),r=t.querySelector(`[data-stars-value]`);n!==null&&r&&(r.textContent=n>0?String(n):`0`)});</script></div></div></main><footer class="border-t border-line"><div class="mx-auto flex max-w-5xl flex-col items-center gap-4 px-4 py-10 text-sm text-muted md:flex-row md:justify-between"><div class="text-center md:text-left"><p class="font-display text-xl font-medium tracking-[0.04em] text-ink">Bornfree</p><p class="mt-1.5 font-display text-sm italic tracking-[0.12em] text-muted">Revere time, defend your attention.</p></div><div class="flex items-center gap-2.5"><a href="https://github.com/BornfreeYan" target="_blank" rel="noopener noreferrer" class="flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:text-accent" aria-label="GitHub"><div class="h-4 w-4"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="100%" height="100%"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></div></a><a href="https://xhslink.cn/m/5DbIxl50YGT" target="_blank" rel="noopener noreferrer" class="flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:text-accent" aria-label="小红书"><div class="h-4 w-4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div></a><a href="https://x.com/yanbornfree" target="_blank" rel="noopener noreferrer" class="flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:text-accent" aria-label="X"><div class="h-4 w-4"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="100%" height="100%"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></div></a><a href="/rss.xml" target="_blank" rel="noopener noreferrer" class="flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:text-accent" aria-label="RSS"><div class="h-4 w-4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg></div></a><button type="button" data-email-copy data-addr="1700807190@qq.com" aria-label="复制邮箱" class="group relative flex items-center justify-center rounded-full border border-line text-muted transition-all hover:border-accent hover:text-accent h-9 w-9"><div class="h-4 w-4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div><span data-email-tip class="pointer-events-none absolute -top-9 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-ink px-3 py-1 text-xs text-bg opacity-0 transition-opacity duration-150">已复制 ✓</span></button><script type="module">document.querySelectorAll(`[data-email-copy]`).forEach(e=>{let t=e.querySelector(`[data-email-tip]`);e.addEventListener(`click`,async()=>{let n=e.getAttribute(`data-addr`)??``;try{await navigator.clipboard.writeText(n)}catch{}t&&(t.classList.remove(`opacity-0`),setTimeout(()=>t.classList.add(`opacity-0`),1600))})});</script></div><div class="text-center md:text-right"><p>© 2026 Bornfree</p><p class="mt-1 text-xs text-muted">Powered by Astro</p></div></div></footer><div data-search-overlay class="fixed inset-0 z-50 hidden"><div data-search-close class="absolute inset-0 bg-black/40 backdrop-blur-sm"></div><div class="absolute inset-x-0 top-0 mx-auto max-w-xl px-4 pt-24"><div class="rounded-2xl border border-line bg-surface p-4 shadow-2xl"><div class="flex items-center gap-2 border-b border-line pb-3"><div class="h-5 w-5 shrink-0 text-muted"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div><input data-search-input type="search" placeholder="搜索文章…" autocomplete="off" class="w-full bg-transparent text-lg outline-none placeholder:text-muted"><button data-search-close class="shrink-0 rounded-lg p-1 text-muted transition-colors hover:text-ink" aria-label="关闭搜索"><div class="h-5 w-5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></div></button></div><div data-search-results class="mt-3 max-h-[55vh] overflow-y-auto"></div><p data-search-hint class="mt-3 text-xs text-muted">搜索索引在构建时生成，预览请先 npm run build</p></div></div></div><script>
+  let pagefind = null
+
+  const overlay = document.querySelector('[data-search-overlay]')
+  const input = document.querySelector('[data-search-input]')
+  const results = document.querySelector('[data-search-results]')
+  const hint = document.querySelector('[data-search-hint]')
+
+  if (!overlay || !input || !results || !hint) throw new Error('search elements missing')
+
+  async function initPagefind() {
+    if (pagefind) return true
+    try {
+      const modUrl = '/pagefind/pagefind.js'
+      pagefind = await import(modUrl)
+      hint.textContent = ''
+      return true
+    } catch {
+      hint.textContent = '搜索索引未生成，请先执行 npm run build'
+      return false
+    }
+  }
+
+  function open() {
+    overlay.classList.remove('hidden')
+    input.value = ''
+    results.innerHTML = ''
+    setTimeout(() => input.focus(), 50)
+    initPagefind()
+  }
+
+  function close() {
+    overlay.classList.add('hidden')
+  }
+
+  document.addEventListener('click', (e) => {
+    const target = e.target
+    if (target.closest('[data-search-open]')) open()
+    else if (target.closest('[data-search-close]')) close()
+  })
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      close()
+      return
+    }
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault()
+      open()
+    }
+  })
+
+  let timer
+  input.addEventListener('input', () => {
+    clearTimeout(timer)
+    timer = setTimeout(runSearch, 200)
+  })
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') runSearch()
+  })
+
+  async function runSearch() {
+    const term = input.value.trim()
+    if (!term) {
+      results.innerHTML = ''
+      return
+    }
+    const ok = await initPagefind()
+    if (!ok) return
+    const search = await pagefind.search(term)
+    const items = (search.results ?? []).slice(0, 12)
+    if (items.length === 0) {
+      results.innerHTML = '<p class="p-3 text-sm text-muted">没有找到相关内容</p>'
+      return
+    }
+    const data = await Promise.all(items.map((r) => r.data()))
+    results.innerHTML = data
+      .map(
+        (d) => `
+        <a href="${d.url}" class="block rounded-xl px-3 py-3 transition-colors hover:bg-line/60">
+          <p class="font-medium">${d.meta?.title ?? ''}</p>
+          <p class="mt-1 line-clamp-2 text-sm text-muted">${d.excerpt ?? ''}</p>
+        </a>
+      `
+      )
+      .join('')
+  }
+</script></body></html>
