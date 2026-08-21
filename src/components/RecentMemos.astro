@@ -10,7 +10,7 @@
 
 <script>
   import { fetchMemos } from '../lib/memo'
-  import { formatMemoDate } from '../lib/format'
+  import { formatMemoDate, escapeHtml } from '../lib/format'
 
   async function load() {
     const list = document.querySelector<HTMLElement>('[data-memo-recent]')
@@ -41,14 +41,6 @@
         </a>`
       })
       .join('')
-  }
-
-  function escapeHtml(s: string): string {
-    return s
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
   }
 
   load()
