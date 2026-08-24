@@ -2,6 +2,15 @@
   "version": 1,
   "memos": [
     {
+      "id": "20260824-1803-57y",
+      "text": "似乎没有5$了，那opencode go 就没有性价比了，除非额度翻倍。。。\n学生党是价格最敏感的，看来要赌一赌minimax的49套餐了，希望它M4pro让我震惊瘫坐吧，毕竟量大管饱是一贯的，但模型傻也是一贯的。。。\n至于如何评价opencode呢？其实就是个体量大的中转站吧，你不卷价格，有的是人卷，用户会用脚投票，昨天的opencode go，今天的commandcode goat，明天又是谁？说实话，对于这种聚合多模型站，完全不用相信他们的道德，一定会有一定程度的掺水、降质、限流，谁家的200B参数模型用量最多就去谁家",
+      "images": [
+        "https://cloudflare-imgbed.freelyfly2025.workers.dev/file/1787565353384_image.png"
+      ],
+      "createdAt": "2026-08-24T10:03:03.933Z",
+      "replyTo": "20260823-2210-0m7"
+    },
+    {
       "id": "20260823-2210-0m7",
       "text": "今天开始用 zcode，刚好它能显示各订阅的 token。我估计 35 元买 OpenCodeGo 的 DeepSeek V4 Flash，大概 10 亿以上的 Token，加上100￥左右 GLM 订阅 Lite 套餐，一个月 1 亿以上的 GLM 5.3（当然不排除未来购入GPT Plus）。\n所以立个 flag：接下来 20~30 天要烧掉 10~20 亿 token，上不封顶，这已经是最便宜的培训费了。",
       "images": [
