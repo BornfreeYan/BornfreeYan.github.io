@@ -11,7 +11,7 @@ Set-Location $root
 $today = Get-Date -Format 'yyyy-MM-dd'
 $articlesDir = Join-Path $root 'src\content\articles'
 $imagesDir = Join-Path $root 'public\images'
-$excludePattern = '\\1 Job\\17 Projects\\BornfreeYan\\|\\1 Job\\17 Projects\\Blog\\|\\.trash\\|\\.obsidian\\|\\.git\\|\\node_modules\\'
+$excludePattern = '\\7 Projects\\BornfreeYan\\|\\.trash\\|\\.obsidian\\|\\.git\\|\\node_modules\\'
 
 function Check-LastExit {
   param([string]$Step)

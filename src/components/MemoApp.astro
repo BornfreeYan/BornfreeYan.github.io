@@ -4,6 +4,14 @@
 <div data-memo-app class="space-y-5">
   <div data-memo-auth class="relative flex justify-end"></div>
   <div data-memo-composer></div>
+  <input
+    data-memo-search
+    type="search"
+    placeholder="搜索 Memo（正文 / 标签）…"
+    autocomplete="off"
+    class="w-full rounded-xl border border-line bg-surface px-4 py-2.5 text-sm outline-none placeholder:text-muted focus:border-accent"
+  />
+  <div data-memo-status class="hidden flex flex-wrap items-center gap-2 text-xs text-muted"></div>
   <p data-memo-error class="hidden rounded-xl border border-red-400/40 bg-red-400/10 p-3 text-sm text-red-500"></p>
   <div data-memo-list class="space-y-4"></div>
   <p data-memo-empty class="hidden rounded-xl border border-dashed border-line p-8 text-center text-sm text-muted">
@@ -59,6 +67,11 @@
   import { formatMemoDate, escapeHtml } from '../lib/format'
 
   const MAX_IMAGES = 6
+  const MAX_SUGGESTIONS = 8
+
+  // #标签 渲染与输入共用;前导 / 或 ASCII 单词字符时不算标签(避开 URL 片段)
+  const TAG_RE = /(?<![/\w])#([\p{L}\p{N}_-]+)/gu
+  const TAG_CARET_RE = /(?<![/\w])#([\p{L}\p{N}_-]*)$/u
 
   const TRASH_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>`
   const REPLY_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5"><path d="M9 17l-5-5 5-5"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></svg>`
@@ -70,11 +83,25 @@
   const listBox = document.querySelector<HTMLElement>('[data-memo-list]')!
   const emptyBox = document.querySelector<HTMLElement>('[data-memo-empty]')!
   const errorBox = document.querySelector<HTMLElement>('[data-memo-error]')!
+  const searchBox = document.querySelector<HTMLInputElement>('[data-memo-search]')!
+  const statusBox = document.querySelector<HTMLElement>('[data-memo-status]')!
 
-  let memos: Memo[] = []
+  type ViewMemo = Memo & { _tags?: string[] }
+
+  let memos: ViewMemo[] = []
   let pendingImages: File[] = []
   let pendingExternalImages: string[] = []
   let pendingReply: Memo | null = null
+
+  let tagVocab: string[] = []
+  let activeTag: string | null = null
+  let searchQuery = ''
+
+  let suggestOpen = false
+  let suggestIndex = 0
+  let suggestList: string[] = []
+  let suggestTokenStart = 0
+  let suggestCaret = 0
 
   let lightboxImages: string[] = []
   let lightboxIndex = 0
@@ -176,7 +203,10 @@
               </div>`
             : ''
         }
-        <textarea data-composer-text rows="3" placeholder="写点什么…" class="w-full resize-none bg-transparent text-sm leading-relaxed outline-none placeholder:text-muted"></textarea>
+        <div class="relative">
+          <textarea data-composer-text rows="3" placeholder="写点什么…" class="w-full resize-none bg-transparent text-sm leading-relaxed outline-none placeholder:text-muted"></textarea>
+          <div data-tag-suggest class="absolute left-0 right-0 top-full z-20 mt-1 hidden overflow-hidden rounded-xl border border-line bg-surface py-1 shadow-lg"></div>
+        </div>
         <div data-composer-preview class="mt-3 flex flex-wrap gap-2"></div>
         <div data-url-input-area class="hidden mt-3 flex items-center gap-2">
           <input data-url-input type="text" placeholder="https://你的图床.com/xxx.png" class="min-w-0 flex-1 rounded-lg border border-line bg-transparent px-3 py-2 text-sm outline-none placeholder:text-muted focus:border-accent">
@@ -247,6 +277,13 @@
       renderComposer()
       renderPreview()
     })
+    composerBox.querySelector<HTMLTextAreaElement>('[data-composer-text]')?.addEventListener('input', onComposerInput)
+    composerBox.querySelector<HTMLTextAreaElement>('[data-composer-text]')?.addEventListener('keydown', onComposerKeydown)
+    composerBox.querySelector<HTMLElement>('[data-tag-suggest]')?.addEventListener('mousedown', (e) => e.preventDefault())
+    composerBox.querySelector<HTMLElement>('[data-tag-suggest]')?.addEventListener('click', (e) => {
+      const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-suggest-tag]')
+      if (btn?.dataset.suggestTag) applySuggestion(btn.dataset.suggestTag)
+    })
     composerBox.querySelector('[data-submit]')?.addEventListener('click', async (e) => {
       const btn = e.currentTarget as HTMLButtonElement
       const textarea = composerBox.querySelector<HTMLTextAreaElement>('[data-composer-text]')
@@ -261,6 +298,7 @@
         pendingImages = []
         pendingExternalImages = []
         pendingReply = null
+        closeSuggestions()
         renderComposer()
         renderPreview()
         await load()
@@ -322,17 +360,36 @@
     return `<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent/15 font-serif text-lg text-accent">${escapeHtml(siteConfig.author.charAt(0).toUpperCase())}</div>`
   }
 
+  function filteredMemos(): ViewMemo[] {
+    return memos.filter((m) => {
+      if (activeTag && !(m._tags ?? []).includes(activeTag)) return false
+      if (searchQuery) {
+        const inText = m.text.toLowerCase().includes(searchQuery)
+        const inTags = (m._tags ?? []).some((t) => t.toLowerCase().includes(searchQuery))
+        if (!inText && !inTags) return false
+      }
+      return true
+    })
+  }
+
   function renderList() {
+    renderStatus()
     if (memos.length === 0) {
       emptyBox.classList.remove('hidden')
       listBox.innerHTML = ''
       return
     }
     emptyBox.classList.add('hidden')
-    listBox.innerHTML = memos
+    const shown = filteredMemos()
+    if (shown.length === 0) {
+      listBox.innerHTML = `<p class="rounded-xl border border-line bg-surface p-6 text-center text-sm text-muted">没有匹配的 Memo · <button data-status-clear-all type="button" class="text-accent hover:underline">清除过滤</button></p>`
+      bindList()
+      return
+    }
+    listBox.innerHTML = shown
       .map(
         (m) => `
-        <div data-memo-id="${m.id}" class="rounded-2xl border border-line bg-surface p-5">
+        <div data-memo-id="${m.id}" class="scroll-mt-20 rounded-2xl border border-line bg-surface p-5">
           <div class="flex items-center gap-3">
             ${renderAvatar()}
             <div class="min-w-0">
@@ -349,7 +406,7 @@
             </div>
           </div>
           ${m.replyTo ? renderQuote(m) : ''}
-          ${m.text ? `<p class="mt-3 whitespace-pre-wrap text-sm leading-relaxed">${escapeHtml(m.text)}</p>` : ''}
+          ${m.text ? `<p class="mt-3 whitespace-pre-wrap text-sm leading-relaxed">${renderMemoText(m.text)}</p>` : ''}
           ${renderImages(m.images)}
         </div>`
       )
@@ -474,12 +531,37 @@
       el.addEventListener('click', () => {
         const id = el.getAttribute('data-jump')
         if (!id) return
-        const target = listBox.querySelector<HTMLElement>(`[data-memo-id="${id}"]`)
+        let target = listBox.querySelector<HTMLElement>(`[data-memo-id="${id}"]`)
+        // 目标被标签/搜索过滤掉时,先清除过滤再跳
+        if (!target && (activeTag || searchQuery)) {
+          activeTag = null
+          searchQuery = ''
+          updateSearchInput()
+          syncHash()
+          renderList()
+          target = listBox.querySelector<HTMLElement>(`[data-memo-id="${id}"]`)
+        }
         if (!target) return
-        target.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' })
         target.classList.add('ring-2', 'ring-accent')
         setTimeout(() => target.classList.remove('ring-2', 'ring-accent'), 2000)
       })
+    })
+
+    listBox.querySelectorAll<HTMLAnchorElement>('[data-tag-link]').forEach((a) => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault()
+        const tag = a.dataset.tagLink
+        if (tag) applyTag(tag)
+      })
+    })
+
+    listBox.querySelector('[data-status-clear-all]')?.addEventListener('click', () => {
+      activeTag = null
+      searchQuery = ''
+      updateSearchInput()
+      syncHash()
+      renderList()
     })
 
     listBox.querySelectorAll<HTMLElement>('[data-lightbox-open]').forEach((el) => {
@@ -495,6 +577,168 @@
     })
   }
 
+  function extractTags(text: string): string[] {
+    const tags: string[] = []
+    for (const m of text.matchAll(TAG_RE)) {
+      if (!tags.includes(m[1])) tags.push(m[1])
+    }
+    return tags
+  }
+
+  function renderMemoText(text: string): string {
+    return escapeHtml(text).replace(TAG_RE, (full, tag: string) => {
+      return `<a href="#tag=${encodeURIComponent(tag)}" data-tag-link="${tag}" class="cursor-pointer font-medium text-accent hover:underline">${full}</a>`
+    })
+  }
+
+  function buildTagVocab(): string[] {
+    const seen = new Set<string>()
+    const list: string[] = []
+    for (const m of memos) {
+      for (const t of m._tags ?? []) {
+        if (!seen.has(t)) {
+          seen.add(t)
+          list.push(t)
+        }
+      }
+    }
+    return list
+  }
+
+  function tagFromHash(): string | null {
+    const m = window.location.hash.match(/^#tag=([^&]+)/)
+    if (!m) return null
+    try {
+      return decodeURIComponent(m[1])
+    } catch {
+      return null
+    }
+  }
+
+  function syncHash() {
+    const next = activeTag ? `#tag=${encodeURIComponent(activeTag)}` : ''
+    if (window.location.hash !== next) history.replaceState(null, '', next)
+  }
+
+  function applyTag(tag: string) {
+    activeTag = tag
+    syncHash()
+    renderList()
+  }
+
+  function renderStatus() {
+    if (!activeTag && !searchQuery) {
+      statusBox.classList.add('hidden')
+      statusBox.innerHTML = ''
+      return
+    }
+    const chips = [
+      activeTag
+        ? `<button data-status-clear-tag type="button" class="flex items-center gap-1 rounded-full border border-accent/40 bg-accent/10 px-3 py-1 text-accent transition-colors hover:border-accent">#${escapeHtml(activeTag)}<span class="text-xs">×</span></button>`
+        : '',
+      searchQuery
+        ? `<button data-status-clear-search type="button" class="flex items-center gap-1 rounded-full border border-line px-3 py-1 transition-colors hover:border-accent hover:text-accent">“${escapeHtml(searchQuery)}”<span class="text-xs">×</span></button>`
+        : '',
+      memos.length > 0 ? `<span class="px-1">${filteredMemos().length} / ${memos.length} 条</span>` : '',
+    ]
+    statusBox.classList.remove('hidden')
+    statusBox.innerHTML = chips.join('')
+    statusBox.querySelector('[data-status-clear-tag]')?.addEventListener('click', () => {
+      activeTag = null
+      syncHash()
+      renderList()
+    })
+    statusBox.querySelector('[data-status-clear-search]')?.addEventListener('click', () => {
+      searchQuery = ''
+      updateSearchInput()
+      renderList()
+    })
+  }
+
+  function updateSearchInput() {
+    searchBox.value = searchQuery
+  }
+
+  function onComposerInput() {
+    const ta = composerBox.querySelector<HTMLTextAreaElement>('[data-composer-text]')
+    if (!ta) return
+    const caret = ta.selectionStart ?? ta.value.length
+    const before = ta.value.slice(0, caret)
+    const m = before.match(TAG_CARET_RE)
+    if (!m) {
+      suggestOpen = false
+      renderSuggestions()
+      return
+    }
+    const prefix = m[1] ?? ''
+    suggestTokenStart = m.index ?? 0
+    suggestCaret = caret
+    suggestList = tagVocab
+      .filter((t) => t.toLowerCase().startsWith(prefix.toLowerCase()))
+      .slice(0, MAX_SUGGESTIONS)
+    suggestIndex = 0
+    suggestOpen = suggestList.length > 0
+    renderSuggestions()
+  }
+
+  function onComposerKeydown(e: KeyboardEvent) {
+    if (!suggestOpen || e.isComposing) return
+    if (e.key === 'ArrowDown') {
+      e.preventDefault()
+      suggestIndex = (suggestIndex + 1) % suggestList.length
+      renderSuggestions()
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault()
+      suggestIndex = (suggestIndex - 1 + suggestList.length) % suggestList.length
+      renderSuggestions()
+    } else if (e.key === 'Enter') {
+      const tag = suggestList[suggestIndex]
+      if (tag) {
+        e.preventDefault()
+        applySuggestion(tag)
+      }
+    } else if (e.key === 'Escape') {
+      e.preventDefault()
+      suggestOpen = false
+      renderSuggestions()
+    }
+  }
+
+  function renderSuggestions() {
+    const suggestBox = composerBox.querySelector<HTMLElement>('[data-tag-suggest]')
+    if (!suggestBox) return
+    if (!suggestOpen || suggestList.length === 0) {
+      suggestBox.classList.add('hidden')
+      return
+    }
+    suggestBox.innerHTML = suggestList
+      .map(
+        (t, i) =>
+          `<button type="button" data-suggest-tag="${escapeHtml(t)}" class="flex w-full items-center gap-1.5 px-3 py-1.5 text-left text-sm transition-colors ${
+            i === suggestIndex ? 'bg-accent/10 text-accent' : 'text-ink hover:bg-line/60'
+          }"><span class="text-accent">#</span>${escapeHtml(t)}</button>`
+      )
+      .join('')
+    suggestBox.classList.remove('hidden')
+  }
+
+  function applySuggestion(tag: string) {
+    const ta = composerBox.querySelector<HTMLTextAreaElement>('[data-composer-text]')
+    if (!ta) return
+    const next = ta.value.slice(0, suggestTokenStart) + '#' + tag + ' ' + ta.value.slice(suggestCaret)
+    ta.value = next
+    suggestOpen = false
+    suggestCaret = suggestTokenStart + 1 + tag.length + 1
+    ta.setSelectionRange(suggestCaret, suggestCaret)
+    renderSuggestions()
+    ta.focus()
+  }
+
+  function closeSuggestions() {
+    suggestOpen = false
+    renderSuggestions()
+  }
+
   async function load() {
     clearError()
     listBox.innerHTML = `<p class="p-4 text-center text-sm text-muted">加载中…</p>`
@@ -503,9 +747,25 @@
     } catch {
       memos = []
     }
+    for (const m of memos) {
+      m._tags = extractTags(m.text ?? '')
+    }
+    tagVocab = buildTagVocab()
     renderList()
   }
 
+  activeTag = tagFromHash()
+  window.addEventListener('hashchange', () => {
+    const tag = tagFromHash()
+    if (tag !== activeTag) {
+      activeTag = tag
+      renderList()
+    }
+  })
+  searchBox.addEventListener('input', () => {
+    searchQuery = searchBox.value.trim().toLowerCase()
+    renderList()
+  })
   renderAuth()
   renderComposer()
   load()

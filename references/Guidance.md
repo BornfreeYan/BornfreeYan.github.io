@@ -26,12 +26,12 @@
 2. **确认今天要发的文章**：用你的 DataViewJS 看板，检查今天 `date` 的文章是不是你要发的
 3. **发布前预览（可选）**：
    ```powershell
-   powershell -ExecutionPolicy Bypass -File "D:\Local Knowledge_Base\1 Job\17 Projects\BornfreeYan\scripts\publish.ps1" -DryRun
+   powershell -ExecutionPolicy Bypass -File "D:\Local Knowledge_Base\7 Projects\BornfreeYan\scripts\publish.ps1" -DryRun
    ```
    会列出今天将被迁移的文章，不实际发布。
 4. **正式发布**：
    ```powershell
-   powershell -ExecutionPolicy Bypass -File "D:\Local Knowledge_Base\1 Job\17 Projects\BornfreeYan\scripts\publish.ps1"
+   powershell -ExecutionPolicy Bypass -File "D:\Local Knowledge_Base\7 Projects\BornfreeYan\scripts\publish.ps1"
    ```
 5. 等脚本跑完，打开 https://BornfreeYan.github.io 查看
 
@@ -63,18 +63,18 @@
 
 ## 2. 更新 About 页
 
-1. 打开 `D:\Local Knowledge_Base\1 Job\17 Projects\BornfreeYan\src\content\about.md`
+1. 打开 `D:\Local Knowledge_Base\7 Projects\BornfreeYan\src\content\about.md`
 2. 直接编辑内容（用任意文本编辑器或 Obsidian 打开该文件所在文件夹）
 3. 保存后运行发布脚本：
    ```powershell
-   powershell -ExecutionPolicy Bypass -File "D:\Local Knowledge_Base\1 Job\17 Projects\BornfreeYan\scripts\publish.ps1"
+   powershell -ExecutionPolicy Bypass -File "D:\Local Knowledge_Base\7 Projects\BornfreeYan\scripts\publish.ps1"
    ```
 
 ---
 
 ## 3. 更新 Project 页
 
-1. 打开 `D:\Local Knowledge_Base\1 Job\17 Projects\BornfreeYan\src\data\projects.json`
+1. 打开 `D:\Local Knowledge_Base\7 Projects\BornfreeYan\src\data\projects.json`
 2. 按下面的格式加/改项目：
    ```json
    {
@@ -126,7 +126,7 @@ Memo 就像朋友圈，直接在网页上发：
 1. 删除知识库里的文章 md 文件
 2. 运行发布脚本（它会自动清理旧缓存和旧产物，被删的文章不会残留）：
    ```powershell
-   powershell -ExecutionPolicy Bypass -File "D:\Local Knowledge_Base\1 Job\17 Projects\BornfreeYan\scripts\publish.ps1"
+   powershell -ExecutionPolicy Bypass -File "D:\Local Knowledge_Base\7 Projects\BornfreeYan\scripts\publish.ps1"
    ```
 
 > 提示：之前版本出现过"删除后文章还在"的问题，根因是 Astro 的内容缓存（`node_modules/.astro/data-store.json`）没失效。现在脚本已内置构建前清理，直接跑脚本即可，**不用手动删除 `dist/` 或缓存**。
@@ -148,5 +148,5 @@ Memo 就像朋友圈，直接在网页上发：
 
 | 脚本 | 路径 | 作用 |
 |---|---|---|
-| 发布 | `D:\Local Knowledge_Base\1 Job\17 Projects\BornfreeYan\scripts\publish.ps1` | 迁移今日文章 + 构建 + 双分支发布 |
+| 发布 | `D:\Local Knowledge_Base\7 Projects\BornfreeYan\scripts\publish.ps1` | 迁移今日文章 + 构建 + 双分支发布 |
 | 预览 | 同上，加 `-DryRun` 参数 | 只列今日文章，不发布 |

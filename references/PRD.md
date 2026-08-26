@@ -191,15 +191,18 @@ cover: ""                  # 可选封面图 URL，会显示在文章卡片顶�
 
 ### 6.2 发布脚本（PowerShell，`scripts/` 目录）
 
-**`publish.ps1`**（发布文章/项目/全部改动，交互式）：
+**`publish.ps1`**（发布文章/项目/全部改动，一条命令全自动）：
 
-1. 可选：`git add -A && git commit`（输入 commit message）
-2. `npm run build`（含 Pagefind 索引 + 字数统计）
-3. `git add/commit` 产物 → 切到 `gh-pages` 分支 → push
-4. 切回 `main`，push 源码
-5. 打印站点 URL 供核对
+1. 扫描主知识库，筛选 `date` 等于今天的 Markdown 笔记
+2. 补 frontmatter 引号、转换 Obsidian 图片引用（`![[img]]` → `![alt](/images/img)` 并复制图片到 `public/images/`）、迁移到 `src/content/articles/`
+3. `pnpm run build`（含 Pagefind 索引；构建前自动清理旧内容缓存，避免已删除内容残留）
+4. `git add/commit` 源码 → push `main`
+5. 临时克隆产物到 `gh-pages` 分支 → force push
+6. 打印站点 URL 供核对
 
-**`new-article.ps1`**（可选便利脚本）：根据模板创建带 frontmatter 的文章 md 文件。
+参数：`-DryRun`（仅预览今日待迁移文章，不实际发布）、`-Message "提交信息"`（自定义提交信息）。
+
+> 文章在知识库中编写，文件名用英文，`date` 等于发布当天才会被筛选迁移。
 
 ### 6.3 为什么不用 GitHub Actions
 
@@ -212,16 +215,13 @@ cover: ""                  # 可选封面图 URL，会显示在文章卡片顶�
 
 ## 7. 数据统计
 
-| 指标 | 方案 | 说明 |
-|---|---|---|
-| 访问量 | 不蒜子（busuanzi） | 免费，中文博客常用，一行脚本，显示 PV/UV |
-| 正常运行时间 | UptimeRobot | 免费监控博客 URL，公共状态徽章/状态页嵌入首页 |
-| 总字数 | 构建时统计 | Astro 构建时统计全部文章正文 + Memo 字数，写入配置供首页展示 |
+已删除实现。如未来需要访问量/运行时间/总字数统计，见 §8 预留扩展。
 
 ## 8. 本期不实现（预留扩展）
 
 | 扩展 | 方案 | 触发条件 |
 |---|---|---|
+| 数据统计 | 不蒜子（PV/UV）+ UptimeRobot 状态徽章 + 构建时总字数 | 用户需要时 |
 | AI 数字分身 | About 页底部内嵌聊天窗；前端调 Cloudflare Worker 代理 LLM API（key 存 Worker 侧，防盗刷）；用户提供 prompt 描述自我 | 用户觉得需要时 |
 | Cloudflare Pages / 自定义域名 | 导入仓库或产物分支，CNAME 绑定 | 用户购买域名后 |
 | Cloudflare R2 图床 | Worker 上传/压缩/分发，自定义域名 | 图片量大或需要外部图床链接时 |
@@ -250,12 +250,11 @@ BornfreeYan/
 │   │   └── about.md
 │   ├── data/
 │   │   └── projects.json
-│   ├── lib/                 # 工具（memo API、统计、日期格式化）
+│   ├── lib/                 # 工具（memo API、日期格式化）
 │   ├── config.ts            # 站点配置
 │   └── styles/              # 全局样式（Tailwind + CSS 变量主题）
 ├── scripts/
-│   ├── publish.ps1          # 发布脚本（构建 + 双分支 push）
-│   └── new-article.ps1      # 新文章模板脚本
+│   └── publish.ps1          # 发布脚本（迁移今日文章 + 构建 + 双分支 push）
 ├── astro.config.mjs
 ├── package.json
 └── README.md
@@ -281,7 +280,7 @@ BornfreeYan/
 
 ## 12. 验收标准
 
-- [x] `npm run build` 零报错；本地 preview 全部路由可访问
+- [x] `pnpm run build` 零报错；本地 preview 全部路由可访问
 - [x] 首页：导航（英文 + hover 下拉 Article）、Slogan、社媒图标、About 卡片、三栏最近更新
 - [x] 文章：分类/标签/归档可筛选，分页正常，搜索（含中文）可用，TOC 与阅读进度条正常
 - [x] Project：JSON 驱动画廊，GitHub 卡片可跳转，star 拉取失败优雅降级
