@@ -66,7 +66,8 @@
   import { siteConfig } from '../config'
   import { formatMemoDate, escapeHtml } from '../lib/format'
 
-  const MAX_IMAGES = 6
+  const MAX_LOCAL_IMAGES = 4
+  const MAX_EXTERNAL_IMAGES = 20
   const MAX_SUGGESTIONS = 8
 
   // #标签 渲染与输入共用;前导 / 或 ASCII 单词字符时不算标签(避开 URL 片段)
@@ -92,6 +93,10 @@
   let pendingImages: File[] = []
   let pendingExternalImages: string[] = []
   let pendingReply: Memo | null = null
+  let composerText = ''
+  let composerFullscreen = false
+  const expandedText = new Set<string>()
+  const expandedImages = new Set<string>()
 
   let tagVocab: string[] = []
   let activeTag: string | null = null
@@ -160,6 +165,8 @@
       pendingImages = []
       pendingExternalImages = []
       pendingReply = null
+      composerFullscreen = false
+      document.body.style.overflow = ''
       renderAuth()
       renderComposer()
     })
@@ -193,7 +200,21 @@
       return
     }
     composerBox.innerHTML = `
-      <div class="rounded-2xl border border-line bg-surface p-4">
+      <div
+        data-composer-card
+        class="${
+          composerFullscreen
+            ? 'fixed inset-0 z-[60] flex flex-col bg-bg p-5 md:p-10'
+            : 'rounded-2xl border border-line bg-surface p-4'
+        }"
+      >
+        ${
+          composerFullscreen
+            ? `<button data-composer-close type="button" class="absolute right-4 top-4 rounded-full p-2 text-muted transition-colors hover:text-accent" title="收起" aria-label="收起">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14h6v6"/><path d="M20 10h-6V4"/><path d="M14 10l7-7"/><path d="M3 21l7-7"/></svg>
+              </button>`
+            : ''
+        }
         ${
           pendingReply
             ? `<div data-reply-chip class="mb-3 flex items-center gap-2 rounded-lg border-l-2 border-accent bg-line/40 px-3 py-2 text-xs">
@@ -203,8 +224,17 @@
               </div>`
             : ''
         }
-        <div class="relative">
-          <textarea data-composer-text rows="3" placeholder="写点什么…" class="w-full resize-none bg-transparent text-sm leading-relaxed outline-none placeholder:text-muted"></textarea>
+        <div class="relative ${composerFullscreen ? 'flex min-h-0 flex-1 flex-col' : ''}">
+          <textarea data-composer-text ${composerFullscreen ? '' : 'rows="3"'} placeholder="写点什么…" class="w-full resize-none bg-transparent text-sm leading-relaxed outline-none placeholder:text-muted ${
+            composerFullscreen ? 'min-h-0 flex-1 text-base' : ''
+          }"></textarea>
+          ${
+            composerFullscreen
+              ? ''
+              : `<button data-composer-maximize type="button" class="absolute bottom-1 right-2 flex h-6 w-6 items-center justify-center rounded-md text-muted transition-colors hover:bg-line/60 hover:text-accent" title="全屏编辑" aria-label="全屏编辑">
+                  <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14h6v6"/><path d="M20 10h-6V4"/><path d="M14 10l7-7"/><path d="M3 21l7-7"/></svg>
+                </button>`
+          }
           <div data-tag-suggest class="absolute left-0 right-0 top-full z-20 mt-1 hidden overflow-hidden rounded-xl border border-line bg-surface py-1 shadow-lg"></div>
         </div>
         <div data-composer-preview class="mt-3 flex flex-wrap gap-2"></div>
@@ -232,13 +262,12 @@
     composerBox.querySelector<HTMLInputElement>('[data-file-input]')?.addEventListener('change', (e) => {
       const input = e.target as HTMLInputElement
       const files = Array.from(input.files ?? [])
-      const total = pendingImages.length + pendingExternalImages.length + files.length
-      if (total > MAX_IMAGES) {
-        showError(`最多 ${MAX_IMAGES} 张图片`)
+      if (pendingImages.length + files.length > MAX_LOCAL_IMAGES) {
+        showError(`本地上传最多 ${MAX_LOCAL_IMAGES} 张图片`)
         input.value = ''
         return
       }
-      pendingImages = [...pendingImages, ...files].slice(0, MAX_IMAGES)
+      pendingImages = [...pendingImages, ...files].slice(0, MAX_LOCAL_IMAGES)
       input.value = ''
       renderPreview()
     })
@@ -262,9 +291,8 @@
         showError('请输入以 http:// 或 https:// 开头的图片链接')
         return
       }
-      const total = pendingImages.length + pendingExternalImages.length + 1
-      if (total > MAX_IMAGES) {
-        showError(`最多 ${MAX_IMAGES} 张图片`)
+      if (pendingExternalImages.length + 1 > MAX_EXTERNAL_IMAGES) {
+        showError(`图床链接最多 ${MAX_EXTERNAL_IMAGES} 张`)
         return
       }
       pendingExternalImages.push(url)
@@ -279,6 +307,20 @@
     })
     composerBox.querySelector<HTMLTextAreaElement>('[data-composer-text]')?.addEventListener('input', onComposerInput)
     composerBox.querySelector<HTMLTextAreaElement>('[data-composer-text]')?.addEventListener('keydown', onComposerKeydown)
+    composerBox.querySelector('[data-composer-maximize]')?.addEventListener('click', () => {
+      composerText = composerBox.querySelector<HTMLTextAreaElement>('[data-composer-text]')?.value ?? ''
+      composerFullscreen = true
+      document.body.style.overflow = 'hidden'
+      closeSuggestions()
+      renderComposer()
+      renderPreview()
+      const ta = composerBox.querySelector<HTMLTextAreaElement>('[data-composer-text]')
+      if (ta) {
+        ta.value = composerText
+        ta.focus()
+      }
+    })
+    composerBox.querySelector('[data-composer-close]')?.addEventListener('click', closeComposerFullscreen)
     composerBox.querySelector<HTMLElement>('[data-tag-suggest]')?.addEventListener('mousedown', (e) => e.preventDefault())
     composerBox.querySelector<HTMLElement>('[data-tag-suggest]')?.addEventListener('click', (e) => {
       const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-suggest-tag]')
@@ -295,9 +337,12 @@
       try {
         await postMemo(text, pendingImages, pendingExternalImages, pendingReply?.id)
         textarea!.value = ''
+        composerText = ''
         pendingImages = []
         pendingExternalImages = []
         pendingReply = null
+        composerFullscreen = false
+        document.body.style.overflow = ''
         closeSuggestions()
         renderComposer()
         renderPreview()
@@ -309,6 +354,20 @@
         btn.textContent = '发布'
       }
     })
+  }
+
+  function closeComposerFullscreen() {
+    composerText = composerBox.querySelector<HTMLTextAreaElement>('[data-composer-text]')?.value ?? ''
+    composerFullscreen = false
+    document.body.style.overflow = ''
+    closeSuggestions()
+    renderComposer()
+    renderPreview()
+    const ta = composerBox.querySelector<HTMLTextAreaElement>('[data-composer-text]')
+    if (ta) {
+      ta.value = composerText
+      ta.focus()
+    }
   }
 
   function renderPreview() {
@@ -406,8 +465,15 @@
             </div>
           </div>
           ${m.replyTo ? renderQuote(m) : ''}
-          ${m.text ? `<p class="mt-3 whitespace-pre-wrap text-sm leading-relaxed">${renderMemoText(m.text)}</p>` : ''}
-          ${renderImages(m.images)}
+          ${
+            m.text
+              ? `<p data-memo-text class="mt-3 whitespace-pre-wrap break-words text-sm leading-relaxed line-clamp-8">${renderMemoText(m.text)}</p>
+                 <div class="mt-1 flex justify-end">
+                   <button data-show-more="${m.id}" type="button" class="hidden text-xs font-medium text-accent hover:underline">展开全文</button>
+                 </div>`
+              : ''
+          }
+          ${renderImages(m.images, m.id)}
         </div>`
       )
       .join('')
@@ -424,27 +490,34 @@
     </div>`
   }
 
-  function renderImages(images: string[]): string {
+  function renderImages(images: string[], memoId: string): string {
     if (images.length === 0) return ''
     const isSingle = images.length === 1
-    const cols = isSingle ? 'grid-cols-1' : 'grid-cols-2'
-    return `<div class="mt-3 grid ${cols} gap-2">
-      ${images
-        .map(
-          (p, i) => {
-            const url = escapeHtml(memoImageUrl(p))
-            if (isSingle) {
-              return `<a href="${url}" data-lightbox-open data-lightbox-index="${i}" data-lightbox-url="${url}" class="block overflow-hidden rounded-xl border border-line bg-line/30 transition-opacity hover:opacity-95">
-                <img src="${url}" loading="lazy" class="w-full object-contain" style="max-height:24rem">
-              </a>`
-            }
-            return `<a href="${url}" data-lightbox-open data-lightbox-index="${i}" data-lightbox-url="${url}" class="relative block aspect-square overflow-hidden rounded-xl border border-line bg-line/30 transition-opacity hover:opacity-95">
-              <img src="${url}" loading="lazy" class="absolute inset-0 h-full w-full object-cover">
-            </a>`
-          }
-        )
-        .join('')}
-    </div>`
+    const cols = isSingle ? 'grid-cols-1' : images.length > 4 ? 'grid-cols-3' : 'grid-cols-2'
+    const tile = (p: string, i: number) => {
+      const url = escapeHtml(memoImageUrl(p))
+      if (isSingle) {
+        return `<a href="${url}" data-lightbox-open data-lightbox-index="${i}" data-lightbox-url="${url}" class="block overflow-hidden rounded-xl border border-line bg-line/30 transition-opacity hover:opacity-95">
+          <img src="${url}" loading="lazy" class="w-full object-contain" style="max-height:24rem">
+        </a>`
+      }
+      return `<a href="${url}" data-lightbox-open data-lightbox-index="${i}" data-lightbox-url="${url}" class="relative block aspect-square overflow-hidden rounded-xl border border-line bg-line/30 transition-opacity hover:opacity-95">
+        <img src="${url}" loading="lazy" class="absolute inset-0 h-full w-full object-cover">
+      </a>`
+    }
+    const grid = (items: string[], offset: number) =>
+      `<div class="mt-3 grid ${cols} gap-2">${items.map((p, i) => tile(p, offset + i)).join('')}</div>`
+    const shown = images.slice(0, 9)
+    const rest = images.slice(9)
+    return (
+      grid(shown, 0) +
+      (rest.length
+        ? `<div data-more-images class="hidden">${grid(rest, shown.length)}</div>
+           <div class="mt-2 flex justify-end">
+             <button data-view-all-images="${memoId}" data-total="${images.length}" type="button" class="text-xs font-medium text-accent hover:underline">查看全部 ${images.length} 张</button>
+           </div>`
+        : '')
+    )
   }
 
   const lightbox = document.querySelector<HTMLElement>('[data-lightbox]')
@@ -575,6 +648,44 @@
         openLightbox(urls, index)
       })
     })
+
+    // 长度超过 8 行的正文才显示“展开全文”
+    listBox.querySelectorAll<HTMLElement>('[data-memo-text]').forEach((el) => {
+      const btn = el.closest('[data-memo-id]')?.querySelector<HTMLButtonElement>('[data-show-more]')
+      if (btn && el.scrollHeight > el.clientHeight + 1) btn.classList.remove('hidden')
+    })
+    listBox.querySelectorAll<HTMLButtonElement>('[data-show-more]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.showMore ?? ''
+        const el = btn.closest('[data-memo-id]')?.querySelector<HTMLElement>('[data-memo-text]')
+        if (!el) return
+        if (expandedText.has(id)) {
+          expandedText.delete(id)
+          el.classList.add('line-clamp-8')
+          btn.textContent = '展开全文'
+        } else {
+          expandedText.add(id)
+          el.classList.remove('line-clamp-8')
+          btn.textContent = '收起'
+        }
+      })
+    })
+    listBox.querySelectorAll<HTMLButtonElement>('[data-view-all-images]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.viewAllImages ?? ''
+        const more = btn.closest('[data-memo-id]')?.querySelector<HTMLElement>('[data-more-images]')
+        if (!more) return
+        if (expandedImages.has(id)) {
+          expandedImages.delete(id)
+          more.classList.add('hidden')
+          btn.textContent = `查看全部 ${btn.dataset.total ?? ''} 张`
+        } else {
+          expandedImages.add(id)
+          more.classList.remove('hidden')
+          btn.textContent = '收起'
+        }
+      })
+    })
   }
 
   function extractTags(text: string): string[] {
@@ -662,6 +773,7 @@
   function onComposerInput() {
     const ta = composerBox.querySelector<HTMLTextAreaElement>('[data-composer-text]')
     if (!ta) return
+    composerText = ta.value
     const caret = ta.selectionStart ?? ta.value.length
     const before = ta.value.slice(0, caret)
     const m = before.match(TAG_CARET_RE)
@@ -682,6 +794,16 @@
   }
 
   function onComposerKeydown(e: KeyboardEvent) {
+    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+      e.preventDefault()
+      composerBox.querySelector<HTMLButtonElement>('[data-submit]')?.click()
+      return
+    }
+    if (e.key === 'Escape' && composerFullscreen) {
+      e.preventDefault()
+      closeComposerFullscreen()
+      return
+    }
     if (!suggestOpen || e.isComposing) return
     if (e.key === 'ArrowDown') {
       e.preventDefault()
