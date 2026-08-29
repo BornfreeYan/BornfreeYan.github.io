@@ -2,6 +2,12 @@
   "version": 1,
   "memos": [
     {
+      "id": "20260829-1232-9as",
+      "text": "News： Cursor won't be able to use GPT models anymore, and it's not good for cursor pro subscription. \n我知道未来可能还真得去花心思购买 Codex 了，因为 Codex 的额度和重置次数似乎都会更多，而且模型更好。但是还是实际体验一下吧，哪怕一两个月。相信马斯克的野心，以及 Anthropic 暂时还不会对马斯克断供，二者还有合作关系。",
+      "images": [],
+      "createdAt": "2026-08-29T04:32:43.494Z"
+    },
+    {
       "id": "20260828-2044-ax7",
       "text": "I just subscribed to Cursor Pro today. Supposedly, there are no hourly or even weekly limits, so let's give it a try. I also get access to top-tier models like Claude opus, GPT 5.6, Grok, and Composer.\n At a price point similar to GLM Lite, I'm hoping it won't let me down. \nOh, and I've officially switched from VSCode to Cursor.",
       "images": [],
