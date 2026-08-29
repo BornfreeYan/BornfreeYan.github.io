@@ -105,6 +105,22 @@ html[data-theme='dark'] .astro-code span {
   @apply rounded bg-line/60 px-1.5 py-0.5 text-[0.85em];
 }
 
+/* 关闭 @tailwindcss/typography 默认在行内代码两侧绘制的反引号伪元素 */
+.prose code::before,
+.prose code::after {
+  content: none;
+}
+
+.mermaid-scroll {
+  @apply overflow-auto rounded-xl border border-line bg-surface p-4;
+  max-height: 70vh;
+}
+
+.mermaid-scroll svg {
+  display: block;
+  margin: 0 auto;
+}
+
 .prose pre {
   @apply rounded-xl border border-line bg-surface p-4;
 }

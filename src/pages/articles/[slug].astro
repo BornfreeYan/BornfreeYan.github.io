@@ -130,3 +130,99 @@ const readMin = Math.max(1, Math.round(words / 300))
     update()
   }
 </script>
+
+<script>
+  // 文章包含 mermaid 代码块时才动态加载 mermaid，把代码块替换为图表
+  async function setupMermaid() {
+    const pres = Array.from(
+      document.querySelectorAll<HTMLPreElement>('.prose pre[data-language="mermaid"]'),
+    )
+    if (pres.length === 0) return
+
+    type MermaidAPI = (typeof import('mermaid'))['default']
+    let mermaid: MermaidAPI
+    try {
+      mermaid = (await import('mermaid')).default
+    } catch {
+      return
+    }
+
+    // 滚轮直接平移图形；仅横向溢出时把 deltaY 映射为横向，到边界后交还页面滚动
+    function enableWheelPan(el: HTMLElement) {
+      el.addEventListener(
+        'wheel',
+        (e) => {
+          const overX = el.scrollWidth - el.clientWidth
+          const overY = el.scrollHeight - el.clientHeight
+          if (overX <= 0 && overY <= 0) return
+          const rawX = e.deltaX + (e.shiftKey ? e.deltaY : 0)
+          const rawY = e.shiftKey ? 0 : e.deltaY
+          const dx = overX > 0 ? rawX + (overY > 0 ? 0 : rawY) : 0
+          const dy = overY > 0 ? rawY : 0
+          if (dx === 0 && dy === 0) return
+          const stuckX =
+            dx !== 0 && ((dx < 0 && el.scrollLeft <= 1) || (dx > 0 && el.scrollLeft >= overX - 1))
+          const stuckY =
+            dy !== 0 && ((dy < 0 && el.scrollTop <= 1) || (dy > 0 && el.scrollTop >= overY - 1))
+          if ((dx === 0 || stuckX) && (dy === 0 || stuckY)) return
+          e.preventDefault()
+          el.scrollLeft += dx
+          el.scrollTop += dy
+        },
+        { passive: false },
+      )
+    }
+
+    const blocks = pres.map((pre) => {
+      const source = (pre.querySelector('code')?.textContent ?? pre.textContent ?? '').trim()
+      const wrap = document.createElement('div')
+      wrap.className = 'mermaid-scroll'
+      enableWheelPan(wrap)
+      pre.replaceWith(wrap)
+      return { wrap, source, fallback: pre, failed: false }
+    })
+
+    const noMax = { useMaxWidth: false }
+    let renderToken = 0
+    const renderAll = async () => {
+      const token = ++renderToken
+      mermaid.initialize({
+        startOnLoad: false,
+        suppressErrorRendering: true,
+        theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'neutral',
+        sequence: noMax,
+        flowchart: noMax,
+        class: noMax,
+        state: noMax,
+        er: noMax,
+        journey: noMax,
+        gantt: noMax,
+        pie: noMax,
+        mindmap: noMax,
+        gitGraph: noMax,
+      })
+      for (const [i, block] of blocks.entries()) {
+        if (block.failed) continue
+        try {
+          const { svg } = await mermaid.render(`mermaid-svg-${i}-${token}`, block.source)
+          if (token !== renderToken) return
+          block.wrap.innerHTML = svg
+        } catch {
+          if (token !== renderToken) return
+          block.failed = true
+          block.wrap.replaceWith(block.fallback)
+        }
+      }
+    }
+
+    await renderAll()
+
+    // 跟随明暗切换用新主题重渲染
+    new MutationObserver(() => void renderAll()).observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    })
+  }
+
+  void setupMermaid()
+</script>
