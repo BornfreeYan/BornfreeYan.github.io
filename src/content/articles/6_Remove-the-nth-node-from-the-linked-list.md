@@ -1,6 +1,6 @@
 ---
 title: "6_删除链表的倒数第N个节点"
-date: "2026-08-29"
+date: "2026-08-30"
 state:
   - finished
 categories:

@@ -1,6 +1,6 @@
 ---
 title: "3_替换数字"
-date: "2026-08-29"
+date: "2026-08-30"
 state:
   - finished
 categories:
