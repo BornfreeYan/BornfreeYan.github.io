@@ -1,0 +1,4 @@
+import{i as e,n as t,t as n}from"./format.BwSuZh9v.js";async function r(){let r=document.querySelector(`[data-memo-recent]`),i=document.querySelector(`[data-memo-placeholder]`);if(!r||!i)return;let a=[];try{a=await e()}catch{a=[]}if(i.classList.add(`hidden`),a.length===0){r.classList.remove(`hidden`),r.innerHTML=`<p class="rounded-xl border border-line bg-surface p-4 text-sm text-muted">还没有 Memo</p>`;return}let o=a.slice(0,5);r.classList.remove(`hidden`),r.innerHTML=o.map(e=>{let r=t(e.createdAt),i=(e.text||``).replace(/\n+/g,` `).slice(0,80);return`<a href="/memos" class="group block rounded-xl border border-line bg-surface p-4 transition-colors hover:border-accent/40">
+          <p class="line-clamp-2 text-sm group-hover:text-accent">${n(i||`（图片）`)}</p>
+          <p class="mt-2 text-xs text-muted">${r}</p>
+        </a>`}).join(``)}r();

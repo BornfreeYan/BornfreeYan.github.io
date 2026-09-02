@@ -1,0 +1,235 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="敬畏时间，捍卫注意力。永远好奇，永远乐观"><title>Github Git 版本控制 · Bornfree</title><meta property="og:title" content="Github Git 版本控制 · Bornfree"><meta property="og:description" content="敬畏时间，捍卫注意力。永远好奇，永远乐观"><meta property="og:type" content="website"><link rel="icon" type="image/png" href="/favicon.png"><link rel="alternate" type="application/rss+xml" title="Bornfree" href="/rss.xml"><script>
+      (function () {
+        var stored = localStorage.getItem('theme')
+        var dark =
+          window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        var theme =
+          stored === 'light' || stored === 'dark' ? stored : dark ? 'dark' : 'light'
+        document.documentElement.setAttribute('data-theme', theme)
+      })()
+    </script><script>
+      (function () {
+        function initCopyButtons() {
+          document.querySelectorAll('.prose pre').forEach(function (pre) {
+            if (pre.querySelector('.copy-code-btn')) return
+            var btn = document.createElement('button')
+            btn.type = 'button'
+            btn.className = 'copy-code-btn'
+            btn.setAttribute('aria-label', '复制代码')
+            btn.textContent = '复制'
+            btn.addEventListener('click', function () {
+              var code = pre.querySelector('code')
+              var text = code ? code.textContent : pre.textContent
+              navigator.clipboard.writeText(text || '').then(function () {
+                btn.textContent = '已复制'
+                setTimeout(function () {
+                  btn.textContent = '复制'
+                }, 1500)
+              })
+            })
+            pre.style.position = 'relative'
+            pre.appendChild(btn)
+          })
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initCopyButtons)
+        } else {
+          initCopyButtons()
+        }
+      })()
+    </script><link rel="stylesheet" href="/_astro/Layout.wM7heRBc.css"><link rel="stylesheet" href="/_astro/_slug_.DXho-tWO.css"></head><body><header class="sticky top-0 z-40 border-b border-line bg-bg/80 backdrop-blur"><nav class="mx-auto flex h-14 max-w-5xl items-center gap-1 px-4"><a href="/" class="mr-3 flex shrink-0 items-center gap-2.5 font-serif text-lg font-semibold"><img src="/favicon.png" alt="{siteConfig.title}" class="h-7 w-7 rounded-full object-cover"><span>Bornfree</span></a><div class="hidden items-center gap-0.5 md:flex"><a href="/" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Home</a><a href="/projects" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Project</a><div class="group relative"><span class="flex cursor-default items-center gap-1 rounded-lg px-3 py-2 text-sm text-muted transition-colors">Article<div class="h-3.5 w-3.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><path d="m6 9 6 6 6-6"/></svg></div></span><div class="invisible absolute left-0 top-full pt-2 opacity-0 transition-all duration-150 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100"><div class="w-44 rounded-xl border border-line bg-surface p-1.5 shadow-lg"><a href="/categories" class="block rounded-lg px-3 py-2 text-sm text-ink transition-colors hover:bg-line/60">Categories</a><a href="/tags" class="block rounded-lg px-3 py-2 text-sm text-ink transition-colors hover:bg-line/60">Tags</a><a href="/archive" class="block rounded-lg px-3 py-2 text-sm text-ink transition-colors hover:bg-line/60">Archive</a></div></div></div><a href="/memos" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Memo</a><a href="/about" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">About</a></div><div class="ml-auto flex items-center gap-0.5"><button data-search-open class="rounded-lg p-2 text-muted transition-colors hover:text-ink" aria-label="搜索"><div class="h-5 w-5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div></button><button data-theme-toggle class="rounded-lg p-2 text-muted transition-colors hover:text-ink" aria-label="切换明暗模式"><div class="hidden h-5 w-5 [data-theme='dark']:block"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></div><div class="block h-5 w-5 [data-theme='dark']:hidden"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></div></button><button data-menu-toggle class="rounded-lg p-2 text-muted transition-colors hover:text-ink md:hidden" aria-label="打开菜单"><div class="h-5 w-5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg></div></button></div></nav><div data-mobile-menu class="hidden border-t border-line md:hidden"><div class="mx-auto flex max-w-5xl flex-col gap-1 px-4 py-3"><a href="/" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Home</a><a href="/projects" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Project</a><div class="flex flex-col"><span class="flex items-center gap-1 px-3 py-2 text-sm font-semibold text-ink">Article<div class="h-3.5 w-3.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><path d="m6 9 6 6 6-6"/></svg></div></span><div class="mb-1 flex flex-col pl-4"><a href="/categories" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Categories</a><a href="/tags" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Tags</a><a href="/archive" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Archive</a></div></div><a href="/memos" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Memo</a><a href="/about" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">About</a></div></div></header><script type="module">document.querySelector(`[data-theme-toggle]`)?.addEventListener(`click`,()=>{let e=document.documentElement,t=e.getAttribute(`data-theme`)===`dark`?`light`:`dark`;e.setAttribute(`data-theme`,t),localStorage.setItem(`theme`,t)});var e=document.querySelector(`[data-menu-toggle]`),t=document.querySelector(`[data-mobile-menu]`);e?.addEventListener(`click`,()=>{let n=t?.classList.toggle(`hidden`)??!0;e.setAttribute(`aria-label`,n?`打开菜单`:`关闭菜单`)});</script><main><div data-reading-bar class="pointer-events-none fixed inset-x-0 top-0 z-[60] h-0.5 bg-line/60"><div data-reading-fill class="h-full origin-left bg-accent" style="transform: scaleX(0)"></div></div><div class="mx-auto max-w-6xl px-6 py-16"><div class="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,768px)_220px] lg:justify-center"><article class="min-w-0"><header class="mb-10"><div class="flex flex-wrap items-center gap-2 text-sm text-muted"><time datetime="2026-08-29T00:00:00.000Z">2026-08-29</time><span aria-hidden="true">·</span><span>1128 字</span><span aria-hidden="true">·</span><span>约 4 分钟</span><a href="/categories/CS" class="rounded-full bg-line/60 px-2 py-0.5 transition-colors hover:text-accent">CS</a></div><h1 class="mt-4 font-serif text-3xl font-semibold leading-tight sm:text-4xl">Github Git 版本控制</h1><div class="mt-4 flex flex-wrap gap-1.5"><a href="/tags/Git" class="rounded-full border border-line px-2 py-0.5 text-xs text-muted transition-colors hover:border-accent hover:text-accent">#Git</a></div></header><div class="prose"><blockquote>
+<p>Git 是一个版本控制工具。
+现在 GitHub MCP/Agent 已经支持 PowerShell，无需再死记命令，只需用自然语言告诉 Agent 你想做什么即可。
+安装： <a href="https://git-scm.com/install/">https://git-scm.com/install/</a></p>
+</blockquote>
+<hr>
+<h1 id="初始化">初始化</h1>
+<p>首先，进入你需要的目录</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">cd</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> ~/Desktop</span></span></code></pre>
+<p>添加你的用户名和邮箱：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">git</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> config</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --global</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> user.name</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> "username"</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">git</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> config</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> --global</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> user.email</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> "email"</span></span></code></pre>
+<p>初始化：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">git</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> init</span></span></code></pre>
+<p>运行后，文件夹里会生成一个隐藏的 <code>.git</code> 目录。</p>
+<p>如果想使用已有的仓库，可以把它克隆到本地：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">git</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> clone</span><span style="color:#D73A49;--shiki-dark:#F97583"> &#x3C;</span><span style="color:#032F62;--shiki-dark:#9ECBFF">addres</span><span style="color:#24292E;--shiki-dark:#E1E4E8">s</span><span style="color:#D73A49;--shiki-dark:#F97583">></span></span></code></pre>
+<hr>
+<h1 id="添加提交推送拉取addcommitpushpull">添加/提交/推送/拉取（Add/Commit/Push/Pull）</h1>
+<p>你可以在目录里新建一个 <code>.py</code> 文件，然后运行这条命令：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">git</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> status</span></span></code></pre>
+<p>这条命令会显示目录的当前状态，并提示新文件处于未暂存（unstaged）状态（所谓 unstaged，指的是这个文件还没有被纳入版本控制）。因此，它能告诉你哪些文件被修改了、哪些文件还没有被添加。</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">git</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> add</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> .</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D"># git 文件名</span></span></code></pre>
+<p>运行 <code>git add .</code> 之后，新文件就会被加入暂存区，你可以再次查看状态进行确认。<code>git add</code> 后面的点表示这条命令会把所有改动都加入暂存区。</p>
+<p>文件添加好以后，就可以用一句简短的说明信息来提交这次改动：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">git</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> commit</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> -m</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> "add a .py file"</span></span></code></pre>
+<p>以上步骤只是把改动保存在了本地。要想上传到远程服务器（比如 GitHub），需要运行：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">git</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> push</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> </span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D"># 第一次推送时：</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D"># git remote add origin https://github.com/用户名/仓库名.git 先建立并连接仓库</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D"># 连上之后和main分支对接 git push -u origin main</span></span></code></pre>
+<p><code>.gitignore</code> 用于告诉 Git 忽略哪些文件/文件夹，避免 <code>.env</code>、<code>node_modules</code> 这类文件被纳入跟踪。</p>
+<p>如果你和其他协作者都做了修改，而且对方已经抢先推送到了远程仓库，那么你需要先运行这条命令来同步本地版本：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">git</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> pull</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D"># 先 pull，之后才能 push。</span></span></code></pre>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="mermaid"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">sequenceDiagram</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">    participant</span><span style="color:#E36209;--shiki-dark:#FFAB70"> WD</span><span style="color:#D73A49;--shiki-dark:#F97583"> as</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> 工作区 Working Directory</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">    participant</span><span style="color:#E36209;--shiki-dark:#FFAB70"> SI</span><span style="color:#D73A49;--shiki-dark:#F97583"> as</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> 暂存区 Staging Index</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">    participant</span><span style="color:#E36209;--shiki-dark:#FFAB70"> LR</span><span style="color:#D73A49;--shiki-dark:#F97583"> as</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> 本地仓库 Local Repository</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">    participant</span><span style="color:#E36209;--shiki-dark:#FFAB70"> RR</span><span style="color:#D73A49;--shiki-dark:#F97583"> as</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> 远程仓库 Remote Repository</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E36209;--shiki-dark:#FFAB70">    RR</span><span style="color:#D73A49;--shiki-dark:#F97583"> ->></span><span style="color:#E36209;--shiki-dark:#FFAB70"> WD</span><span style="color:#D73A49;--shiki-dark:#F97583">:</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> git clone</span></span>
+<span class="line"><span style="color:#E36209;--shiki-dark:#FFAB70">    WD</span><span style="color:#D73A49;--shiki-dark:#F97583"> ->></span><span style="color:#E36209;--shiki-dark:#FFAB70"> SI</span><span style="color:#D73A49;--shiki-dark:#F97583">:</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> git add</span></span>
+<span class="line"><span style="color:#E36209;--shiki-dark:#FFAB70">    SI</span><span style="color:#D73A49;--shiki-dark:#F97583"> ->></span><span style="color:#E36209;--shiki-dark:#FFAB70"> LR</span><span style="color:#D73A49;--shiki-dark:#F97583">:</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> git commit</span></span>
+<span class="line"><span style="color:#E36209;--shiki-dark:#FFAB70">    RR</span><span style="color:#D73A49;--shiki-dark:#F97583"> ->></span><span style="color:#E36209;--shiki-dark:#FFAB70"> LR</span><span style="color:#D73A49;--shiki-dark:#F97583">:</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> git pull (fetch + merge)</span></span>
+<span class="line"><span style="color:#E36209;--shiki-dark:#FFAB70">    LR</span><span style="color:#D73A49;--shiki-dark:#F97583"> ->></span><span style="color:#E36209;--shiki-dark:#FFAB70"> RR</span><span style="color:#D73A49;--shiki-dark:#F97583">:</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> git push</span></span></code></pre>
+<hr>
+<h1 id="差异对比">差异对比</h1>
+<p>每次提交都有一个唯一的 commit 哈希值，所以你可以把两个（或更多）提交 ID 提供给 AI 智能体，让它帮你展示两者之间的差异。对应的命令是：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">git</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> diff</span><span style="color:#D73A49;--shiki-dark:#F97583"> &#x3C;</span><span style="color:#032F62;--shiki-dark:#9ECBFF">commit</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> A</span><span style="color:#D73A49;--shiki-dark:#F97583">></span><span style="color:#D73A49;--shiki-dark:#F97583"> &#x3C;</span><span style="color:#032F62;--shiki-dark:#9ECBFF">commit</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> B</span><span style="color:#D73A49;--shiki-dark:#F97583">></span></span></code></pre>
+<hr>
+<h1 id="重置还原检出resetrevertcheckout">重置/还原/检出（Reset/Revert/Checkout）</h1>
+<p>首先要知道，创建分支并不是复制一份代码，它只是新建了一个指向当前提交的指针。这意味着新分支上的所有提交都与主分支相互隔离。</p>
+<p>有时你需要撤销某次提交，可以使用下面的命令：</p>
+<ol>
+<li><strong><code>git reset --hard &#x3C;Commit ID></code>：硬重置（Hard Reset）</strong></li>
+</ol>
+<blockquote>
+<p>强制把仓库回退到某个指定的历史状态，该节点之后的所有提交都会被永久删除。<br>
+⚠️ <strong>警告：</strong> 千万不要在共享/协作分支上使用这个命令，只能用在自己的本地私有分支上。</p>
+</blockquote>
+<ol start="2">
+<li><strong><code>git revert &#x3C;Commit ID></code>：还原（Revert）</strong></li>
+</ol>
+<blockquote>
+<p>创建一个新的“反向提交”，用来撤销之前某次提交的改动。这种方式安全，强烈推荐在协作分支上使用。它不会改变历史，只是让 Git 追加一条撤销记录。</p>
+</blockquote>
+<ol start="3">
+<li><strong><code>git checkout &#x3C;Commit ID></code>：分离头指针（Detached HEAD）</strong></li>
+</ol>
+<blockquote>
+<p>让仓库切换到某个特定的历史提交，仅供查看。在这种状态下不要做任何修改，因为改动很容易丢失。</p>
+</blockquote>
+<hr>
+<h1 id="分支合并branchesmerge">分支/合并（Branches/Merge）</h1>
+<ol>
+<li><code>git branch &#x3C;branch_name></code>：创建分支</li>
+</ol>
+<blockquote>
+<p>创建一条独立的开发线（也就是一个新指针）。默认情况下，新分支基于当前分支创建（通常是 main 或 master）。</p>
+</blockquote>
+<ol start="2">
+<li><code>git switch &#x3C;branch_name></code> / <code>git checkout &#x3C;branch_name></code>：切换分支</li>
+</ol>
+<blockquote>
+<p>在不同的开发线之间切换。（<code>git switch</code> 是更新的、推荐的命令。）</p>
+</blockquote>
+<ol start="3">
+<li><code>git merge &#x3C;branch_name></code>：合并</li>
+</ol>
+<blockquote>
+<p>把指定分支上的改动合并进当前分支。</p>
+</blockquote>
+<ol start="4">
+<li><code>git branch -d &#x3C;branch_name></code>：删除分支</li>
+</ol>
+<blockquote>
+<p>清理已经合并过、不再需要的分支。（注意：不能删除你当前所在的分支，所以要先用 <code>git switch</code> 切换到其他分支。）</p>
+</blockquote>
+<hr>
+<h1 id="其他命令">其他命令</h1>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span># 查看最近的提交日志</span></span>
+<span class="line"><span>git log --oneline</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 确认远程连接是否正常。</span></span>
+<span class="line"><span>git remote -v</span></span>
+<span class="line"><span># origin  https://github.com/.../projectname.git (fetch)</span></span>
+<span class="line"><span># origin  https://github.com/.../projectname.git (push)</span></span></code></pre></div><nav class="mt-16 flex items-center justify-between gap-4 border-t border-line pt-6 text-sm"><a href="/articles/7_intersection-of-two-linked-list/" class="max-w-[45%] text-muted transition-colors hover:text-accent">← 7_链表相交</a><a href="/articles/1_array-basics/" class="max-w-[45%] text-right text-muted transition-colors hover:text-accent">1_数组理论 →</a></nav></article><aside class="hidden lg:block"><div class="sticky top-28 max-h-[calc(100vh-8rem)] overflow-y-auto pb-4"><nav class="toc-sidebar" aria-label="文章目录"><h2 class="font-display text-xs font-medium uppercase tracking-[0.2em] text-muted">目录</h2><ul class="relative mt-4 space-y-1 border-l border-line"><li class="relative leading-snug pl-3.5"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#初始化" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="初始化">初始化</a></li><li class="relative leading-snug pl-3.5"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#添加提交推送拉取addcommitpushpull" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="添加提交推送拉取addcommitpushpull">添加/提交/推送/拉取（Add/Commit/Push/Pull）</a></li><li class="relative leading-snug pl-3.5"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#差异对比" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="差异对比">差异对比</a></li><li class="relative leading-snug pl-3.5"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#重置还原检出resetrevertcheckout" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="重置还原检出resetrevertcheckout">重置/还原/检出（Reset/Revert/Checkout）</a></li><li class="relative leading-snug pl-3.5"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#分支合并branchesmerge" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="分支合并branchesmerge">分支/合并（Branches/Merge）</a></li><li class="relative leading-snug pl-3.5"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#其他命令" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="其他命令">其他命令</a></li></ul></nav><script type="module">function e(){let e=document.querySelectorAll(`.toc-link`);if(e.length===0)return;let t=Array.from(document.querySelectorAll(`h1[id], h2[id], h3[id]`));if(t.length===0)return;let n=()=>{let n=t[0].id;for(let e of t)if(e.getBoundingClientRect().top<120)n=e.id;else break;e.forEach(e=>{let t=e.dataset.slug===n;e.classList.toggle(`text-accent`,t),e.classList.toggle(`font-medium`,t);let r=e.previousElementSibling;r&&r.classList.contains(`toc-indicator`)&&(r.classList.toggle(`opacity-0`,!t),r.classList.toggle(`opacity-100`,t))})};window.addEventListener(`scroll`,n,{passive:!0}),window.addEventListener(`resize`,n),n()}e();</script></div></aside></div></div></main><footer class="border-t border-line"><div class="mx-auto flex max-w-5xl flex-col items-center gap-4 px-4 py-10 text-sm text-muted md:flex-row md:justify-between"><div class="text-center md:text-left"><p class="font-display text-xl font-medium tracking-[0.04em] text-ink">Bornfree</p><p class="mt-1.5 font-display text-sm italic tracking-[0.12em] text-muted">Revere time, defend your attention.</p></div><div class="flex items-center gap-2.5"><a href="https://github.com/BornfreeYan" target="_blank" rel="noopener noreferrer" class="flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:text-accent" aria-label="GitHub"><div class="h-4 w-4"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="100%" height="100%"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></div></a><a href="https://xhslink.cn/m/5DbIxl50YGT" target="_blank" rel="noopener noreferrer" class="flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:text-accent" aria-label="小红书"><div class="h-4 w-4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div></a><a href="https://x.com/yanbornfree" target="_blank" rel="noopener noreferrer" class="flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:text-accent" aria-label="X"><div class="h-4 w-4"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="100%" height="100%"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></div></a><a href="/rss.xml" target="_blank" rel="noopener noreferrer" class="flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:text-accent" aria-label="RSS"><div class="h-4 w-4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg></div></a><button type="button" data-email-copy data-addr="1700807190@qq.com" aria-label="复制邮箱" class="group relative flex items-center justify-center rounded-full border border-line text-muted transition-all hover:border-accent hover:text-accent h-9 w-9"><div class="h-4 w-4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div><span data-email-tip class="pointer-events-none absolute -top-9 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-ink px-3 py-1 text-xs text-bg opacity-0 transition-opacity duration-150">已复制 ✓</span></button><script type="module">document.querySelectorAll(`[data-email-copy]`).forEach(e=>{let t=e.querySelector(`[data-email-tip]`);e.addEventListener(`click`,async()=>{let n=e.getAttribute(`data-addr`)??``;try{await navigator.clipboard.writeText(n)}catch{}t&&(t.classList.remove(`opacity-0`),setTimeout(()=>t.classList.add(`opacity-0`),1600))})});</script></div><div class="text-center md:text-right"><p>© 2026 Bornfree</p><p class="mt-1 text-xs text-muted">Powered by Astro</p></div></div></footer><div data-search-overlay class="fixed inset-0 z-50 hidden"><div data-search-close class="absolute inset-0 bg-black/40 backdrop-blur-sm"></div><div class="absolute inset-x-0 top-0 mx-auto max-w-xl px-4 pt-24"><div class="rounded-2xl border border-line bg-surface p-4 shadow-2xl"><div class="flex items-center gap-2 border-b border-line pb-3"><div class="h-5 w-5 shrink-0 text-muted"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div><input data-search-input type="search" placeholder="搜索文章…" autocomplete="off" class="w-full bg-transparent text-lg outline-none placeholder:text-muted"><button data-search-close class="shrink-0 rounded-lg p-1 text-muted transition-colors hover:text-ink" aria-label="关闭搜索"><div class="h-5 w-5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></div></button></div><div data-search-results class="mt-3 max-h-[55vh] overflow-y-auto"></div><p data-search-hint class="mt-3 text-xs text-muted">搜索索引在构建时生成，预览请先 npm run build</p></div></div></div><script>
+  let pagefind = null
+
+  const overlay = document.querySelector('[data-search-overlay]')
+  const input = document.querySelector('[data-search-input]')
+  const results = document.querySelector('[data-search-results]')
+  const hint = document.querySelector('[data-search-hint]')
+
+  if (!overlay || !input || !results || !hint) throw new Error('search elements missing')
+
+  async function initPagefind() {
+    if (pagefind) return true
+    try {
+      const modUrl = '/pagefind/pagefind.js'
+      pagefind = await import(modUrl)
+      hint.textContent = ''
+      return true
+    } catch {
+      hint.textContent = '搜索索引未生成，请先执行 npm run build'
+      return false
+    }
+  }
+
+  function open() {
+    overlay.classList.remove('hidden')
+    input.value = ''
+    results.innerHTML = ''
+    setTimeout(() => input.focus(), 50)
+    initPagefind()
+  }
+
+  function close() {
+    overlay.classList.add('hidden')
+  }
+
+  document.addEventListener('click', (e) => {
+    const target = e.target
+    if (target.closest('[data-search-open]')) open()
+    else if (target.closest('[data-search-close]')) close()
+  })
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      close()
+      return
+    }
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault()
+      open()
+    }
+  })
+
+  let timer
+  input.addEventListener('input', () => {
+    clearTimeout(timer)
+    timer = setTimeout(runSearch, 200)
+  })
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') runSearch()
+  })
+
+  async function runSearch() {
+    const term = input.value.trim()
+    if (!term) {
+      results.innerHTML = ''
+      return
+    }
+    const ok = await initPagefind()
+    if (!ok) return
+    const search = await pagefind.search(term)
+    const items = (search.results ?? []).slice(0, 12)
+    if (items.length === 0) {
+      results.innerHTML = '<p class="p-3 text-sm text-muted">没有找到相关内容</p>'
+      return
+    }
+    const data = await Promise.all(items.map((r) => r.data()))
+    results.innerHTML = data
+      .map(
+        (d) => `
+        <a href="${d.url}" class="block rounded-xl px-3 py-3 transition-colors hover:bg-line/60">
+          <p class="font-medium">${d.meta?.title ?? ''}</p>
+          <p class="mt-1 line-clamp-2 text-sm text-muted">${d.excerpt ?? ''}</p>
+        </a>
+      `
+      )
+      .join('')
+  }
+</script></body></html><script type="module">var e=document.querySelector(`[data-reading-bar]`),t=document.querySelector(`[data-reading-fill]`);if(e&&t){let e=()=>{let e=document.documentElement.scrollHeight-window.innerHeight,n=e>0?window.scrollY/e:0;t.style.transform=`scaleX(${Math.min(1,Math.max(0,n))})`};addEventListener(`scroll`,e,{passive:!0}),addEventListener(`resize`,e),e()}</script><script type="module" src="/_astro/_slug_.astro_astro_type_script_index_1_lang.B4WhdnhF.js"></script>

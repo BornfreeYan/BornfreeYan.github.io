@@ -1,0 +1,345 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="敬畏时间，捍卫注意力。永远好奇，永远乐观"><title>3_设计链表 · Bornfree</title><meta property="og:title" content="3_设计链表 · Bornfree"><meta property="og:description" content="敬畏时间，捍卫注意力。永远好奇，永远乐观"><meta property="og:type" content="website"><link rel="icon" type="image/png" href="/favicon.png"><link rel="alternate" type="application/rss+xml" title="Bornfree" href="/rss.xml"><script>
+      (function () {
+        var stored = localStorage.getItem('theme')
+        var dark =
+          window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        var theme =
+          stored === 'light' || stored === 'dark' ? stored : dark ? 'dark' : 'light'
+        document.documentElement.setAttribute('data-theme', theme)
+      })()
+    </script><script>
+      (function () {
+        function initCopyButtons() {
+          document.querySelectorAll('.prose pre').forEach(function (pre) {
+            if (pre.querySelector('.copy-code-btn')) return
+            var btn = document.createElement('button')
+            btn.type = 'button'
+            btn.className = 'copy-code-btn'
+            btn.setAttribute('aria-label', '复制代码')
+            btn.textContent = '复制'
+            btn.addEventListener('click', function () {
+              var code = pre.querySelector('code')
+              var text = code ? code.textContent : pre.textContent
+              navigator.clipboard.writeText(text || '').then(function () {
+                btn.textContent = '已复制'
+                setTimeout(function () {
+                  btn.textContent = '复制'
+                }, 1500)
+              })
+            })
+            pre.style.position = 'relative'
+            pre.appendChild(btn)
+          })
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initCopyButtons)
+        } else {
+          initCopyButtons()
+        }
+      })()
+    </script><link rel="stylesheet" href="/_astro/Layout.wM7heRBc.css"><link rel="stylesheet" href="/_astro/_slug_.DXho-tWO.css"></head><body><header class="sticky top-0 z-40 border-b border-line bg-bg/80 backdrop-blur"><nav class="mx-auto flex h-14 max-w-5xl items-center gap-1 px-4"><a href="/" class="mr-3 flex shrink-0 items-center gap-2.5 font-serif text-lg font-semibold"><img src="/favicon.png" alt="{siteConfig.title}" class="h-7 w-7 rounded-full object-cover"><span>Bornfree</span></a><div class="hidden items-center gap-0.5 md:flex"><a href="/" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Home</a><a href="/projects" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Project</a><div class="group relative"><span class="flex cursor-default items-center gap-1 rounded-lg px-3 py-2 text-sm text-muted transition-colors">Article<div class="h-3.5 w-3.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><path d="m6 9 6 6 6-6"/></svg></div></span><div class="invisible absolute left-0 top-full pt-2 opacity-0 transition-all duration-150 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100"><div class="w-44 rounded-xl border border-line bg-surface p-1.5 shadow-lg"><a href="/categories" class="block rounded-lg px-3 py-2 text-sm text-ink transition-colors hover:bg-line/60">Categories</a><a href="/tags" class="block rounded-lg px-3 py-2 text-sm text-ink transition-colors hover:bg-line/60">Tags</a><a href="/archive" class="block rounded-lg px-3 py-2 text-sm text-ink transition-colors hover:bg-line/60">Archive</a></div></div></div><a href="/memos" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Memo</a><a href="/about" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">About</a></div><div class="ml-auto flex items-center gap-0.5"><button data-search-open class="rounded-lg p-2 text-muted transition-colors hover:text-ink" aria-label="搜索"><div class="h-5 w-5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div></button><button data-theme-toggle class="rounded-lg p-2 text-muted transition-colors hover:text-ink" aria-label="切换明暗模式"><div class="hidden h-5 w-5 [data-theme='dark']:block"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></div><div class="block h-5 w-5 [data-theme='dark']:hidden"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></div></button><button data-menu-toggle class="rounded-lg p-2 text-muted transition-colors hover:text-ink md:hidden" aria-label="打开菜单"><div class="h-5 w-5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg></div></button></div></nav><div data-mobile-menu class="hidden border-t border-line md:hidden"><div class="mx-auto flex max-w-5xl flex-col gap-1 px-4 py-3"><a href="/" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Home</a><a href="/projects" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Project</a><div class="flex flex-col"><span class="flex items-center gap-1 px-3 py-2 text-sm font-semibold text-ink">Article<div class="h-3.5 w-3.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><path d="m6 9 6 6 6-6"/></svg></div></span><div class="mb-1 flex flex-col pl-4"><a href="/categories" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Categories</a><a href="/tags" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Tags</a><a href="/archive" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Archive</a></div></div><a href="/memos" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Memo</a><a href="/about" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">About</a></div></div></header><script type="module">document.querySelector(`[data-theme-toggle]`)?.addEventListener(`click`,()=>{let e=document.documentElement,t=e.getAttribute(`data-theme`)===`dark`?`light`:`dark`;e.setAttribute(`data-theme`,t),localStorage.setItem(`theme`,t)});var e=document.querySelector(`[data-menu-toggle]`),t=document.querySelector(`[data-mobile-menu]`);e?.addEventListener(`click`,()=>{let n=t?.classList.toggle(`hidden`)??!0;e.setAttribute(`aria-label`,n?`打开菜单`:`关闭菜单`)});</script><main><div data-reading-bar class="pointer-events-none fixed inset-x-0 top-0 z-[60] h-0.5 bg-line/60"><div data-reading-fill class="h-full origin-left bg-accent" style="transform: scaleX(0)"></div></div><div class="mx-auto max-w-6xl px-6 py-16"><div class="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,768px)_220px] lg:justify-center"><article class="min-w-0"><header class="mb-10"><div class="flex flex-wrap items-center gap-2 text-sm text-muted"><time datetime="2026-08-29T00:00:00.000Z">2026-08-29</time><span aria-hidden="true">·</span><span>1333 字</span><span aria-hidden="true">·</span><span>约 4 分钟</span><a href="/categories/CS" class="rounded-full bg-line/60 px-2 py-0.5 transition-colors hover:text-accent">CS</a></div><h1 class="mt-4 font-serif text-3xl font-semibold leading-tight sm:text-4xl">3_设计链表</h1><div class="mt-4 flex flex-wrap gap-1.5"><a href="/tags/%E9%93%BE%E8%A1%A8" class="rounded-full border border-line px-2 py-0.5 text-xs text-muted transition-colors hover:border-accent hover:text-accent">#链表</a><a href="/tags/leetcode" class="rounded-full border border-line px-2 py-0.5 text-xs text-muted transition-colors hover:border-accent hover:text-accent">#leetcode</a></div></header><div class="prose"><blockquote>
+<p>这道题其实就是头插法、尾插法、删除、增加节点等考研计算机都常见的操作，但是由于<code>MyLinkedList</code>这个类导致容易望而却步，其实代码逻辑不难，如果实在写不出来，直接看答案</p>
+</blockquote>
+<h1 id="707设计链表">707.设计链表</h1>
+<p>你可以选择使用单链表或者双链表，设计并实现自己的链表。</p>
+<p>单链表中的节点应该具备两个属性：<code>val</code> 和 <code>next</code> 。<code>val</code> 是当前节点的值，<code>next</code> 是指向下一个节点的指针/引用。</p>
+<p>如果是双向链表，则还需要属性 <code>prev</code> 以指示链表中的上一个节点。假设链表中的所有节点下标从 <strong>0</strong> 开始。</p>
+<p>实现 <code>MyLinkedList</code> 类：</p>
+<ul>
+<li><code>MyLinkedList()</code> 初始化 <code>MyLinkedList</code> 对象。</li>
+<li><code>int get(int index)</code> 获取链表中下标为 <code>index</code> 的节点的值。如果下标无效，则返回 <code>-1</code> 。</li>
+<li><code>void addAtHead(int val)</code> 将一个值为 <code>val</code> 的节点插入到链表中第一个元素之前。在插入完成后，新节点会成为链表的第一个节点。</li>
+<li><code>void addAtTail(int val)</code> 将一个值为 <code>val</code> 的节点追加到链表中作为链表的最后一个元素。</li>
+<li><code>void addAtIndex(int index, int val)</code> 将一个值为 <code>val</code> 的节点插入到链表中下标为 <code>index</code> 的节点之前。如果 <code>index</code> 等于链表的长度，那么该节点会被追加到链表的末尾。如果 <code>index</code> 比长度更大，该节点将 <strong>不会插入</strong> 到链表中。</li>
+<li><code>void deleteAtIndex(int index)</code> 如果下标有效，则删除链表中下标为 <code>index</code> 的节点。</li>
+</ul>
+<h2 id="思路">思路</h2>
+<p>这道题目设计链表的五个接口，覆盖了链表的常见操作：</p>
+<ul>
+<li>获取链表第index个节点的数值</li>
+<li>在链表的最前面插入一个节点</li>
+<li>在链表的最后面插入一个节点</li>
+<li>在链表第index个节点前面插入一个节点</li>
+<li>删除链表的第index个节点</li>
+</ul>
+<p>这里涉及对链表的一些增删操作，还是设置一个虚拟头节点。</p>
+<h2 id="题解">题解</h2>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">typedef</span><span style="color:#D73A49;--shiki-dark:#F97583"> struct</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> Node {</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">	int</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> val;</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">	struct</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> Node</span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> next;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">} Node;</span></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">typedef</span><span style="color:#D73A49;--shiki-dark:#F97583"> struct</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">	int</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> size;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	Node</span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> data;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">} MyLinkedList;</span></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">MyLinkedList</span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> myLinkedListCreate</span><span style="color:#24292E;--shiki-dark:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">	//1. 分配链表管理器的空间</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	MyLinkedList</span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> obj </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> (MyLinkedList</span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8">)</span><span style="color:#6F42C1;--shiki-dark:#B392F0">malloc</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#D73A49;--shiki-dark:#F97583">sizeof</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(MyLinkedList));</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">	//2. 创建虚拟头节点</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">    Node</span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> head </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> (Node</span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8">)</span><span style="color:#6F42C1;--shiki-dark:#B392F0">malloc</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#D73A49;--shiki-dark:#F97583">sizeof</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(Node));</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">    //3. 初始化虚拟头节点的next指针</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	head->next </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> (</span><span style="color:#D73A49;--shiki-dark:#F97583">void*</span><span style="color:#24292E;--shiki-dark:#E1E4E8">)</span><span style="color:#005CC5;--shiki-dark:#79B8FF">0</span><span style="color:#24292E;--shiki-dark:#E1E4E8">;</span><span style="color:#6A737D;--shiki-dark:#6A737D">//空指针的意思，也可以写成NULL</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">	//4. 将虚拟头节点连接到链表管理器</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	obj->data </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> head;</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">	//5. 初始化链表大小</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">    obj->size </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> 0</span><span style="color:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">	return</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> obj;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//获取链表中第 index 个节点的值。如果索引无效，则返回-1。</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">int</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> myLinkedListGet</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(MyLinkedList</span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70"> obj</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">int</span><span style="color:#E36209;--shiki-dark:#FFAB70"> index</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">	if</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> (index </span><span style="color:#D73A49;--shiki-dark:#F97583">&#x3C;</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> 0</span><span style="color:#D73A49;--shiki-dark:#F97583"> ||</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> index </span><span style="color:#D73A49;--shiki-dark:#F97583">>=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> obj->size) </span><span style="color:#D73A49;--shiki-dark:#F97583">return</span><span style="color:#D73A49;--shiki-dark:#F97583"> -</span><span style="color:#005CC5;--shiki-dark:#79B8FF">1</span><span style="color:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	Node</span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> cur </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> obj->data;</span><span style="color:#6A737D;--shiki-dark:#6A737D">//这其实就是虚拟头节点</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">	while</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> (index</span><span style="color:#D73A49;--shiki-dark:#F97583">--</span><span style="color:#D73A49;--shiki-dark:#F97583"> >=</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> 0</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) {</span><span style="color:#6A737D;--shiki-dark:#6A737D">//题目说了链表节点从下标0开始</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">        cur </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> cur->next;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">	return</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> cur->val;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//在链表的第一个元素之前添加一个值为 val 的节点。插入后，新节点将成为链表的第一个节点。其实就是头插法</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">void</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> myLinkedListAddAtHead</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(MyLinkedList</span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70"> obj</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">int</span><span style="color:#E36209;--shiki-dark:#FFAB70"> val</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	Node</span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> node </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> (Node</span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8">)</span><span style="color:#6F42C1;--shiki-dark:#B392F0">malloc</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#D73A49;--shiki-dark:#F97583">sizeof</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(Node));</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	node->val </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> val;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	node->next </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> obj->data->next;</span><span style="color:#6A737D;--shiki-dark:#6A737D">//新插入节点指向虚拟头节点的下一个节点，即第一个节点</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	obj->data->next </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> node;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	obj->size</span><span style="color:#D73A49;--shiki-dark:#F97583">++</span><span style="color:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//将值为 val 的节点追加到链表的最后一个元素</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">void</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> myLinkedListAddAtTail</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(MyLinkedList</span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70"> obj</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">int</span><span style="color:#E36209;--shiki-dark:#FFAB70"> val</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	Node</span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> cur </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> obj->data;</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">	while</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> (cur->next </span><span style="color:#D73A49;--shiki-dark:#F97583">!=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> ((</span><span style="color:#D73A49;--shiki-dark:#F97583">void*</span><span style="color:#24292E;--shiki-dark:#E1E4E8">)</span><span style="color:#005CC5;--shiki-dark:#79B8FF">0</span><span style="color:#24292E;--shiki-dark:#E1E4E8">)) {</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">        cur </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> cur->next;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	Node</span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> tail </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> (Node</span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8">)</span><span style="color:#6F42C1;--shiki-dark:#B392F0">malloc</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#D73A49;--shiki-dark:#F97583">sizeof</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(Node));</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	tail->val </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> val;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	tail->next </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> (</span><span style="color:#D73A49;--shiki-dark:#F97583">void*</span><span style="color:#24292E;--shiki-dark:#E1E4E8">)</span><span style="color:#005CC5;--shiki-dark:#79B8FF">0</span><span style="color:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	cur->next </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> tail;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	obj->size</span><span style="color:#D73A49;--shiki-dark:#F97583">++</span><span style="color:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//在链表中的第 index 个节点之前添加值为 val  的节点。如果 index 等于链表的长度，则该节点将附加到链表的末尾。如果 index 大于链表长度，则不会插入节点。如果index小于0，则在头部插入节点</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">void</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> myLinkedListAddAtIndex</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(MyLinkedList</span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70"> obj</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">int</span><span style="color:#E36209;--shiki-dark:#FFAB70"> index</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">int</span><span style="color:#E36209;--shiki-dark:#FFAB70"> val</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">	if</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> (index </span><span style="color:#D73A49;--shiki-dark:#F97583">></span><span style="color:#24292E;--shiki-dark:#E1E4E8"> obj->size) </span><span style="color:#D73A49;--shiki-dark:#F97583">return</span><span style="color:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	Node</span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> cur </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> obj->data;</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">	while</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> (index</span><span style="color:#D73A49;--shiki-dark:#F97583">--</span><span style="color:#D73A49;--shiki-dark:#F97583"> ></span><span style="color:#005CC5;--shiki-dark:#79B8FF"> 0</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) { </span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">        cur </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> cur->next;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	Node</span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> node </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> (Node</span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8">)</span><span style="color:#6F42C1;--shiki-dark:#B392F0">malloc</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(</span><span style="color:#D73A49;--shiki-dark:#F97583">sizeof</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(Node));</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	node->val </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> val;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	node->next </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> cur->next;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	cur->next </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> node;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	obj->size</span><span style="color:#D73A49;--shiki-dark:#F97583">++</span><span style="color:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//如果索引 index 有效，则删除链表中的第 index 个节点</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">void</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> myLinkedListDeleteAtIndex</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(MyLinkedList</span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70"> obj</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, </span><span style="color:#D73A49;--shiki-dark:#F97583">int</span><span style="color:#E36209;--shiki-dark:#FFAB70"> index</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">	if</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> (index </span><span style="color:#D73A49;--shiki-dark:#F97583">&#x3C;</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> 0</span><span style="color:#D73A49;--shiki-dark:#F97583"> ||</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> index </span><span style="color:#D73A49;--shiki-dark:#F97583">>=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> obj->size) </span><span style="color:#D73A49;--shiki-dark:#F97583">return</span><span style="color:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	Node</span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> cur </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> obj->data;</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">	while</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> (index</span><span style="color:#D73A49;--shiki-dark:#F97583">--</span><span style="color:#D73A49;--shiki-dark:#F97583"> ></span><span style="color:#005CC5;--shiki-dark:#79B8FF"> 0</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">        cur </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> cur->next;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	Node</span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> temp </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> cur->next;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	cur->next </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> temp->next;</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">	free</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(temp);</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	obj->size</span><span style="color:#D73A49;--shiki-dark:#F97583">--</span><span style="color:#24292E;--shiki-dark:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">//释放内存函数</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">void</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> myLinkedListFree</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(MyLinkedList</span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#E36209;--shiki-dark:#FFAB70"> obj</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	Node</span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> tmp </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> obj->data;</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">	while</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> (tmp </span><span style="color:#D73A49;--shiki-dark:#F97583">!=</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> NULL</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">		Node</span><span style="color:#D73A49;--shiki-dark:#F97583">*</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> n </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> tmp;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">		tmp </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> tmp->next;</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">		free</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(n);</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">	}</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">	free</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(obj);</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">/**</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D"> * Your MyLinkedList struct will be instantiated and called as such:</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D"> * MyLinkedList* obj = myLinkedListCreate();</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D"> * int param_1 = myLinkedListGet(obj, index);</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D"> </span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D"> * myLinkedListAddAtHead(obj, val);</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D"> </span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D"> * myLinkedListAddAtTail(obj, val);</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D"> </span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D"> * myLinkedListAddAtIndex(obj, index, val);</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D"> </span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D"> * myLinkedListDeleteAtIndex(obj, index);</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D"> </span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D"> * myLinkedListFree(obj);</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D">*/</span></span></code></pre>
+<p>C代码解释:
+Q：创建后的链表状态：
+A：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>外部视角:</span></span>
+<span class="line"><span>MyLinkedList* obj ──→ [size: 0]</span></span>
+<span class="line"><span>                       [data: ──→ 指向下面的节点]</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>内部结构:</span></span>
+<span class="line"><span>虚拟头节点 ──→ [val: 任意值] → NULL</span></span>
+<span class="line"><span>              [next: NULL]    </span></span>
+<span class="line"><span>                ↑</span></span>
+<span class="line"><span>              (实际链表为空，无其他节点)</span></span></code></pre>
+<p>Python:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">class</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> ListNode</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">    def</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> __init__</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(self, val</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#005CC5;--shiki-dark:#79B8FF">0</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, next</span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#005CC5;--shiki-dark:#79B8FF">None</span><span style="color:#24292E;--shiki-dark:#E1E4E8">):</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">        self</span><span style="color:#24292E;--shiki-dark:#E1E4E8">.val </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> val</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">        self</span><span style="color:#24292E;--shiki-dark:#E1E4E8">.next </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> next</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">        </span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">class</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> MyLinkedList</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">    def</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> __init__</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(self):</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">        self</span><span style="color:#24292E;--shiki-dark:#E1E4E8">.dummy_head </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> ListNode()</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">        self</span><span style="color:#24292E;--shiki-dark:#E1E4E8">.size </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> 0</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">    def</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> get</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(self, index: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">int</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) -> </span><span style="color:#005CC5;--shiki-dark:#79B8FF">int</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">        if</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> index </span><span style="color:#D73A49;--shiki-dark:#F97583">&#x3C;</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> 0</span><span style="color:#D73A49;--shiki-dark:#F97583"> or</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> index </span><span style="color:#D73A49;--shiki-dark:#F97583">>=</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> self</span><span style="color:#24292E;--shiki-dark:#E1E4E8">.size:</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">            return</span><span style="color:#D73A49;--shiki-dark:#F97583"> -</span><span style="color:#005CC5;--shiki-dark:#79B8FF">1</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">        </span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">        current </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> self</span><span style="color:#24292E;--shiki-dark:#E1E4E8">.dummy_head.next</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">        for</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> i </span><span style="color:#D73A49;--shiki-dark:#F97583">in</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> range</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(index):</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">            current </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> current.next</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">            </span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">        return</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> current.val</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">    def</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> addAtHead</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(self, val: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">int</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) -> </span><span style="color:#005CC5;--shiki-dark:#79B8FF">None</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">        self</span><span style="color:#24292E;--shiki-dark:#E1E4E8">.dummy_head.next </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> ListNode(val, </span><span style="color:#005CC5;--shiki-dark:#79B8FF">self</span><span style="color:#24292E;--shiki-dark:#E1E4E8">.dummy_head.next)</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">        self</span><span style="color:#24292E;--shiki-dark:#E1E4E8">.size </span><span style="color:#D73A49;--shiki-dark:#F97583">+=</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> 1</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">    def</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> addAtTail</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(self, val: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">int</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) -> </span><span style="color:#005CC5;--shiki-dark:#79B8FF">None</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">        current </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> self</span><span style="color:#24292E;--shiki-dark:#E1E4E8">.dummy_head</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">        while</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> current.next:</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">            current </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> current.next</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">        current.next </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> ListNode(val)</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">        self</span><span style="color:#24292E;--shiki-dark:#E1E4E8">.size </span><span style="color:#D73A49;--shiki-dark:#F97583">+=</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> 1</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">    def</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> addAtIndex</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(self, index: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">int</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, val: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">int</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) -> </span><span style="color:#005CC5;--shiki-dark:#79B8FF">None</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">        if</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> index </span><span style="color:#D73A49;--shiki-dark:#F97583">&#x3C;</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> 0</span><span style="color:#D73A49;--shiki-dark:#F97583"> or</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> index </span><span style="color:#D73A49;--shiki-dark:#F97583">></span><span style="color:#005CC5;--shiki-dark:#79B8FF"> self</span><span style="color:#24292E;--shiki-dark:#E1E4E8">.size:</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">            return</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">        </span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">        current </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> self</span><span style="color:#24292E;--shiki-dark:#E1E4E8">.dummy_head</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">        for</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> i </span><span style="color:#D73A49;--shiki-dark:#F97583">in</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> range</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(index):</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">            current </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> current.next</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">        current.next </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> ListNode(val, current.next)</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">        self</span><span style="color:#24292E;--shiki-dark:#E1E4E8">.size </span><span style="color:#D73A49;--shiki-dark:#F97583">+=</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> 1</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">    def</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> deleteAtIndex</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(self, index: </span><span style="color:#005CC5;--shiki-dark:#79B8FF">int</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) -> </span><span style="color:#005CC5;--shiki-dark:#79B8FF">None</span><span style="color:#24292E;--shiki-dark:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">        if</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> index </span><span style="color:#D73A49;--shiki-dark:#F97583">&#x3C;</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> 0</span><span style="color:#D73A49;--shiki-dark:#F97583"> or</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> index </span><span style="color:#D73A49;--shiki-dark:#F97583">>=</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> self</span><span style="color:#24292E;--shiki-dark:#E1E4E8">.size:</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">            return</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">        </span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">        current </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> self</span><span style="color:#24292E;--shiki-dark:#E1E4E8">.dummy_head</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">        for</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> i </span><span style="color:#D73A49;--shiki-dark:#F97583">in</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> range</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(index):</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">            current </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> current.next</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">        current.next </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> current.next.next</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">        self</span><span style="color:#24292E;--shiki-dark:#E1E4E8">.size </span><span style="color:#D73A49;--shiki-dark:#F97583">-=</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> 1</span></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D"># Your MyLinkedList object will be instantiated and called as such:</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D"># obj = MyLinkedList()</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D"># param_1 = obj.get(index)</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D"># obj.addAtHead(val)</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D"># obj.addAtTail(val)</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D"># obj.addAtIndex(index,val)</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#6A737D"># obj.deleteAtIndex(index)</span></span></code></pre></div><nav class="mt-16 flex items-center justify-between gap-4 border-t border-line pt-6 text-sm"><a href="/articles/2_reverse-string-ii/" class="max-w-[45%] text-muted transition-colors hover:text-accent">← 2_反转字符串II</a><a href="/articles/4_reverse-linked-list/" class="max-w-[45%] text-right text-muted transition-colors hover:text-accent">4_翻转链表 →</a></nav></article><aside class="hidden lg:block"><div class="sticky top-28 max-h-[calc(100vh-8rem)] overflow-y-auto pb-4"><nav class="toc-sidebar" aria-label="文章目录"><h2 class="font-display text-xs font-medium uppercase tracking-[0.2em] text-muted">目录</h2><ul class="relative mt-4 space-y-1 border-l border-line"><li class="relative leading-snug pl-3.5"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#707设计链表" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="707设计链表">707.设计链表</a></li><li class="relative leading-snug pl-5"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#思路" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="思路">思路</a></li><li class="relative leading-snug pl-5"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#题解" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="题解">题解</a></li></ul></nav><script type="module">function e(){let e=document.querySelectorAll(`.toc-link`);if(e.length===0)return;let t=Array.from(document.querySelectorAll(`h1[id], h2[id], h3[id]`));if(t.length===0)return;let n=()=>{let n=t[0].id;for(let e of t)if(e.getBoundingClientRect().top<120)n=e.id;else break;e.forEach(e=>{let t=e.dataset.slug===n;e.classList.toggle(`text-accent`,t),e.classList.toggle(`font-medium`,t);let r=e.previousElementSibling;r&&r.classList.contains(`toc-indicator`)&&(r.classList.toggle(`opacity-0`,!t),r.classList.toggle(`opacity-100`,t))})};window.addEventListener(`scroll`,n,{passive:!0}),window.addEventListener(`resize`,n),n()}e();</script></div></aside></div></div></main><footer class="border-t border-line"><div class="mx-auto flex max-w-5xl flex-col items-center gap-4 px-4 py-10 text-sm text-muted md:flex-row md:justify-between"><div class="text-center md:text-left"><p class="font-display text-xl font-medium tracking-[0.04em] text-ink">Bornfree</p><p class="mt-1.5 font-display text-sm italic tracking-[0.12em] text-muted">Revere time, defend your attention.</p></div><div class="flex items-center gap-2.5"><a href="https://github.com/BornfreeYan" target="_blank" rel="noopener noreferrer" class="flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:text-accent" aria-label="GitHub"><div class="h-4 w-4"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="100%" height="100%"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></div></a><a href="https://xhslink.cn/m/5DbIxl50YGT" target="_blank" rel="noopener noreferrer" class="flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:text-accent" aria-label="小红书"><div class="h-4 w-4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div></a><a href="https://x.com/yanbornfree" target="_blank" rel="noopener noreferrer" class="flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:text-accent" aria-label="X"><div class="h-4 w-4"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="100%" height="100%"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></div></a><a href="/rss.xml" target="_blank" rel="noopener noreferrer" class="flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:text-accent" aria-label="RSS"><div class="h-4 w-4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg></div></a><button type="button" data-email-copy data-addr="1700807190@qq.com" aria-label="复制邮箱" class="group relative flex items-center justify-center rounded-full border border-line text-muted transition-all hover:border-accent hover:text-accent h-9 w-9"><div class="h-4 w-4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div><span data-email-tip class="pointer-events-none absolute -top-9 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-ink px-3 py-1 text-xs text-bg opacity-0 transition-opacity duration-150">已复制 ✓</span></button><script type="module">document.querySelectorAll(`[data-email-copy]`).forEach(e=>{let t=e.querySelector(`[data-email-tip]`);e.addEventListener(`click`,async()=>{let n=e.getAttribute(`data-addr`)??``;try{await navigator.clipboard.writeText(n)}catch{}t&&(t.classList.remove(`opacity-0`),setTimeout(()=>t.classList.add(`opacity-0`),1600))})});</script></div><div class="text-center md:text-right"><p>© 2026 Bornfree</p><p class="mt-1 text-xs text-muted">Powered by Astro</p></div></div></footer><div data-search-overlay class="fixed inset-0 z-50 hidden"><div data-search-close class="absolute inset-0 bg-black/40 backdrop-blur-sm"></div><div class="absolute inset-x-0 top-0 mx-auto max-w-xl px-4 pt-24"><div class="rounded-2xl border border-line bg-surface p-4 shadow-2xl"><div class="flex items-center gap-2 border-b border-line pb-3"><div class="h-5 w-5 shrink-0 text-muted"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div><input data-search-input type="search" placeholder="搜索文章…" autocomplete="off" class="w-full bg-transparent text-lg outline-none placeholder:text-muted"><button data-search-close class="shrink-0 rounded-lg p-1 text-muted transition-colors hover:text-ink" aria-label="关闭搜索"><div class="h-5 w-5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></div></button></div><div data-search-results class="mt-3 max-h-[55vh] overflow-y-auto"></div><p data-search-hint class="mt-3 text-xs text-muted">搜索索引在构建时生成，预览请先 npm run build</p></div></div></div><script>
+  let pagefind = null
+
+  const overlay = document.querySelector('[data-search-overlay]')
+  const input = document.querySelector('[data-search-input]')
+  const results = document.querySelector('[data-search-results]')
+  const hint = document.querySelector('[data-search-hint]')
+
+  if (!overlay || !input || !results || !hint) throw new Error('search elements missing')
+
+  async function initPagefind() {
+    if (pagefind) return true
+    try {
+      const modUrl = '/pagefind/pagefind.js'
+      pagefind = await import(modUrl)
+      hint.textContent = ''
+      return true
+    } catch {
+      hint.textContent = '搜索索引未生成，请先执行 npm run build'
+      return false
+    }
+  }
+
+  function open() {
+    overlay.classList.remove('hidden')
+    input.value = ''
+    results.innerHTML = ''
+    setTimeout(() => input.focus(), 50)
+    initPagefind()
+  }
+
+  function close() {
+    overlay.classList.add('hidden')
+  }
+
+  document.addEventListener('click', (e) => {
+    const target = e.target
+    if (target.closest('[data-search-open]')) open()
+    else if (target.closest('[data-search-close]')) close()
+  })
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      close()
+      return
+    }
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault()
+      open()
+    }
+  })
+
+  let timer
+  input.addEventListener('input', () => {
+    clearTimeout(timer)
+    timer = setTimeout(runSearch, 200)
+  })
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') runSearch()
+  })
+
+  async function runSearch() {
+    const term = input.value.trim()
+    if (!term) {
+      results.innerHTML = ''
+      return
+    }
+    const ok = await initPagefind()
+    if (!ok) return
+    const search = await pagefind.search(term)
+    const items = (search.results ?? []).slice(0, 12)
+    if (items.length === 0) {
+      results.innerHTML = '<p class="p-3 text-sm text-muted">没有找到相关内容</p>'
+      return
+    }
+    const data = await Promise.all(items.map((r) => r.data()))
+    results.innerHTML = data
+      .map(
+        (d) => `
+        <a href="${d.url}" class="block rounded-xl px-3 py-3 transition-colors hover:bg-line/60">
+          <p class="font-medium">${d.meta?.title ?? ''}</p>
+          <p class="mt-1 line-clamp-2 text-sm text-muted">${d.excerpt ?? ''}</p>
+        </a>
+      `
+      )
+      .join('')
+  }
+</script></body></html><script type="module">var e=document.querySelector(`[data-reading-bar]`),t=document.querySelector(`[data-reading-fill]`);if(e&&t){let e=()=>{let e=document.documentElement.scrollHeight-window.innerHeight,n=e>0?window.scrollY/e:0;t.style.transform=`scaleX(${Math.min(1,Math.max(0,n))})`};addEventListener(`scroll`,e,{passive:!0}),addEventListener(`resize`,e),e()}</script><script type="module" src="/_astro/_slug_.astro_astro_type_script_index_1_lang.B4WhdnhF.js"></script>

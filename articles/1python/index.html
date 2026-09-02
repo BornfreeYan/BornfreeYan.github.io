@@ -1,0 +1,1535 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="敬畏时间，捍卫注意力。永远好奇，永远乐观"><title>Python · Bornfree</title><meta property="og:title" content="Python · Bornfree"><meta property="og:description" content="敬畏时间，捍卫注意力。永远好奇，永远乐观"><meta property="og:type" content="website"><link rel="icon" type="image/png" href="/favicon.png"><link rel="alternate" type="application/rss+xml" title="Bornfree" href="/rss.xml"><script>
+      (function () {
+        var stored = localStorage.getItem('theme')
+        var dark =
+          window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        var theme =
+          stored === 'light' || stored === 'dark' ? stored : dark ? 'dark' : 'light'
+        document.documentElement.setAttribute('data-theme', theme)
+      })()
+    </script><script>
+      (function () {
+        function initCopyButtons() {
+          document.querySelectorAll('.prose pre').forEach(function (pre) {
+            if (pre.querySelector('.copy-code-btn')) return
+            var btn = document.createElement('button')
+            btn.type = 'button'
+            btn.className = 'copy-code-btn'
+            btn.setAttribute('aria-label', '复制代码')
+            btn.textContent = '复制'
+            btn.addEventListener('click', function () {
+              var code = pre.querySelector('code')
+              var text = code ? code.textContent : pre.textContent
+              navigator.clipboard.writeText(text || '').then(function () {
+                btn.textContent = '已复制'
+                setTimeout(function () {
+                  btn.textContent = '复制'
+                }, 1500)
+              })
+            })
+            pre.style.position = 'relative'
+            pre.appendChild(btn)
+          })
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initCopyButtons)
+        } else {
+          initCopyButtons()
+        }
+      })()
+    </script><link rel="stylesheet" href="/_astro/Layout.wM7heRBc.css"><link rel="stylesheet" href="/_astro/_slug_.DXho-tWO.css"></head><body><header class="sticky top-0 z-40 border-b border-line bg-bg/80 backdrop-blur"><nav class="mx-auto flex h-14 max-w-5xl items-center gap-1 px-4"><a href="/" class="mr-3 flex shrink-0 items-center gap-2.5 font-serif text-lg font-semibold"><img src="/favicon.png" alt="{siteConfig.title}" class="h-7 w-7 rounded-full object-cover"><span>Bornfree</span></a><div class="hidden items-center gap-0.5 md:flex"><a href="/" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Home</a><a href="/projects" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Project</a><div class="group relative"><span class="flex cursor-default items-center gap-1 rounded-lg px-3 py-2 text-sm text-muted transition-colors">Article<div class="h-3.5 w-3.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><path d="m6 9 6 6 6-6"/></svg></div></span><div class="invisible absolute left-0 top-full pt-2 opacity-0 transition-all duration-150 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100"><div class="w-44 rounded-xl border border-line bg-surface p-1.5 shadow-lg"><a href="/categories" class="block rounded-lg px-3 py-2 text-sm text-ink transition-colors hover:bg-line/60">Categories</a><a href="/tags" class="block rounded-lg px-3 py-2 text-sm text-ink transition-colors hover:bg-line/60">Tags</a><a href="/archive" class="block rounded-lg px-3 py-2 text-sm text-ink transition-colors hover:bg-line/60">Archive</a></div></div></div><a href="/memos" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Memo</a><a href="/about" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">About</a></div><div class="ml-auto flex items-center gap-0.5"><button data-search-open class="rounded-lg p-2 text-muted transition-colors hover:text-ink" aria-label="搜索"><div class="h-5 w-5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div></button><button data-theme-toggle class="rounded-lg p-2 text-muted transition-colors hover:text-ink" aria-label="切换明暗模式"><div class="hidden h-5 w-5 [data-theme='dark']:block"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></div><div class="block h-5 w-5 [data-theme='dark']:hidden"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></div></button><button data-menu-toggle class="rounded-lg p-2 text-muted transition-colors hover:text-ink md:hidden" aria-label="打开菜单"><div class="h-5 w-5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg></div></button></div></nav><div data-mobile-menu class="hidden border-t border-line md:hidden"><div class="mx-auto flex max-w-5xl flex-col gap-1 px-4 py-3"><a href="/" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Home</a><a href="/projects" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Project</a><div class="flex flex-col"><span class="flex items-center gap-1 px-3 py-2 text-sm font-semibold text-ink">Article<div class="h-3.5 w-3.5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><path d="m6 9 6 6 6-6"/></svg></div></span><div class="mb-1 flex flex-col pl-4"><a href="/categories" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Categories</a><a href="/tags" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Tags</a><a href="/archive" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Archive</a></div></div><a href="/memos" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">Memo</a><a href="/about" class="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:text-ink">About</a></div></div></header><script type="module">document.querySelector(`[data-theme-toggle]`)?.addEventListener(`click`,()=>{let e=document.documentElement,t=e.getAttribute(`data-theme`)===`dark`?`light`:`dark`;e.setAttribute(`data-theme`,t),localStorage.setItem(`theme`,t)});var e=document.querySelector(`[data-menu-toggle]`),t=document.querySelector(`[data-mobile-menu]`);e?.addEventListener(`click`,()=>{let n=t?.classList.toggle(`hidden`)??!0;e.setAttribute(`aria-label`,n?`打开菜单`:`关闭菜单`)});</script><main><div data-reading-bar class="pointer-events-none fixed inset-x-0 top-0 z-[60] h-0.5 bg-line/60"><div data-reading-fill class="h-full origin-left bg-accent" style="transform: scaleX(0)"></div></div><div class="mx-auto max-w-6xl px-6 py-16"><div class="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,768px)_220px] lg:justify-center"><article class="min-w-0"><header class="mb-10"><div class="flex flex-wrap items-center gap-2 text-sm text-muted"><time datetime="2026-09-02T00:00:00.000Z">2026-09-02</time><span aria-hidden="true">·</span><span>10383 字</span><span aria-hidden="true">·</span><span>约 35 分钟</span><a href="/categories/CS" class="rounded-full bg-line/60 px-2 py-0.5 transition-colors hover:text-accent">CS</a></div><h1 class="mt-4 font-serif text-3xl font-semibold leading-tight sm:text-4xl">Python</h1><div class="mt-4 flex flex-wrap gap-1.5"><a href="/tags/Python" class="rounded-full border border-line px-2 py-0.5 text-xs text-muted transition-colors hover:border-accent hover:text-accent">#Python</a><a href="/tags/Backend" class="rounded-full border border-line px-2 py-0.5 text-xs text-muted transition-colors hover:border-accent hover:text-accent">#Backend</a></div></header><div class="prose"><blockquote>
+<p>看的是<a href="https://mofanpy.com/tutorials/python-basic/interactive-python/">莫烦python</a>
+更全面的视频（不懂挑章节看）：<a href="https://www.bilibili.com/video/BV1qW4y1a7fU/?share_source=copy_web&#x26;vd_source=f290db4430dc60ad19d813119d3e7628">黑马程序员python</a></p>
+</blockquote>
+<h1 id="变量与运算">变量与运算</h1>
+<h2 id="变量">变量</h2>
+<p>变量<strong>不需要</strong>声明类型
+下面这个（字符串）可使用单引/双引/三个双引号（专用于跨行）</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>name1 = '文件管理系统'</span></span>
+<span class="line"><span>name1</span></span>
+<span class="line"><span>name2 = """</span></span>
+<span class="line"><span>这是一条神奇的天路诶~</span></span>
+<span class="line"><span>哈基米南北绿豆</span></span>
+<span class="line"><span>"""</span></span>
+<span class="line"><span>name2</span></span></code></pre>
+<p>多变量：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>name1, name2, name3 = "文件", "系统", "管理"</span></span>
+<span class="line"><span>name1, name2, name3</span></span></code></pre>
+<h2 id="打印">打印</h2>
+<p>展示几种用法：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>name = '东边'</span></span>
+<span class="line"><span>print(name) #输出变量值,不带引号的</span></span>
+<span class="line"><span>print("太阳从", name, "升起")</span></span></code></pre>
+<h2 id="运算">运算</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>运算符</th><th>描述</th><th>例子</th></tr></thead><tbody><tr><td>+</td><td>加</td><td>3+4=7</td></tr><tr><td>-</td><td>减</td><td>3-4=-1</td></tr><tr><td>*</td><td>乘</td><td>3*4=12</td></tr><tr><td>/</td><td>除</td><td>3/2=1.5（python3开始可以整数÷整数得到浮点数了）</td></tr><tr><td>%</td><td>取模（余数）</td><td>103%100=3</td></tr><tr><td>**</td><td>幂</td><td>3** 2 =9</td></tr><tr><td>//</td><td>取整除</td><td>10//3=3</td></tr><tr><td>and or not</td><td>布尔运算（与或非）</td><td>True and False 返回False</td></tr><tr><td>==<br>!=<br>is<br></td><td>判断两个值是否相等、不等。注意<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mo>=</mo></mrow><annotation encoding="application/x-tex">==</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.3669em;"></span><span class="mrel">==</span></span></span></span>和<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">!</mo><mo>=</mo></mrow><annotation encoding="application/x-tex">!=</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mclose">!</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span></span></span></span>比较引用指向的内存中的<strong>内容</strong>，而is判断两个变量是否指向一个<strong>地址</strong></td><td>a = 1<br>b = 1.0<br>c = 1<br>a == b # True，值相等<br>a is b # False，指向的不是一个对象<br>a is c # True，指向的都是整型值1</td></tr><tr><td>字符串也可以加：</td><td></td><td></td></tr></tbody></table>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>name = "文件" + "系统"</span></span>
+<span class="line"><span>name</span></span></code></pre>
+<p>自增运算：a +=1 ，就是a自增1，a=a+1，同理有-=、* =、/=。</p>
+<h1 id="循环数据判断">循环、数据、判断</h1>
+<h2 id="条件判断">条件判断</h2>
+<h3 id="ifif-not">If/if not</h3>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>in_trash = True</span></span>
+<span class="line"><span>if in_trash:</span></span>
+<span class="line"><span>    print("可以被彻底删除")</span></span></code></pre>
+<p>若是False就不执行。另外，如果是if not in_trash，也不执行。</p>
+<h3 id="if-else">if-else</h3>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>in_trash = True</span></span>
+<span class="line"><span>if in_trash:</span></span>
+<span class="line"><span>    print("可以被彻底删除")</span></span>
+<span class="line"><span>else:</span></span>
+<span class="line"><span>    print("不可以被彻底删除")</span></span></code></pre>
+<h3 id="判断条件">判断条件</h3>
+<p>除了True/False还有很多其他的间接判断条件。如：a == b a > b a >= b a &#x3C; b a &#x3C;= b a != b</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>a,b = "文件1", "文件2"</span></span>
+<span class="line"><span>a == b # 字符串的相等比较</span></span>
+<span class="line"><span>print("2 &#x3C; 3", 2 &#x3C; 3)</span></span>
+<span class="line"><span>print("3 &#x3C; 2", 3 &#x3C; 2)</span></span>
+<span class="line"><span>print("2 != 2", 2 != 2)</span></span></code></pre>
+<p>and or not 与或非判断</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>print(2 &#x3C; 3 and 2 &#x3C; 5)#True and True = True</span></span>
+<span class="line"><span>print(2 > 3 or 3 == 3)#False or True = True</span></span>
+<span class="line"><span>print(2 > 3 or not 3 == 3 and 5 &#x3C; 10)#False or not True and True = False，按优先级：not > and > or</span></span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>判断</th><th>含义</th></tr></thead><tbody><tr><td>True <strong>and</strong> True</td><td>需要两边同时满足才能返回 True</td></tr><tr><td>True <strong>or</strong> False</td><td>只要一边是 True 则返回 True</td></tr><tr><td><strong>not</strong> True</td><td>给出相反结果</td></tr></tbody></table>
+<h3 id="if-elif-else">if-elif-else</h3>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>today = 4</span></span>
+<span class="line"><span>if today == 1:</span></span>
+<span class="line"><span>    print("周一")</span></span>
+<span class="line"><span>elif today == 2:</span></span>
+<span class="line"><span>    print("周二")</span></span>
+<span class="line"><span>elif today == 3:</span></span>
+<span class="line"><span>    print("周三")</span></span>
+<span class="line"><span>else:</span></span>
+<span class="line"><span>    print("周一周二周三之外的一天")</span></span></code></pre>
+<h2 id="forwhile循环">for/while循环</h2>
+<h3 id="for">for</h3>
+<p>如果在文件系统中，我们想为文件名批量递增序号，应该怎么办:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>for i in range(5):</span></span>
+<span class="line"><span>    print("新文件-" + str(i))# 原先是int型的，要转换为str输出</span></span></code></pre>
+<p>这个 <code>range()</code> 会一次次给你放出 <code>0，1，2，3，4</code>。
+还可以像下面这么写， <code>range(2,5)</code> 表示从2开始，一直到5<strong>之前</strong>的 <code>2,3,4</code> 3个数。都是<strong>左闭右开</strong>。
+还可以跳着走，range(start,end,step)。比如range(3, 10, 2) 就表示了，从3开始，一直到10之前，每2次出一次数，输出3/5/7/9。</p>
+<h3 id="while">while</h3>
+<p>for适合遍历已知集合，while适合条件控制型、不知道具体长度的循环</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>guess_num = 10</span></span>
+<span class="line"><span>while guess_num != 20:</span></span>
+<span class="line"><span>    guess_num += 1</span></span>
+<span class="line"><span>    print(guess_num)</span></span>
+<span class="line"><span># 11 12 13 14 15 16 17 18 19 20</span></span></code></pre>
+<h3 id="continue-and-break">continue and break</h3>
+<p>break紧急弹出<strong>不再继续循环</strong>，continue会接着继续，如有循环会<strong>接着处理下一个数据</strong>。
+break：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>count = 0</span></span>
+<span class="line"><span>guess_num = 10</span></span>
+<span class="line"><span>while guess_num != 20:</span></span>
+<span class="line"><span>    guess_num += 1</span></span>
+<span class="line"><span>    count += 1</span></span>
+<span class="line"><span>    if count > 10:</span></span>
+<span class="line"><span>        break</span></span>
+<span class="line"><span>    print(guess_num)</span></span></code></pre>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>for i in range(10):</span></span>
+<span class="line"><span>    if i == 5:</span></span>
+<span class="line"><span>        break</span></span>
+<span class="line"><span>    print(i)</span></span></code></pre>
+<p>continue:</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>for i in range(10):</span></span>
+<span class="line"><span>    if i % 2 == 0:</span></span>
+<span class="line"><span>        continue    # 跳过偶数</span></span>
+<span class="line"><span>    print(i)</span></span></code></pre>
+<h2 id="数据种类基本数据结构容器">数据种类/基本数据结构（容器）</h2>
+<h3 id="数据类型">数据类型</h3>
+<p>Python中最基本的数据类型包括整型，浮点数，布尔值和字符串。类型是不需要声明的，比如：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>a = 1       # 整数</span></span>
+<span class="line"><span>b = 1.2     # 浮点数</span></span>
+<span class="line"><span>c = True    # 布尔类型</span></span>
+<span class="line"><span>d = "False" # 字符串</span></span></code></pre>
+<p>其中#是行内注释的意思。
+在Python中利用type函数可以查看一个变量的类型：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>type(a)     # &#x3C;class 'int'></span></span>
+<span class="line"><span>type(b)     # &#x3C;class 'float'></span></span>
+<span class="line"><span>type(c)     # &#x3C;class 'bool'></span></span>
+<span class="line"><span>type(d)     # &#x3C;class 'str'></span></span></code></pre>
+<h3 id="f-string">f-string</h3>
+<p>字符串没什么特别，但是python3.6开始的格式化字符串f-string是个有意思的字符串表达式。简单来说，是一个以f开头的，可用用 {} 嵌入表达式，{}内支持方法调用、运算等操作的字符串。
+基本语法：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>name = "Alice"</span></span>
+<span class="line"><span>last_year_age = 25</span></span>
+<span class="line"><span>print(f"我叫{name}，今年{last_year_age+1}岁，我的名字有{len(name)}个字母")</span></span>
+<span class="line"><span># 输出：我叫Alice，今年26岁，我的名字有5个字母</span></span></code></pre>
+<p>格式控制：在 <code>{}</code> 内用 <code>:</code> 分隔表达式和格式说明符</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>pi = 3.14159</span></span>
+<span class="line"><span>print(f"圆周率：{pi:.2f}")      # 圆周率：3.14</span></span></code></pre>
+<h3 id="list列表">List列表</h3>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>files = ["f1.txt", "f2.txt", "f3.txt", "f4.txt", "f5.txt"]</span></span>
+<span class="line"><span>print("files[0] ", files[0]) # "f1.txt"</span></span>
+<span class="line"><span>print("files[3] ", files[3]) # "f4.txt"</span></span>
+<span class="line"><span>print("files[-1] ", files[-1]) # "f5.txt"</span></span>
+<span class="line"><span>print("files[-3] ", files[-3]) # "f3.txt"</span></span></code></pre>
+<p><strong>Python的第一个索引永远都是 0。</strong> 除了正着来取东西，我们完全也可以反着来取东西，第一个反着取的序号是 -1。以此类推，-3 这个索引就是倒着数第三个。
+<strong>首先区分一下python的List和c语言的数组：</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>特性</th><th>python列表</th><th>C静态数组</th></tr></thead><tbody><tr><td><strong>类型</strong></td><td>动态数据结构（对象）</td><td>连续的内存块</td></tr><tr><td><strong>元素类型</strong></td><td>可以混合任意类型，例如<code>my_list = [1, "hello", 3.14, [1, 2], {"a": 1}]</code></td><td>必须相同类型</td></tr><tr><td><strong>大小</strong></td><td>动态扩容/缩容</td><td>编译时固定</td></tr><tr><td><strong>储存内容</strong></td><td>存的是对象的引用（指针）,实际是指针数组：列表对象 → [ 指针1 | 指针2 | 指针3 ]，指针指向的对象分散在堆内存各处</td><td>直接存数据值</td></tr><tr><td><strong>内存布局</strong></td><td>指向的对象散落在堆中，不连续的（但指针数组是连续的）</td><td>连续内存，直接寻址</td></tr><tr><td><strong>操作灵活性</strong></td><td>极高（增删改查、切片等）</td><td>低（基本索引访问）</td></tr><tr><td>下面是一些关于列表的用法、语法、函数：</td><td></td><td></td></tr><tr><td><strong>python List切片语法</strong>，用来一次性取出列表/字符串/元组中的<strong>一段连续元素</strong>:</td><td></td><td></td></tr></tbody></table>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>序列[start:end]      # 从 start 开始，到 end-1 结束（end 不包含）</span></span>
+<span class="line"><span>序列[start:]         # 从 start 开始到末尾</span></span>
+<span class="line"><span>序列[:end]           # 从开头到 end-1</span></span>
+<span class="line"><span>序列[start:end:step] # 带步长（隔几个取一个）</span></span></code></pre>
+<p>遵循<strong>左闭右开</strong>，只是序列[start: ]需要包括最后一个元素。
+不写start 默认从 0 开始，不写 end 默认到最后</p>
+<p><strong>更换元素：</strong></p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>print("old files[1] ", files[1])# 假设这里files[1]不是12</span></span>
+<span class="line"><span>files[1] = 12</span></span>
+<span class="line"><span>print("new files[1] ", files[1])# 12</span></span></code></pre>
+<p><strong>在列表中，你可以存放不同类型的元素，字符，数字，甚至列表里还能有列表，列表中的列表还可以索引到</strong></p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>l = [1, "file", ["2", 3.2]]</span></span>
+<span class="line"><span>print(l)# [1, 'file', ['2', 3.2]]</span></span>
+<span class="line"><span>l[2][0] = "new string"</span></span>
+<span class="line"><span>print(l)# [1, 'file', ['new string', 3.2]]</span></span></code></pre>
+<p>列表的添加值.append()/删除.pop()，注意append是在<strong>末尾</strong>插入，pop也是把<strong>最后一个</strong>值移除并返回这个值：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>files = []</span></span>
+<span class="line"><span>for i in range(5):</span></span>
+<span class="line"><span>    files.append("f"+str(i)+".txt") # 添加</span></span>
+<span class="line"><span>    print("has", files)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>for i in range(len(files)):</span></span>
+<span class="line"><span>    print("pop", files.pop())   # 从最后一个开始 pop 出</span></span>
+<span class="line"><span>    print("remain", files)</span></span></code></pre>
+<p>输出：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>has ['f0.txt']  </span></span>
+<span class="line"><span>has ['f0.txt', 'f1.txt']  </span></span>
+<span class="line"><span>has ['f0.txt', 'f1.txt', 'f2.txt']  </span></span>
+<span class="line"><span>has ['f0.txt', 'f1.txt', 'f2.txt', 'f3.txt']  </span></span>
+<span class="line"><span>has ['f0.txt', 'f1.txt', 'f2.txt', 'f3.txt', 'f4.txt']  </span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>pop f4.txt  </span></span>
+<span class="line"><span>remain ['f0.txt', 'f1.txt', 'f2.txt', 'f3.txt']  </span></span>
+<span class="line"><span>pop f3.txt  </span></span>
+<span class="line"><span>remain ['f0.txt', 'f1.txt', 'f2.txt']  </span></span>
+<span class="line"><span>pop f2.txt  </span></span>
+<span class="line"><span>remain ['f0.txt', 'f1.txt']  </span></span>
+<span class="line"><span>pop f1.txt  </span></span>
+<span class="line"><span>remain ['f0.txt']  </span></span>
+<span class="line"><span>pop f0.txt  </span></span>
+<span class="line"><span>remain []</span></span></code></pre>
+<p>扩充入另一个列表.extend、按位置添加.insert、移除某索引 del、移除某个值.remove、找到第一个某个值的下标.index、倒序.reverse：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>files = ["f1.txt", "f2.txt"]</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 扩充入另一个列表</span></span>
+<span class="line"><span>files.extend(["f3.txt", "f4.txt"])</span></span>
+<span class="line"><span>print("extend", files)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 按位置添加</span></span>
+<span class="line"><span>files.insert(1, "file5.txt")     # 添加入第1位（首位是0哦）</span></span>
+<span class="line"><span>print("insert", files)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 移除某索引</span></span>
+<span class="line"><span>del files[1]</span></span>
+<span class="line"><span>print("del", files)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 移除某值 </span></span>
+<span class="line"><span>files.remove("f3.txt")</span></span>
+<span class="line"><span>print("remove", files)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 找到第一个某个值的下标</span></span>
+<span class="line"><span>files.index("f1.txt")</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 倒序,这个倒序是原地反转且没有返回值，所以它不能放在等号的右边进行赋值。比如a = b.reverse()，错</span></span>
+<span class="line"><span>files.reverse()</span></span></code></pre>
+<p>输出：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>extend ['f1.txt', 'f2.txt', 'f3.txt', 'f4.txt']  </span></span>
+<span class="line"><span>insert ['f1.txt', 'file5.txt', 'f2.txt', 'f3.txt', 'f4.txt']  </span></span>
+<span class="line"><span>del ['f1.txt', 'f2.txt', 'f3.txt', 'f4.txt']  </span></span>
+<span class="line"><span>remove ['f1.txt', 'f2.txt', 'f4.txt']</span></span>
+<span class="line"><span>0</span></span>
+<span class="line"><span>['f4.txt', 'f2.txt', 'f1.txt']</span></span></code></pre>
+<h3 id="dict字典">Dict字典</h3>
+<p>如果List是抽屉，那么Dict就是给每个抽屉<strong>打上标签</strong>，这样就能根据标签找抽屉。Key→Value，字典中的 key 都是唯一的；而 value 是多样的，你可以放一个字符，一个数字，甚至一个列表，甚至是另一个字典。
+注意，key 可以是任何<strong>不可变类型</strong>，比如字符串、数字、元组，这些都不可变；而不可以用列表，因为列表可变！</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>files = {"ID": 111, "passport": "my passport", "books": [1,2,3]}</span></span>
+<span class="line"><span>print(files)# {'ID': 111, 'passport': 'my passport', 'books': [1, 2, 3]}</span></span>
+<span class="line"><span>print(files["books"])# [1, 2, 3],[]来引用内部的 key。</span></span></code></pre>
+<p>可以通过字典修改列表值：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>files["ID"] = 222</span></span>
+<span class="line"><span>print(files)# {'ID': 222, 'passport': 'my passport', 'books': [1, 2, 3]}</span></span></code></pre>
+<h3 id="tuple元组">Tuple元组</h3>
+<p>元组功能单一，基本都能用列表替代，但是元组有它一个唯一的独特性，就是它里面的<strong>东西不可变</strong>。</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>files = ("file1", "file2", "file3")</span></span>
+<span class="line"><span>print(files[1])</span></span>
+<span class="line"><span>files[1] = "file4"   # 这里会报错，不可以修改它</span></span></code></pre>
+<h3 id="set集合">Set集合</h3>
+<p>set 里面只会存在<strong>非重复的元素</strong>，不管你往里面加了多少相同元素，这些相同元素都会<strong>坍缩</strong>成一个。这种特性，我们就可以运用它来做交集并集等操作。<strong>注意，在集合中的元素，其实是没有顺序的。</strong></p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>my_files = set(["file1", "file2", "file3"])</span></span>
+<span class="line"><span>print(my_files)# {'file2', 'file3', 'file1'}</span></span>
+<span class="line"><span>my_files.add("file3")</span></span>
+<span class="line"><span>print(my_files)# {'file2', 'file3', 'file1'}</span></span>
+<span class="line"><span>my_files.add("file4")</span></span>
+<span class="line"><span>print(my_files)# {'file4', 'file2', 'file3', 'file1'}</span></span>
+<span class="line"><span>my_files.remove("file3")</span></span>
+<span class="line"><span>print(my_files)# {'file4', 'file2', 'file1'}</span></span></code></pre>
+<h3 id="以上这四种容器的辨析">以上这四种容器的辨析</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>类型</th><th>符号</th><th>特点</th><th>示例</th></tr></thead><tbody><tr><td>列表list</td><td>[]</td><td>有序、可重复、<strong>可修改</strong></td><td>[1, 2, 2, “a”]</td></tr><tr><td>元组Tuple</td><td>()</td><td>有序、可重复、<strong>不可修改</strong></td><td>(1, 2, “a”)</td></tr><tr><td>字典Dict</td><td>{}</td><td>键值对，键唯一</td><td>{“动物”: “狗”, “id”: 11}</td></tr><tr><td>集合Set</td><td>set()或者{1,2,3}</td><td>无序、<strong>不重复</strong></td><td>{1,2,3}</td></tr><tr><td>集合的初始化，可以直接s = {1,2,3},也可以s = set([1,2,3]),这是从列表转换而来的方式。<strong>但是：s = {}是空字典，而不是空集合，空集合只能用s = set()表示！</strong></td><td></td><td></td><td></td></tr></tbody></table>
+<h3 id="在循环中运用">在循环中运用</h3>
+<p>尤其是列表和字典，和循环一起使用较多</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>files = ["f1.txt", "f2.txt", "f3.txt", "f4.txt", "f5.txt"]</span></span>
+<span class="line"><span>for i in range(len(files)):# 求files长度</span></span>
+<span class="line"><span>    if files[i] == "f3.txt":</span></span>
+<span class="line"><span>        print("I got f3.txt")</span></span></code></pre>
+<p>当然可以直接简化为：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>files = ["f1.txt", "f2.txt", "f3.txt", "f4.txt", "f5.txt"]</span></span>
+<span class="line"><span>for f in files:</span></span>
+<span class="line"><span>    if f == "f3.txt":</span></span>
+<span class="line"><span>        print("I got f3.txt")</span></span></code></pre>
+<p>字典的用法，需要调用dict.items() dict.keys() dict.values():</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>files = {"ID": 111, "passport": "my passport", "books": [1,2,3]}</span></span>
+<span class="line"><span>for key in files.keys():</span></span>
+<span class="line"><span>    print("key:", key)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>for value in files.values():</span></span>
+<span class="line"><span>    print("value:", value)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>for key, value in files.items():# 同时取key/value的时候用dict.items()</span></span>
+<span class="line"><span>    print("key:", key, ", value:", value)</span></span></code></pre>
+<p>输出：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>key: ID  </span></span>
+<span class="line"><span>key: passport  </span></span>
+<span class="line"><span>key: books  </span></span>
+<span class="line"><span>value: 111  </span></span>
+<span class="line"><span>value: my passport  </span></span>
+<span class="line"><span>value: [1, 2, 3]  </span></span>
+<span class="line"><span>key: ID , value: 111  </span></span>
+<span class="line"><span>key: passport , value: my passport  </span></span>
+<span class="line"><span>key: books , value: [1, 2, 3]</span></span></code></pre>
+<h3 id="深浅拷贝">深浅拷贝</h3>
+<p>AI 实战场景：处理数据集、配置字典时，= 赋值只是贴标签，修改副本会把原始数据也改掉。深浅拷贝是解决这类隐蔽bug的关键。
+<strong>直接赋值=</strong>：只是给同一个对象起了新名字，内存中仍是同一个东西。
+用 C 语言（指针）的思维来理解 Python 的话：</p>
+<ul>
+<li><code>a = [1, 2, [3, 4]]</code> 时，Python 先在内存中创建了这个列表对象，然后让 <code>a</code> <strong>指向</strong>（引用）它。</li>
+<li><code>b = a</code> 时，Python 并没有新建对象，只是让 <code>b</code> 也<strong>指向同一个内存地址</strong>。</li>
+<li>所以 <code>a</code> 和 <code>b</code> 是两个<strong>名字（指针/引用）</strong>，但指向<strong>同一块内存</strong>。</li>
+</ul>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>a = [1, 2, [3, 4]]</span></span>
+<span class="line"><span>b = a</span></span>
+<span class="line"><span>b[0] = 99</span></span>
+<span class="line"><span>print(a)  # [99, 2, [3, 4]] —— a 也被改了！</span></span></code></pre>
+<p>可以试着用id()验证，输出的地址一致：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>print(id(a))  # 比如 140234567890</span></span>
+<span class="line"><span>print(id(b))  # 也是 140234567890，同一个地址</span></span></code></pre>
+<p>如图：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>变量名                    内存中的对象</span></span>
+<span class="line"><span>    ┌─────────┐              ┌─────────────────────┐</span></span>
+<span class="line"><span>    │    a    │─────────────→│                     │</span></span>
+<span class="line"><span>    └─────────┘   引用        │   [99, 2, [3, 4]]  │</span></span>
+<span class="line"><span>                             │    ↑ 修改后的值     │</span></span>
+<span class="line"><span>    ┌─────────┐              │                     │</span></span>
+<span class="line"><span>    │    b    │─────────────→│   同一个列表对象     │</span></span>
+<span class="line"><span>    └─────────┘   引用       │   id: 0x7f8b2c...   │</span></span>
+<span class="line"><span>                            └─────────────────────┘</span></span>
+<span class="line"><span>           a is b  →  True  （同一个身份/地址）</span></span>
+<span class="line"><span>           a == b  →  True  （值也相等）</span></span></code></pre>
+<p><strong>浅拷贝copy()</strong>：创建一个新容器，但里面的<strong>嵌套对象仍是引用，也就是你修改嵌套对象会同时修改原对象</strong>。简单说，就是一维的元素拷贝了数值过来，高维的元素/列表等等，拷贝的是引用。</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>import copy</span></span>
+<span class="line"><span>a = [1, 2, [3, 4]]</span></span>
+<span class="line"><span>b = a.copy()      # 或 list(a)、切片 a[:]</span></span>
+<span class="line"><span>b[0] = 99</span></span>
+<span class="line"><span>print(a)          # [1, 2, [3, 4]] —— 外层没被改</span></span>
+<span class="line"><span>b[2][0] = 999</span></span>
+<span class="line"><span>print(a)          # [1, 2, [999, 4]] —— 内层列表还是被改了！</span></span></code></pre>
+<p>再举一个字典的例子：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>import copy</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>config = {</span></span>
+<span class="line"><span>    "model": "gpt-4",</span></span>
+<span class="line"><span>    "params": {"temperature": 0.7, "max_tokens": 2000}</span></span>
+<span class="line"><span>}</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>config_b = config.copy()          # 浅拷贝</span></span>
+<span class="line"><span>config_b["model"] = "gpt-3.5"     # ✅ 不影响原 config</span></span>
+<span class="line"><span>config_b["params"]["temperature"] = 1.0  # ❌ 原 config 的 temperature 也变成 1.0 了！</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>print(config["params"]["temperature"])  # 1.0 —— 中招了</span></span></code></pre>
+<p><strong>深拷贝deepcopy()</strong>：<strong>递归</strong>复制所有嵌套对象，<strong>完全独立，对里面的任何嵌套对象的修改都不影响原来的a指向的对象</strong>。</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>import copy</span></span>
+<span class="line"><span>a = [1, 2, [3, 4]]</span></span>
+<span class="line"><span>b = copy.deepcopy(a)</span></span>
+<span class="line"><span>b[2][0] = 999</span></span>
+<span class="line"><span>print(a)          # [1, 2, [3, 4]] —— 完全独立，互不影响</span></span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>方式</th><th>写法</th><th>外层独立？</th><th>内层独立？</th><th>适用场景</th></tr></thead><tbody><tr><td>直接赋值</td><td><code>b = a</code></td><td>❌</td><td>❌</td><td>不需要复制，只是起别名</td></tr><tr><td>浅拷贝</td><td><code>a.copy()</code></td><td>✅</td><td>❌</td><td>一维列表、简单字典的复制</td></tr><tr><td>深拷贝</td><td><code>copy.deepcopy(a)</code></td><td>✅</td><td>✅</td><td><strong>嵌套数据结构、AI配置字典、模型参数副本</strong></td></tr></tbody></table>
+<h3 id="列表推导式一行搞定新列表">列表推导式（一行搞定新列表）</h3>
+<blockquote>
+<p><strong>用表达式替代 for 循环来创建列表，简洁到一行代码。</strong> 列表推导式是 Python 中最受欢迎的特性之一。</p>
+</blockquote>
+<p>基本语法 <code>[表达式 for 变量 in 可迭代对象 if 条件]</code>。Python 底层用 C 快速迭代，比手动 for 循环 append 效率更高。
+例：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span># 基础：平方数</span></span>
+<span class="line"><span>squares = [x**2 for x in range(10)]</span></span>
+<span class="line"><span>print(squares)  # [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 带条件：只保留偶数</span></span>
+<span class="line"><span>evens = [x for x in range(10) if x % 2 == 0]</span></span>
+<span class="line"><span>print(evens)   # [0, 2, 4, 6, 8]</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 嵌套循环：扁平化二维列表</span></span>
+<span class="line"><span># [表达式 for 外层变量 in 外层可迭代对象 for 内层变量 in 内层可迭代对象]，从左到右就是从外到里</span></span>
+<span class="line"><span>matrix = [[1, 2], [3, 4], [5, 6]]</span></span>
+<span class="line"><span>flat = [x for row in matrix for x in row]</span></span>
+<span class="line"><span>print(flat)    # [1, 2, 3, 4, 5, 6]</span></span></code></pre>
+<p><strong>字典/集合推导式</strong>：同样的语法也适用于 dict 和 set。</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span># 字典推导式</span></span>
+<span class="line"><span>square_dict = {x: x**2 for x in range(5)}</span></span>
+<span class="line"><span>print(square_dict)  # {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 集合推导式：去重</span></span>
+<span class="line"><span>nums = [1, 2, 2, 3, 3, 3]</span></span>
+<span class="line"><span>unique_squares = {x**2 for x in nums}</span></span>
+<span class="line"><span>print(unique_squares)  # {1, 4, 9}</span></span></code></pre>
+<h3 id="zip拉链式合并">zip（拉链式合并）</h3>
+<blockquote>
+<p><strong>把多个列表按位置”拉”在一起，一一配对。</strong> 就像拉链一样，把两条链的对应齿牙咬合。</p>
+</blockquote>
+<p><strong>专业解释</strong>：<code>zip()</code> 接收多个可迭代对象，返回由<strong>元组</strong>组成的迭代器(<code>zip</code> 返回的是<strong>迭代器</strong>，用 <code>list()</code> 转成列表才能看到内容)，每个元组包含各对象同一位置的元素。结果长度以<strong>最短的输入</strong>为准。
+<strong>通俗理解</strong>：你有两份名单 —— 名字列表和分数列表，<code>zip</code> 把对应位置的名字和分数”绑”成一对。</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>names = ["Tom", "Jerry", "Spike"]</span></span>
+<span class="line"><span>scores = [85, 92, 78]</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 合并成 (名字, 分数) 对</span></span>
+<span class="line"><span>pairs = list(zip(names, scores))</span></span>
+<span class="line"><span>print(pairs)  # [('Tom', 85), ('Jerry', 92), ('Spike', 78)]</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 在循环中直接拆包</span></span>
+<span class="line"><span>for name, score in zip(names, scores):</span></span>
+<span class="line"><span>    print(f"{name}: {score}分")</span></span></code></pre>
+<p><strong>多列表合并</strong>：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>ids = [1, 2, 3]</span></span>
+<span class="line"><span>names = ["Alice", "Bob", "Carol"]</span></span>
+<span class="line"><span>roles = ["admin", "user", "user"]</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>users = list(zip(ids, names, roles))</span></span>
+<span class="line"><span>print(users)  # [(1, 'Alice', 'admin'), (2, 'Bob', 'user'), (3, 'Carol', 'user')]</span></span></code></pre>
+<p><strong>反解压</strong>：用 <code>*</code> 把 zip 结果拆回多个列表。</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>zipped = [('Tom', 85), ('Jerry', 92), ('Spike', 78)]</span></span>
+<span class="line"><span>names, scores = zip(*zipped)</span></span>
+<span class="line"><span>print(names)   # ('Tom', 'Jerry', 'Spike')</span></span>
+<span class="line"><span>print(scores)  # (85, 92, 78)</span></span></code></pre>
+<p><strong>长度不一致时</strong>：<code>zip</code> 以<strong>最短的</strong>为准，长的列表多余部分被忽略。</p>
+<h1 id="函数类-模块">函数、类、 模块</h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>概念</th><th>本质</th><th>类比</th></tr></thead><tbody><tr><td><strong>函数</strong> (<code>def</code>)</td><td>可复用的代码块</td><td>工厂里的一台机器</td></tr><tr><td><strong>类</strong> (<code>class</code>)</td><td>数据和函数的封装</td><td>一条生产线（包含多台机器）</td></tr><tr><td><strong>模块</strong> (<code>.py</code>文件)</td><td>一个 Python 文件</td><td>一个车间（包含多条生产线和独立机器）</td></tr></tbody></table>
+<h2 id="function函数">Function函数</h2>
+<h3 id="定义函数">定义函数</h3>
+<p>比如一个修改文件名的函数：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>def modify_name(filename):</span></span>
+<span class="line"><span>    filename += ".txt"</span></span>
+<span class="line"><span>    filename = "my_" + filename</span></span>
+<span class="line"><span>    print(filename)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>f1 = "f1"</span></span>
+<span class="line"><span>modify_name(f1)# my_f1.txt</span></span></code></pre>
+<p>其实一个函数也可以没有输入参数。
+如果我们还想拿出来函数处理的结果，其实也就是让函数可以 <code>return</code> 出来一个值：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>def modify_name(filename):</span></span>
+<span class="line"><span>    filename += ".txt"</span></span>
+<span class="line"><span>    filename = "my_" + filename</span></span>
+<span class="line"><span>    return filename</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>new_filename = modify_name("f1")</span></span>
+<span class="line"><span>print(new_filename)</span></span></code></pre>
+<h3 id="参数设置">参数设置</h3>
+<p>传入参数太多，可以写出参数名避免搞混：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>def f(x, a, b, c):</span></span>
+<span class="line"><span>    return a*x**2 + b*x + c*1</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>print(f(2, 1, 1, 0))    # 忽略参数名，按顺序传参</span></span>
+<span class="line"><span>print(f(x=2, a=1, b=1, c=0)) # 写上参数名，按名字传参</span></span>
+<span class="line"><span>print(f(a=1, c=0, x=2, b=1)) # 若用参数名，可以打乱顺序传参</span></span></code></pre>
+<p>另外，有些函数的参数并不是一直变化的，我们还可以设置一个参数默认值，节省写代码的时间和代码量。 如果设置了这些默认值，那在调用函数的时候就不一定要给这个参数赋值了。</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>def f(x, a=1, b=1, c=0):</span></span>
+<span class="line"><span>    return a*x**2 + b*x + c*1</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>print(f(2, a=2))# 10，可以更改既定的参数</span></span>
+<span class="line"><span>print(f(2))# 6</span></span></code></pre>
+<h3 id="全局和局部变量">全局和局部变量</h3>
+<p>全局 global：函数里外都能用 （公用）
+局部 local：仅在函数内有用 （私有）</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>def modify_name():</span></span>
+<span class="line"><span>    filename = "f1.txt"# 局部的变量</span></span>
+<span class="line"><span>    print("local filename:", filename)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>modify_name()</span></span>
+<span class="line"><span>print("global filename:", filename) # 这里会报错，除非在函数外部先定义filename</span></span></code></pre>
+<p>如果要从函数内部修改全局，要申请：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>filename = "f1.txt"</span></span>
+<span class="line"><span>def modify_name():</span></span>
+<span class="line"><span>    global filename  # 提出申请</span></span>
+<span class="line"><span>    filename = "f2.txt"</span></span>
+<span class="line"><span>    print("local filename:", filename)</span></span>
+<span class="line"><span>modify_name()</span></span>
+<span class="line"><span>print("global filename:", filename) # 现在就都是f2.txt了</span></span></code></pre>
+<h3 id="类型注解type-hints">类型注解（Type Hints）</h3>
+<blockquote>
+<p><strong>给函数的参数和返回值”贴上标签”，写清楚要什么类型、返回什么。</strong> 现代 Python 后端的标配，FastAPI、Pydantic 都基于它。</p>
+</blockquote>
+<p><strong>解释</strong>：Python 3.5+ 引入的可选类型注解，通过 <code>: type</code> 标注参数类型，<code>-> type</code> 标注返回值类型。运行时不会强制检查，但 IDE 和 mypy 等工具可以静态分析，提前发现类型错误。
+<strong>通俗理解</strong>：就像快递包裹上的标签 —— 写了里面是什么（参数类型）、送到哪去（返回值类型），快递员（IDE）一看就知道怎么处理。
+<strong>联系一下C语言：</strong> C语言中的一个函数，比如链表反转函数：<code>void reverse(ListNode *s, int start, int end)</code>，直接告诉编译器返回void类型，以及输入ListNode指针类型的s和两个int变量，这是必须声明的；而python里面的类型注解写不写都行，写了编译器也不看，更多的是一个提示的作用。</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>def add(x: int, y: int) -> int:</span></span>
+<span class="line"><span>    return x + y</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>add("hello", "world")  # ✅ 即便传入字符串也完全合法，不会报错，返回 "helloworld"</span></span></code></pre>
+<p>简单的例子：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span># 不加注解（别人不知道你要什么）</span></span>
+<span class="line"><span>def greet(name):</span></span>
+<span class="line"><span>    return f"Hello, {name}"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 加注解（一目了然）</span></span>
+<span class="line"><span>def greet(name: str) -> str:</span></span>
+<span class="line"><span>    return f"Hello, {name}"</span></span></code></pre>
+<p><strong>常见类型</strong>：Optional表示可选，Union表示联合、集合</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>from typing import List, Dict, Tuple, Optional, Union, Callable</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 列表，元素是 int</span></span>
+<span class="line"><span>def sum_all(nums: List[int]) -> int:</span></span>
+<span class="line"><span>    return sum(nums)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 字典，键 str → 值 int，输出可以是int，也可是None。Optional[类型]就是，可以是None也可以是[]内的类型</span></span>
+<span class="line"><span>def lookup(ages: Dict[str, int], name: str) -> Optional[int]:</span></span>
+<span class="line"><span>    return ages.get(name)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 可选：可能为 None，|表示或者，|需要python3.10+环境，不然还是只能用Optional[]</span></span>
+<span class="line"><span>def get_user(id: int) -> dict | None:</span></span>
+<span class="line"><span>    return db.find(id)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 联合：多种类型之一</span></span>
+<span class="line"><span>def parse(value: Union[int, str]) -> int:</span></span>
+<span class="line"><span>    return int(value)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 可调用：函数作为参数</span></span>
+<span class="line"><span>def apply(func: Callable[[int], int], x: int) -> int:</span></span>
+<span class="line"><span>    return func(x)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 元组</span></span>
+<span class="line"><span>def split_name(full: str) -> Tuple[str, str]:</span></span>
+<span class="line"><span>    first, last = full.split()</span></span>
+<span class="line"><span>    return first, last</span></span></code></pre>
+<blockquote>
+<p>”|“需要python3.10+环境，不然还是只能用Optional[]
+不想import List, Dict, Tuple这些？可以，python3.9+内置了，不需要import</p>
+</blockquote>
+<h3 id="args-和-kwargs可变参数"><code>*args</code> 和 <code>**kwargs</code>（可变参数）</h3>
+<blockquote>
+<p><strong>Python 后端无处不在的参数传递方式。</strong> 当你不知道函数会接收多少个参数时，<code>*args</code> 把多余位置参数打包成元组，<code>**kwargs</code> 把多余关键字参数打包成字典。装饰器、API 封装、依赖注入都在用。</p>
+</blockquote>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span># *args：打包位置参数</span></span>
+<span class="line"><span>def sum_all(*args):</span></span>
+<span class="line"><span>    return sum(args)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>print(sum_all(1, 2, 3, 4))  # 10</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># **kwargs：打包关键字参数</span></span>
+<span class="line"><span>def print_info(**kwargs):</span></span>
+<span class="line"><span>    for key, value in kwargs.items():</span></span>
+<span class="line"><span>        print(f"{key}: {value}")</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>print_info(name="f1.txt", size="2KB", owner="admin")</span></span></code></pre>
+<p>解包（反向操作）**：用 <code>*</code> 和 <code>**</code> 把容器拆开传入函数。</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span># * 解包列表/元组</span></span>
+<span class="line"><span>files = ["f1.txt", "f2.txt", "f3.txt"]</span></span>
+<span class="line"><span>print(*files)  # 等价于 print("f1.txt", "f2.txt", "f3.txt")</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># ** 解包字典</span></span>
+<span class="line"><span>config = {"name": "f1.txt", "create_time": "today"}</span></span>
+<span class="line"><span># 等价于 modify_file(name="f1.txt", create_time="today")</span></span></code></pre>
+<h3 id="迭代器与生成器">迭代器与生成器</h3>
+<blockquote>
+<p><strong>处理大量数据而不爆内存的核心技术。</strong> 生成器（<code>yield</code>）按需逐个产出值，而不是一次性返回所有数据。FastAPI 流式响应、大文件处理、批量推理都依赖它。</p>
+</blockquote>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span># 生成器版大文件读取（省内存）</span></span>
+<span class="line"><span>def chunk_reader(file_path, chunk_size=1024):</span></span>
+<span class="line"><span>    with open(file_path, 'r') as f:</span></span>
+<span class="line"><span>        while True:</span></span>
+<span class="line"><span>            chunk = f.read(chunk_size)</span></span>
+<span class="line"><span>            if not chunk:</span></span>
+<span class="line"><span>                break</span></span>
+<span class="line"><span>            yield chunk</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 批量处理数据（Agent/AI 常见模式）</span></span>
+<span class="line"><span>def batch_items(items, batch_size=32):</span></span>
+<span class="line"><span>    for i in range(0, len(items), batch_size):</span></span>
+<span class="line"><span>        yield items[i:i + batch_size]</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>for batch in batch_items(range(100), 32):</span></span>
+<span class="line"><span>    print(batch)  # [0..31], [32..63], [64..95], [96..99]</span></span></code></pre>
+<p><strong>和 <code>return</code> 的区别</strong>：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>方式</th><th>一次性？</th><th>内存占用</th><th>适用场景</th></tr></thead><tbody><tr><td><code>return</code> 列表</td><td>是</td><td>高</td><td>小数据</td></tr><tr><td><code>yield</code> 生成器</td><td>按需逐个产出</td><td>低（只存当前值）</td><td>大文件、流式数据、无限序列</td></tr></tbody></table>
+<p>生成器本质是实现了迭代器协议的函数，你也可以手动实现迭代器：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>class Counter:</span></span>
+<span class="line"><span>    def __init__(self, n):</span></span>
+<span class="line"><span>        self.n = n</span></span>
+<span class="line"><span>        self.current = 0</span></span>
+<span class="line"><span>    </span></span>
+<span class="line"><span>    def __iter__(self):</span></span>
+<span class="line"><span>        return self</span></span>
+<span class="line"><span>    </span></span>
+<span class="line"><span>    def __next__(self):</span></span>
+<span class="line"><span>        if self.current &#x3C; self.n:</span></span>
+<span class="line"><span>            self.current += 1</span></span>
+<span class="line"><span>            return self.current</span></span>
+<span class="line"><span>        raise StopIteration</span></span></code></pre>
+<h3 id="装饰器">装饰器</h3>
+<blockquote>
+<p><strong>不修改原函数代码，给函数”套壳”增加功能。</strong> FastAPI 的 <code>@app.get("/")</code>、<code>@app.post("/")</code> 就是装饰器。理解装饰器才能理解框架在做什么。</p>
+</blockquote>
+<p>先看一个最简例子，理解”函数能当参数传，也能在函数内部定义并返回”：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>def add_star(func):        # ① 接收一个函数</span></span>
+<span class="line"><span>    def wrapper():         # ② 内部定义一个新函数</span></span>
+<span class="line"><span>        return "⭐ " + func() + " ⭐"</span></span>
+<span class="line"><span>    return wrapper         # ③ 返回这个新函数</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>@add_star                  # 等价于 say_hi = add_star(say_hi)</span></span>
+<span class="line"><span>def say_hi():</span></span>
+<span class="line"><span>    return "你好"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>print(say_hi())  # ⭐ 你好 ⭐</span></span></code></pre>
+<p><code>@add_star</code> 执行时：把 <code>say_hi</code> 传入 <code>add_star</code> → <code>wrapper</code> 包裹了原函数 → 返回的 <code>wrapper</code> 重新赋值给 <code>say_hi</code>。所以现在调用 <code>say_hi()</code> 实际在调用 <code>wrapper()</code>。</p>
+<p>再看一个”调用前后加边框”的例子，结构完全一样：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>def add_border(func):</span></span>
+<span class="line"><span>    def wrapper():</span></span>
+<span class="line"><span>        print("=" * 10)          # 调用前</span></span>
+<span class="line"><span>        func()                   # 调用原函数</span></span>
+<span class="line"><span>        print("=" * 10)          # 调用后</span></span>
+<span class="line"><span>    return wrapper</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>@add_border</span></span>
+<span class="line"><span>def say_hi():</span></span>
+<span class="line"><span>    print("你好")</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>say_hi()</span></span>
+<span class="line"><span># ==========</span></span>
+<span class="line"><span># 你好</span></span>
+<span class="line"><span># ==========</span></span></code></pre>
+<p><strong>带参数的装饰器</strong>：三层层层嵌套。为什么需要三层？因为 <code>@log("INFO")</code> 等价于 <code>delete_file = log("INFO")(delete_file)</code>——先调 <code>log("INFO")</code> 返回一个装饰器，再拿这个装饰器去装饰函数。</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>def log(level):                 # ① 第一层：接收装饰器自己的参数</span></span>
+<span class="line"><span>    def decorator(func):        # ② 第二层：接收被装饰的函数（这才是真正的装饰器）</span></span>
+<span class="line"><span>        def wrapper(msg):       # ③ 第三层：包裹原函数，接收原函数的参数</span></span>
+<span class="line"><span>            print(f"[{level}] {msg}")   # 用到了第一层的 level</span></span>
+<span class="line"><span>            func(msg)           # 调用原函数</span></span>
+<span class="line"><span>        return wrapper</span></span>
+<span class="line"><span>    return decorator</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>@log("INFO")                    # 等价于：delete_file = log("INFO")(delete_file)</span></span>
+<span class="line"><span>def delete_file(filename):</span></span>
+<span class="line"><span>    print(f"删除 {filename}")</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>delete_file("old.txt")</span></span>
+<span class="line"><span># [INFO] old.txt</span></span>
+<span class="line"><span># 删除 old.txt</span></span></code></pre>
+<p><strong>保留原函数信息</strong>：用 <code>functools.wraps</code> 让被装饰函数保留 <code>__name__</code> 等元信息。</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>from functools import wraps</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>def add_border(func):</span></span>
+<span class="line"><span>    @wraps(func)   # 保留 func 的 __name__、__doc__ 等，否则 print(say_hi.__name__) 会输出 wrapper</span></span>
+<span class="line"><span>    def wrapper():</span></span>
+<span class="line"><span>        print("=" * 10)</span></span>
+<span class="line"><span>        func()</span></span>
+<span class="line"><span>        print("=" * 10)</span></span>
+<span class="line"><span>    return wrapper</span></span></code></pre>
+<p><strong>Agent 开发场景</strong>：写工具函数（Tool）时，用装饰器自动注册、自动记录日志、自动处理异常，是 Agent 框架的基石。</p>
+<h2 id="class类">Class类</h2>
+<h3 id="class定义">Class定义</h3>
+<p>人类是一个对人的大统称，人类就是一个类。同样，如果推演到我们这个文件管理系统的背景，文件就是一个大类， 每个具体文件就是这个类下面的个体（每个人是人类下的个体）。
+根据这样的逻辑，如果要生出来一个人，就得先有人类这个大概念，如果想创建一个文件，就要有文件这个大概念。 用 <code>class File</code> 来创建一个大概念（类），<strong>注意我们通常约定类的名字要首字母大写</strong>。 然后用 <code>my_file = File()</code> 来创建一个具体的文件。 每个具体的个体都带有这个类的基本属性，如 <code>create_time</code>, <code>name</code>。就像每个人都会有人类这个类当中的性别，年龄一样。</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>class File:</span></span>
+<span class="line"><span>    def __init__(self):</span></span>
+<span class="line"><span>        self.name = "f1"</span></span>
+<span class="line"><span>        self.create_time = "today"</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>my_file = File()</span></span>
+<span class="line"><span>print(my_file.name)</span></span>
+<span class="line"><span>print(my_file.create_time)</span></span></code></pre>
+<p> <code>self</code> 是作为<strong>类自己的一个索引</strong>，不管你在定义类的时候，想要获取这个类的什么属性或功能，都可以通过 <code>self</code> 来获取。 比如这个 <code>File</code> 类中，获取类自己的 <code>create_time</code>，就写成了 <code>self.create_time</code>。之后在说类的功能的时候， 也是通过 <code>self</code> 来在类内部调用的。
+ python的class有点类似c语言的结构体，但是：<strong>类=结构体+方法（函数）</strong>，self类似参数，指向实例的引用，所有实例变量都要通过 <code>self.xxx</code> 来存取。
+__ init __ 是一个初始化的方法，创建实例的时候会调用。
+有了这些属性，我们除了就能获取属性，也能修改属性的值。</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>my_file.name = "new_name"</span></span>
+<span class="line"><span>print(my_file.name)</span></span></code></pre>
+<h3 id="class功能">Class功能</h3>
+<p><code>__init__</code> 是类的一个功能，那么就可以像函数那样当成真正的功能来使用。比如在 <code>__init__()</code> 里加上传入参数。并且在初始化 <code>File()</code> 的时候传入你要 <code>__init__</code> 的参数。</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>class File:</span></span>
+<span class="line"><span>    def __init__(self, name, create_time="today"):</span></span>
+<span class="line"><span>        self.name = name</span></span>
+<span class="line"><span>        self.create_time = create_time</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>my_file = File("my_file")</span></span>
+<span class="line"><span>print(my_file.name)# my_file</span></span>
+<span class="line"><span>print(my_file.create_time)# today</span></span></code></pre>
+<p>当然，除了<code>__init__</code> 这种特殊的、创建对象自动执行的方法，自己也可以定义普通方法（函数），比如：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>class File:</span></span>
+<span class="line"><span>    def __init__(self, name, create_time="today"):</span></span>
+<span class="line"><span>        self.name = name</span></span>
+<span class="line"><span>        self.create_time = create_time</span></span>
+<span class="line"><span>    </span></span>
+<span class="line"><span>    def change_name(self, new_name):</span></span>
+<span class="line"><span>        self.name = new_name</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>my_file = File("my_file")</span></span>
+<span class="line"><span>print(my_file.name)# my_file</span></span>
+<span class="line"><span># 调用实例中，类的功能</span></span>
+<span class="line"><span>my_file.change_name("new_name") # 调用换名字的函数的时候，不同于调用__init__，要像这样my_file.change_name，即Class(类的实例名).xxx(方法名)</span></span>
+<span class="line"><span>print(my_file.name)# new_name</span></span></code></pre>
+<p>类也可以有返回值：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>class File:</span></span>
+<span class="line"><span>    def __init__(self, name, create_time="today"):</span></span>
+<span class="line"><span>        self.name = name</span></span>
+<span class="line"><span>        self.create_time = create_time</span></span>
+<span class="line"><span>    </span></span>
+<span class="line"><span>    def get_info(self):</span></span>
+<span class="line"><span>        return self.name + " is created at " + self.create_time</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>my_file = File("my_file")</span></span>
+<span class="line"><span>print(my_file.get_info())# my_file is created at today</span></span></code></pre>
+<h3 id="继承">继承</h3>
+<blockquote>
+<p><strong>继承 = “子类自动拥有父类的东西，同时可以添加或修改自己的特色”。父类：定义”通用装备”，比如汽车的共性是轮子、引擎；子类：继承+扩展，除了轮子、引擎，还有个性化的敞篷设计、前备箱等等。有了继承，一些有共性的地方在父类被设定好，就不用重复造轮子了，专注于差异化。</strong></p>
+</blockquote>
+<p>例如，视频文件和文本文件都有共性，他们都是文件<code>File</code>，都有名字<code>name</code>，和创建时间<code>create_time</code>，这些就可以在一个父类，即文件类；剩余的就是特殊属性，比如文本文件有语言<code>language</code>，视频文件有<code>window_size</code>。</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>class File:</span></span>
+<span class="line"><span>    def __init__(self, name, create_time="today"):</span></span>
+<span class="line"><span>        self.name = name</span></span>
+<span class="line"><span>        self.create_time = create_time</span></span>
+<span class="line"><span>    </span></span>
+<span class="line"><span>    def get_info(self):</span></span>
+<span class="line"><span>        return self.name + " is created at " + self.create_time</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>class Video(File):  # 继承了 File 的属性和功能</span></span>
+<span class="line"><span>    def __init__(self, name, window_size=(1080, 720)):</span></span>
+<span class="line"><span>        # 将共用属性的设置导入 File 父类</span></span>
+<span class="line"><span>        super().__init__(name=name, create_time="today") # 父类的替身是super，这是用来调用父类的方法，能初始化共性的属性</span></span>
+<span class="line"><span>        self.window_size = window_size</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>class Text(File): # 继承了 File 的属性和功能</span></span>
+<span class="line"><span>    def __init__(self, name, language="zh-cn"):</span></span>
+<span class="line"><span>        # 将共用属性的设置导入 File 父类</span></span>
+<span class="line"><span>        super().__init__(name=name, create_time="today") </span></span>
+<span class="line"><span>        self.language = language</span></span>
+<span class="line"><span>    </span></span>
+<span class="line"><span>    # 也可以在子类里复用父类功能</span></span>
+<span class="line"><span>    def get_more_info(self):</span></span>
+<span class="line"><span>        return self.get_info() + ", using language of " + self.language</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>v = Video("my_video")</span></span>
+<span class="line"><span>t = Text("my_text")</span></span>
+<span class="line"><span>print(v.get_info())     # 调用父类的功能,my_video is created at today</span></span>
+<span class="line"><span>print(t.create_time)    # 调用父类的属性,today</span></span>
+<span class="line"><span>print(t.language)       # 调用自己的属性,zh-cn</span></span>
+<span class="line"><span>print(t.get_more_info()) # 调用自己加工父类的功能,my_text is created at today, using language of zh-cn</span></span></code></pre>
+<h3 id="魔法方法magic-methods">魔法方法（Magic Methods）</h3>
+<blockquote>
+<p><strong>双下划线开头结尾的特殊方法</strong>，让自定义类的对象像 Python 内置类型一样工作。<code>__init__</code> 你已经会了，下面是最常用的几个。</p>
+</blockquote>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span># __call__：让实例能像函数一样被调用</span></span>
+<span class="line"><span>class FileProcessor:</span></span>
+<span class="line"><span>    def __init__(self, suffix):</span></span>
+<span class="line"><span>        self.suffix = suffix</span></span>
+<span class="line"><span>    </span></span>
+<span class="line"><span>    def __call__(self, filename):</span></span>
+<span class="line"><span>        return filename + self.suffix</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>add_txt = FileProcessor(".txt")</span></span>
+<span class="line"><span>print(add_txt("my_file"))  # my_file.txt——实例被当作函数用了</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># __len__ + __getitem__：让对象支持 len() 和 [] 索引</span></span>
+<span class="line"><span>class FileList:</span></span>
+<span class="line"><span>    def __init__(self, files):</span></span>
+<span class="line"><span>        self.files = files</span></span>
+<span class="line"><span>    </span></span>
+<span class="line"><span>    def __len__(self):</span></span>
+<span class="line"><span>        return len(self.files)</span></span>
+<span class="line"><span>    </span></span>
+<span class="line"><span>    def __getitem__(self, idx):</span></span>
+<span class="line"><span>        return self.files[idx]</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>fl = FileList(["f1.txt", "f2.txt", "f3.txt"])</span></span>
+<span class="line"><span>print(len(fl))       # 3</span></span>
+<span class="line"><span>print(fl[1])         # f2.txt</span></span>
+<span class="line"><span>for f in fl:         # 实现了 __getitem__，就支持 for 循环</span></span>
+<span class="line"><span>    print(f)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># __str__ / __repr__：控制打印输出</span></span>
+<span class="line"><span>class File:</span></span>
+<span class="line"><span>    def __init__(self, name, size):</span></span>
+<span class="line"><span>        self.name = name</span></span>
+<span class="line"><span>        self.size = size</span></span>
+<span class="line"><span>    </span></span>
+<span class="line"><span>    def __str__(self):</span></span>
+<span class="line"><span>        return f"File({self.name}, {self.size}KB)"     # 给人看的</span></span>
+<span class="line"><span>    </span></span>
+<span class="line"><span>    def __repr__(self):</span></span>
+<span class="line"><span>        return f"File(name='{self.name}', size={self.size})"  # 给开发者看的</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>f = File("report", 256)</span></span>
+<span class="line"><span>print(f)       # File(report, 256KB)</span></span>
+<span class="line"><span>print(repr(f)) # File(name='report', size=256)</span></span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>魔法方法</th><th>触发方式</th><th>用途</th></tr></thead><tbody><tr><td><code>__init__</code></td><td><code>obj = Class()</code></td><td>初始化</td></tr><tr><td><code>__call__</code></td><td><code>obj()</code></td><td>实例当函数调用</td></tr><tr><td><code>__len__</code></td><td><code>len(obj)</code></td><td>返回长度</td></tr><tr><td><code>__getitem__</code></td><td><code>obj[key]</code></td><td>索引访问</td></tr><tr><td><code>__setitem__</code></td><td><code>obj[key] = val</code></td><td>索引赋值</td></tr><tr><td><code>__str__</code> / <code>__repr__</code></td><td><code>print(obj)</code> / <code>repr(obj)</code></td><td>控制打印输出</td></tr></tbody></table>
+<h2 id="module模块">Module模块</h2>
+<p>module主要是为了一个相对比较大的工程，涉及到多个文件之间的互相调用关系。</p>
+<h3 id="文件中的代码">文件中的代码</h3>
+<p> 比如有人给了我一份 <code>file.py</code> 文件。这个文件里有 <code>create_name()</code> 的功能。
+ ```python
+ # file.py</p>
+<p>def create_name():
+return “new_file.txt”
+ ```
+ 作为这个功能的使用者，我不关心你 <code>create_name()</code> 里面的代码是怎么实现的，我只关心我可以用 <code>create_name()</code> 这个功能就好。</p>
+<h3 id="引用module">引用module</h3>
+<p>引用 module，我们通常也可以说成 引用库，引用包，引用代码 等。总之就是引用一份已经写好的代码。 创建好 <code>file.py</code> 后，相当于别人给了你一个可被调用的文件后，应当如何引用？
+当然我们自己得有一个.py文件，比如<code>me.py</code>，二者在同级目录下。</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span># me.py</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>import file </span></span>
+<span class="line"><span>print(file.create_name())# 输出new_file.txt</span></span></code></pre>
+<p>import引用，类似python Class调用。</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>import file as f1 # 重命名</span></span>
+<span class="line"><span>print("f1:", f1.create_name())</span></span></code></pre>
+<p>也可以引用某个文件下的某个函数，比如：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>from file import create_name # 从file引用xxx方法，可以用逗号隔开import多个</span></span>
+<span class="line"><span>print(create_name())</span></span></code></pre>
+<blockquote>
+<p>如果是<code>import file</code>，也就是引入某个文件，那么调用的时候要file.xxx函数；如果已经指定了引用什么函数，比如：<code>from file import create_name</code>,那就可以直接使用create_name。</p>
+</blockquote>
+<h3 id="大项目的模块管理">大项目的模块管理</h3>
+<p>比如一个项目文件夹结构：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>📁 项目根目录/</span></span>
+<span class="line"><span>├── 📄 me.py</span></span>
+<span class="line"><span>└── 📁 files/</span></span>
+<span class="line"><span>    ├── 📄 __init__.py</span></span>
+<span class="line"><span>    ├── 📄 text.py</span></span>
+<span class="line"><span>    └── 📄 video.py</span></span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>文件/文件夹</th><th>作用</th></tr></thead><tbody><tr><td>me.py</td><td>主程序入口，通常 <code>from files import xxx</code></td></tr><tr><td>files/</td><td><strong>包（package）</strong> —— 因为里面有 <code>__init__.py</code></td></tr><tr><td><code>files/__init__.py</code></td><td><strong>关键</strong>：标识这是一个 Python 包，控制对外暴露什么</td></tr><tr><td>files/text.py</td><td>子模块，定义 Text 类</td></tr><tr><td>files/video.py</td><td>子模块，定义 Video 类</td></tr><tr><td>正规的 module 中，我们常会看到一个 <code>__init__.py</code> 文件，这个文件其实就有点像 class 里的 <code>def __init__(self)</code>, 你可以在里面写上要如何初始化你的 <code>files</code> 目录。也可以设定目录中个元素的关系。</td><td></td></tr></tbody></table>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span># files/__init__.py</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>from .video import get_video_size</span></span></code></pre>
+<p>设置好 <code>__init__.py</code> 后，我们就能直接从 <code>files</code> 里 <code>import get_video_size</code> 这个属于 <code>video.py</code> 的功能了。</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span># me.py</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>from files import get_video_size</span></span>
+<span class="line"><span>print(get_video_size())</span></span></code></pre>
+<p>但是和 <code>video.py</code> 同级的 <code>text.py</code> 就无法通过这种 import 方式获取到 <code>text.py</code> 的功能，因为<code>__init__.py</code>里面没有import text文件或者里面的函数。
+如果我们要获取到 <code>text.py</code> 的功能，除了在<code>__init__.py</code> 文件import，还可以：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span># me.py</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>import files.text</span></span>
+<span class="line"><span>print(files.text.create_name())</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 或者这样：</span></span>
+<span class="line"><span>from files import text</span></span>
+<span class="line"><span>print(text.create_name())</span></span></code></pre>
+<h1 id="文件管理与异常处理">文件管理与异常处理</h1>
+<h2 id="读写文件">读写文件</h2>
+<h3 id="创建文件">创建文件</h3>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>f = open("new_file.txt", "w")   # 创建并打开,"w"表示写入。f = open("文件名+后缀","模式")</span></span>
+<span class="line"><span>f.write("some text...")         # 在文件里写东西</span></span>
+<span class="line"><span>f.close()                       # 关闭</span></span></code></pre>
+<p>新文件会在你运行的这个脚本的同级目录。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>模式</th><th>含义</th><th>注意</th></tr></thead><tbody><tr><td>“w”</td><td><strong>写入（write）</strong></td><td>文件已存在会<strong>清空覆盖</strong></td></tr><tr><td>“r”</td><td>读取（read）</td><td>默认模式，文件不存在报错</td></tr><tr><td>“a”</td><td>追加（append）</td><td>在<strong>末尾添加</strong>，不覆盖</td></tr><tr><td>wb</td><td>以二进制(binary)写入</td><td></td></tr><tr><td>rb</td><td>以二进制读取</td><td></td></tr><tr><td>ab</td><td>以二进制追加</td><td></td></tr><tr><td>如果你觉得要写一个 <code>f.close()</code> 或者有时候你怕自己忘记要 <code>close()</code>，或者程序执行到<code>f.write("some text...")</code>崩溃了（比如你写入了太多文字电脑内存不够了）导致close()没执行文件还损坏了, Python 人性化地提供了另外一种打开文件的方式。</td><td></td><td></td></tr><tr><td>这个方式把打开和关闭嵌入到了一个 <code>with</code> 架构中，即可以<strong>自动关闭</strong>。所以再也不用担心忘记关闭文件了。 下面这个案例，除了使用了 <code>with</code> 模式，我还换了一种写入数据的方式 <code>writelines()</code>, 当你传入像列表样的数据时， 列表中的每个元素就是一行记录，数据会分行来写。</td><td></td><td></td></tr><tr><td><strong>注意，在列表里，每个元素最后都最好写一个<code>\n</code>来表示要另起一行。不然读出来的时候就黏在一起了。</strong></td><td></td><td></td></tr></tbody></table>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>with open("new_file2.txt", "w") as f:</span></span>
+<span class="line"><span>    f.writelines(["some text for file2...\n", "2nd line\n"])</span></span></code></pre>
+<p>这里的writelines是写入字符串列表，而write是写入单个字符串。</p>
+<h3 id="读文件">读文件</h3>
+<p>上面说了，write写入，read读出：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>f = open("new_file2.txt", "r")</span></span>
+<span class="line"><span>print(f.read())</span></span>
+<span class="line"><span>f.close()</span></span></code></pre>
+<p>read出来的结果是：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>some text for file2...</span></span>
+<span class="line"><span>2nd line</span></span></code></pre>
+<p>当然，如果你是writelines(list)写入的话，那么也可以用f.readlines(),最后print出来一个<code>['some text for file2...\n', '2nd line\n']</code>，对，就是纯正的包含换行符的列表，而不是文字。</p>
+<h3 id="大文件读取逐行处理">大文件读取：逐行处理</h3>
+<blockquote>
+<p><strong>AI 实战场景：处理日志、语料、批量推理结果时，文件往往几十MB甚至几个GB，<strong><strong><code>f.read()</code></strong></strong> 会一次性把整个文件塞进内存，容易爆掉。</strong> 此时应该用逐行读取。</p>
+</blockquote>
+<p><strong><code>readline()</code></strong>：每次只读一行，内存友好。</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>with open("big_log.txt", "r") as f:</span></span>
+<span class="line"><span>    line = f.readline()      # 读第一行</span></span>
+<span class="line"><span>    while line:</span></span>
+<span class="line"><span>        print(line.strip())  # strip() 去掉末尾的 \n</span></span>
+<span class="line"><span>        line = f.readline()  # 继续读下一行</span></span></code></pre>
+<p>更 Pythonic 的写法：直接用 <code>for</code> 循环迭代文件对象，底层就是逐行读取，简洁且安全。</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>with open("big_log.txt", "r") as f:</span></span>
+<span class="line"><span>    for line in f:           # 每次只加载一行到内存</span></span>
+<span class="line"><span>        print(line.strip())</span></span></code></pre>
+<p>**与 <strong><strong><code>readlines()</code></strong></strong> 的区别：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>方法</th><th>内存占用</th><th>适用场景</th></tr></thead><tbody><tr><td><code>f.read()</code></td><td>高（整个文件）</td><td>小文件，需要全文处理</td></tr><tr><td><code>f.readlines()</code></td><td>高（整个文件变成列表）</td><td>中小文件，需要按行索引</td></tr><tr><td><code>for line in f</code></td><td>低（逐行）</td><td><strong>大文件、日志、流式语料处理</strong></td></tr><tr><td>读取 JSONL（<code>.jsonl</code>）结果、处理爬虫日志时，务必用逐行读取，否则服务器内存会被拖垮。</td><td></td><td></td></tr></tbody></table>
+<h2 id="异常处理try-except">异常处理try-except</h2>
+<blockquote>
+<p><strong>程序出错不可怕，可怕的是程序直接崩溃。</strong> 异常处理让代码遇到问题时优雅降级，而不是当场挂掉。</p>
+</blockquote>
+<h3 id="基本结构">基本结构</h3>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>try:</span></span>
+<span class="line"><span>    f = open("不存在的文件.txt", "r")</span></span>
+<span class="line"><span>    content = f.read()</span></span>
+<span class="line"><span>except FileNotFoundError:</span></span>
+<span class="line"><span>    print("文件找不到，请检查路径")</span></span>
+<span class="line"><span>except Exception as e:</span></span>
+<span class="line"><span>    print(f"其他错误: {e}")</span></span>
+<span class="line"><span>finally:</span></span>
+<span class="line"><span>    print("无论成功失败，这段都会执行，适合收尾清理")</span></span></code></pre>
+<h3 id="常见异常类型">常见异常类型</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>异常类型</th><th>触发场景</th><th>Agent 开发示例</th></tr></thead><tbody><tr><td><code>FileNotFoundError</code></td><td>文件不存在</td><td>读取知识库文件时路径写错</td></tr><tr><td><code>ValueError</code></td><td>值类型/格式不对</td><td><code>int("abc")</code>、JSON 解析失败</td></tr><tr><td><code>KeyError</code></td><td>字典中找不到这个 Key</td><td>访问 <code>result["choices"]</code> 但 API 返回了错误格式</td></tr><tr><td><code>IndexError</code></td><td>列表索引越界</td><td>处理空列表时取 <code>data[0]</code></td></tr><tr><td><code>TypeError</code></td><td>类型不匹配</td><td>字符串和数字直接相加</td></tr></tbody></table>
+<h3 id="主动抛出异常">主动抛出异常</h3>
+<p>有时你不希望程序继续执行，可以主动 <code>raise</code>：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>def load_config(path):</span></span>
+<span class="line"><span>    if not path.endswith(".json"):</span></span>
+<span class="line"><span>        raise ValueError("配置文件必须是 .json 格式")</span></span>
+<span class="line"><span>    # ...</span></span></code></pre>
+<h3 id="with-语句的底层原理">with 语句的底层原理</h3>
+<p>前面写的 <code>with open(...) as f:</code>，本质上是 <code>try/finally</code> 的语法糖：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span># 这两段等价</span></span>
+<span class="line"><span>with open("file.txt") as f:</span></span>
+<span class="line"><span>    data = f.read()</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>f = open("file.txt")</span></span>
+<span class="line"><span>try:</span></span>
+<span class="line"><span>    data = f.read()</span></span>
+<span class="line"><span>finally:</span></span>
+<span class="line"><span>    f.close()      # 无论是否出错，都保证关闭文件</span></span></code></pre>
+<p><strong>Agent 开发场景</strong>：调用 LLM API 时网络超时、返回非预期格式、本地文件缺失，都可以用 <code>try/except</code> 捕获并做降级处理（如重试、返回默认回复、记录错误日志），避免整个 Agent 流程中断。</p>
+<h2 id="json处理">JSON处理</h2>
+<blockquote>
+<p><strong>后端 API 就是收发 JSON。</strong> JSON 的格式长这样：<code>{"name": "report.txt", "size": 1024}</code>——就是 Python 字典的写法。所以 JSON 和 Python 字典之间来回转换是后端开发最频繁的操作。</p>
+</blockquote>
+<p>Python 给你准备好了 <code>json</code> 这个标准库，不用自己安装，直接 <code>import json</code> 就能用。</p>
+<h3 id="序列化dumps--dict--string">序列化（dumps = dict → string）</h3>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>import json</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 想象这个 data 是你后端从数据库查出来的数据，准备返回给前端</span></span>
+<span class="line"><span>data = {"name": "report.txt", "tags": ["important", "draft"], "size": 1024}</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># json.dumps = 把 Python 字典转成 JSON 格式的字符串，才能通过网络发送出去</span></span>
+<span class="line"><span>json_str = json.dumps(data, indent=2, ensure_ascii=False)</span></span>
+<span class="line"><span>print(json_str)</span></span>
+<span class="line"><span># 输出：</span></span>
+<span class="line"><span># {</span></span>
+<span class="line"><span>#   "name": "report.txt",</span></span>
+<span class="line"><span>#   "tags": ["important", "draft"],</span></span>
+<span class="line"><span>#   "size": 1024</span></span>
+<span class="line"><span># }</span></span></code></pre>
+<h3 id="反序列化loads--string--dict">反序列化（loads = string → dict）</h3>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span># 反过来：前端给你发了一段 JSON 字符串，你要把它变成 Python 字典才能处理</span></span>
+<span class="line"><span>raw_json = '{"name": "report.txt", "tags": ["important", "draft"], "size": 1024}'</span></span>
+<span class="line"><span>parsed = json.loads(raw_json)</span></span>
+<span class="line"><span>print(parsed["name"])  # report.txt</span></span>
+<span class="line"><span>print(parsed["tags"])  # ['important', 'draft']</span></span></code></pre>
+<h3 id="从文件里读写-json">从文件里读写 JSON</h3>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span># json.dump（没有 s）= 直接把字典存成 JSON 文件</span></span>
+<span class="line"><span>data = {"name": "report.txt", "size": 1024}</span></span>
+<span class="line"><span>with open("config.json", "w", encoding="utf-8") as f:</span></span>
+<span class="line"><span>    json.dump(data, f, indent=2, ensure_ascii=False)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># json.load（没有 s）= 从文件里直接读取成字典</span></span>
+<span class="line"><span>with open("config.json", "r", encoding="utf-8") as f:</span></span>
+<span class="line"><span>    loaded = json.load(f)</span></span>
+<span class="line"><span>print(loaded["name"])  # report.txt</span></span></code></pre>
+<p><strong>记忆口诀</strong>：带 <code>s</code> 的是操作<strong>字符串</strong>（string），不带 <code>s</code> 的是操作<strong>文件</strong>（file）。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>函数</th><th>方向</th><th>用途</th></tr></thead><tbody><tr><td><code>json.dumps(data)</code></td><td>dict → str</td><td>转成字符串（发 API 时用）</td></tr><tr><td><code>json.loads(str)</code></td><td>str → dict</td><td>解析字符串（收 API 时用）</td></tr><tr><td><code>json.dump(data, f)</code></td><td>dict → 文件</td><td>存成 JSON 文件</td></tr><tr><td><code>json.load(f)</code></td><td>文件 → dict</td><td>读取 JSON 文件</td></tr></tbody></table>
+<h1 id="附录1环境配置">附录1：环境配置</h1>
+<h2 id="python-安装和依赖管理condapip">Python 安装和依赖管理：Conda/Pip</h2>
+<p>安装 <a href="https://www.anaconda.com/products/individual#Downloads">anaconda</a>
+命令行conda -V，出现版本号，命令行python —version，出现版本号。</p>
+<h3 id="依赖是什么">依赖是什么</h3>
+<p>我们在运行一个 Python 程序的时候，你很有可能需要依赖于其他人写的代码，或者仓库，而这就是 Python 的依赖。 比如你在学习机器学习，你很有可能就要依赖于下面这些库来写代码：</p>
+<ol>
+<li>tensorflow</li>
+<li>pytorch</li>
+<li>sklearn</li>
+<li>numpy</li>
+</ol>
+<h3 id="pip">pip</h3>
+<p>是 Python 的库管理工具。</p>
+<ul>
+<li>pip 是最底层最原始的 Python 库管理工具，安装一个 Python 就自带一个 pip，每个版本的 Python 都有自己私有的 pip。你可以想象成 pip 是 Python 的跟班。</li>
+<li>conda 是在 pip/python 之上，想要隔离 pip 和 Python 环境的组件，所以是用 conda 来管理不同的 python 版本的。
+pip安装方法:</li>
+</ul>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>pip install numpy # 安装最新的 numpy </span></span>
+<span class="line"><span>pip install numpy matplotlib # 一次性安装多个依赖 </span></span>
+<span class="line"><span>pip install numpy==1.19.4 # 强制安装特定版本的库</span></span></code></pre>
+<h3 id="conda分项目管理">conda分项目管理</h3>
+<p>conda 比普通的 pip 要更进一步，它可以分项目来管理依赖和 Python 版本。比如我有很多项目，里面的 Python 版本和依赖都不相同，我更愿意用 conda 来为这些项目单独管理一个 Python 和隔离他们的依赖。
+首先，你需要创建一个 conda 环境 env，定义这个环境的名字和 Python 版本。</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>conda create --name Curry python=3.8</span></span></code></pre>
+<p>然后手动切换到这个Curry环境中，不然会一直待在一个<code>base</code>基础环境中。</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>conda env list # 可以看到当前有哪些环境</span></span>
+<span class="line"><span>conda activate Curry # 切换环境 </span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># 现在终端前面有 (Curry) 标志</span></span>
+<span class="line"><span>(Curry) C:\你的项目文件夹></span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>pip install xxxx # 现在安装依赖就不是全局安装而是针对这个环境安装了</span></span></code></pre>
+<p>然后在你新建的环境中，直接用 pip 安装你想要安装的库吧，现在所有用 pip 安装的库，都会隔离开，单独存放在 <code>Curry</code> 这个独立环境中。和 <code>base</code> 或者其他环境都不影响。
+Conda 环境<strong>默认不放在你的项目文件夹里</strong>，而是集中管理，可以在anaconda文件夹中找到：\anaconda3\envs\Curry\</p>
+<h3 id="迁移依赖">迁移依赖</h3>
+<p>使用requirements.txt文件存放pip依赖的列表。
+可以通过以下指令生成：</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>pip freeze > requirements.txt</span></span></code></pre>
+<p>他会显示这个 Python 版本 pip 中所有安装过的依赖。如果你是用 conda 分项目来建 Python 的依赖环境的话，那就是这个 conda env 中的所有 pip 依赖。
+获得了别人给的requirements.txt，如何安装依赖？</p>
+<pre class="astro-code astro-code-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>pip install -r requirements.txt</span></span></code></pre></div><nav class="mt-16 flex items-center justify-between gap-4 border-t border-line pt-6 text-sm"><a href="/articles/1_stack-and-queue-basics/" class="max-w-[45%] text-muted transition-colors hover:text-accent">← 1_栈与队列理论基础</a><a href="/articles/2_implement-queue-using-stacks/" class="max-w-[45%] text-right text-muted transition-colors hover:text-accent">2_用栈实现队列 →</a></nav></article><aside class="hidden lg:block"><div class="sticky top-28 max-h-[calc(100vh-8rem)] overflow-y-auto pb-4"><nav class="toc-sidebar" aria-label="文章目录"><h2 class="font-display text-xs font-medium uppercase tracking-[0.2em] text-muted">目录</h2><ul class="relative mt-4 space-y-1 border-l border-line"><li class="relative leading-snug pl-3.5"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#变量与运算" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="变量与运算">变量与运算</a></li><li class="relative leading-snug pl-5"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#变量" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="变量">变量</a></li><li class="relative leading-snug pl-5"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#打印" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="打印">打印</a></li><li class="relative leading-snug pl-5"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#运算" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="运算">运算</a></li><li class="relative leading-snug pl-3.5"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#循环数据判断" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="循环数据判断">循环、数据、判断</a></li><li class="relative leading-snug pl-5"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#条件判断" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="条件判断">条件判断</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#ifif-not" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="ifif-not">If/if not</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#if-else" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="if-else">if-else</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#判断条件" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="判断条件">判断条件</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#if-elif-else" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="if-elif-else">if-elif-else</a></li><li class="relative leading-snug pl-5"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#forwhile循环" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="forwhile循环">for/while循环</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#for" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="for">for</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#while" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="while">while</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#continue-and-break" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="continue-and-break">continue and break</a></li><li class="relative leading-snug pl-5"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#数据种类基本数据结构容器" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="数据种类基本数据结构容器">数据种类/基本数据结构（容器）</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#数据类型" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="数据类型">数据类型</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#f-string" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="f-string">f-string</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#list列表" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="list列表">List列表</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#dict字典" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="dict字典">Dict字典</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#tuple元组" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="tuple元组">Tuple元组</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#set集合" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="set集合">Set集合</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#以上这四种容器的辨析" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="以上这四种容器的辨析">以上这四种容器的辨析</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#在循环中运用" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="在循环中运用">在循环中运用</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#深浅拷贝" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="深浅拷贝">深浅拷贝</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#列表推导式一行搞定新列表" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="列表推导式一行搞定新列表">列表推导式（一行搞定新列表）</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#zip拉链式合并" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="zip拉链式合并">zip（拉链式合并）</a></li><li class="relative leading-snug pl-3.5"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#函数类-模块" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="函数类-模块">函数、类、 模块</a></li><li class="relative leading-snug pl-5"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#function函数" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="function函数">Function函数</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#定义函数" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="定义函数">定义函数</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#参数设置" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="参数设置">参数设置</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#全局和局部变量" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="全局和局部变量">全局和局部变量</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#类型注解type-hints" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="类型注解type-hints">类型注解（Type Hints）</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#args-和-kwargs可变参数" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="args-和-kwargs可变参数">*args 和 **kwargs（可变参数）</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#迭代器与生成器" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="迭代器与生成器">迭代器与生成器</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#装饰器" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="装饰器">装饰器</a></li><li class="relative leading-snug pl-5"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#class类" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="class类">Class类</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#class定义" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="class定义">Class定义</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#class功能" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="class功能">Class功能</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#继承" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="继承">继承</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#魔法方法magic-methods" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="魔法方法magic-methods">魔法方法（Magic Methods）</a></li><li class="relative leading-snug pl-5"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#module模块" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="module模块">Module模块</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#文件中的代码" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="文件中的代码">文件中的代码</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#引用module" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="引用module">引用module</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#大项目的模块管理" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="大项目的模块管理">大项目的模块管理</a></li><li class="relative leading-snug pl-3.5"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#文件管理与异常处理" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="文件管理与异常处理">文件管理与异常处理</a></li><li class="relative leading-snug pl-5"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#读写文件" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="读写文件">读写文件</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#创建文件" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="创建文件">创建文件</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#读文件" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="读文件">读文件</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#大文件读取逐行处理" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="大文件读取逐行处理">大文件读取：逐行处理</a></li><li class="relative leading-snug pl-5"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#异常处理try-except" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="异常处理try-except">异常处理try-except</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#基本结构" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="基本结构">基本结构</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#常见异常类型" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="常见异常类型">常见异常类型</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#主动抛出异常" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="主动抛出异常">主动抛出异常</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#with-语句的底层原理" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="with-语句的底层原理">with 语句的底层原理</a></li><li class="relative leading-snug pl-5"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#json处理" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="json处理">JSON处理</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#序列化dumps--dict--string" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="序列化dumps--dict--string">序列化（dumps = dict → string）</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#反序列化loads--string--dict" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="反序列化loads--string--dict">反序列化（loads = string → dict）</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#从文件里读写-json" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="从文件里读写-json">从文件里读写 JSON</a></li><li class="relative leading-snug pl-3.5"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#附录1环境配置" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="附录1环境配置">附录1：环境配置</a></li><li class="relative leading-snug pl-5"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#python-安装和依赖管理condapip" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="python-安装和依赖管理condapip">Python 安装和依赖管理：Conda/Pip</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#依赖是什么" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="依赖是什么">依赖是什么</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#pip" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="pip">pip</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#conda分项目管理" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="conda分项目管理">conda分项目管理</a></li><li class="relative leading-snug pl-7"><span class="toc-indicator pointer-events-none absolute -left-px top-1/2 h-3.5 w-0.5 -translate-y-1/2 bg-accent opacity-0 transition-opacity"></span><a href="#迁移依赖" class="toc-link block py-1 text-sm text-muted transition-colors hover:text-accent" data-slug="迁移依赖">迁移依赖</a></li></ul></nav><script type="module">function e(){let e=document.querySelectorAll(`.toc-link`);if(e.length===0)return;let t=Array.from(document.querySelectorAll(`h1[id], h2[id], h3[id]`));if(t.length===0)return;let n=()=>{let n=t[0].id;for(let e of t)if(e.getBoundingClientRect().top<120)n=e.id;else break;e.forEach(e=>{let t=e.dataset.slug===n;e.classList.toggle(`text-accent`,t),e.classList.toggle(`font-medium`,t);let r=e.previousElementSibling;r&&r.classList.contains(`toc-indicator`)&&(r.classList.toggle(`opacity-0`,!t),r.classList.toggle(`opacity-100`,t))})};window.addEventListener(`scroll`,n,{passive:!0}),window.addEventListener(`resize`,n),n()}e();</script></div></aside></div></div></main><footer class="border-t border-line"><div class="mx-auto flex max-w-5xl flex-col items-center gap-4 px-4 py-10 text-sm text-muted md:flex-row md:justify-between"><div class="text-center md:text-left"><p class="font-display text-xl font-medium tracking-[0.04em] text-ink">Bornfree</p><p class="mt-1.5 font-display text-sm italic tracking-[0.12em] text-muted">Revere time, defend your attention.</p></div><div class="flex items-center gap-2.5"><a href="https://github.com/BornfreeYan" target="_blank" rel="noopener noreferrer" class="flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:text-accent" aria-label="GitHub"><div class="h-4 w-4"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="100%" height="100%"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></div></a><a href="https://xhslink.cn/m/5DbIxl50YGT" target="_blank" rel="noopener noreferrer" class="flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:text-accent" aria-label="小红书"><div class="h-4 w-4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div></a><a href="https://x.com/yanbornfree" target="_blank" rel="noopener noreferrer" class="flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:text-accent" aria-label="X"><div class="h-4 w-4"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="100%" height="100%"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></div></a><a href="/rss.xml" target="_blank" rel="noopener noreferrer" class="flex h-9 w-9 items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:text-accent" aria-label="RSS"><div class="h-4 w-4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg></div></a><button type="button" data-email-copy data-addr="1700807190@qq.com" aria-label="复制邮箱" class="group relative flex items-center justify-center rounded-full border border-line text-muted transition-all hover:border-accent hover:text-accent h-9 w-9"><div class="h-4 w-4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div><span data-email-tip class="pointer-events-none absolute -top-9 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-ink px-3 py-1 text-xs text-bg opacity-0 transition-opacity duration-150">已复制 ✓</span></button><script type="module">document.querySelectorAll(`[data-email-copy]`).forEach(e=>{let t=e.querySelector(`[data-email-tip]`);e.addEventListener(`click`,async()=>{let n=e.getAttribute(`data-addr`)??``;try{await navigator.clipboard.writeText(n)}catch{}t&&(t.classList.remove(`opacity-0`),setTimeout(()=>t.classList.add(`opacity-0`),1600))})});</script></div><div class="text-center md:text-right"><p>© 2026 Bornfree</p><p class="mt-1 text-xs text-muted">Powered by Astro</p></div></div></footer><div data-search-overlay class="fixed inset-0 z-50 hidden"><div data-search-close class="absolute inset-0 bg-black/40 backdrop-blur-sm"></div><div class="absolute inset-x-0 top-0 mx-auto max-w-xl px-4 pt-24"><div class="rounded-2xl border border-line bg-surface p-4 shadow-2xl"><div class="flex items-center gap-2 border-b border-line pb-3"><div class="h-5 w-5 shrink-0 text-muted"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div><input data-search-input type="search" placeholder="搜索文章…" autocomplete="off" class="w-full bg-transparent text-lg outline-none placeholder:text-muted"><button data-search-close class="shrink-0 rounded-lg p-1 text-muted transition-colors hover:text-ink" aria-label="关闭搜索"><div class="h-5 w-5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="100%" height="100%"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></div></button></div><div data-search-results class="mt-3 max-h-[55vh] overflow-y-auto"></div><p data-search-hint class="mt-3 text-xs text-muted">搜索索引在构建时生成，预览请先 npm run build</p></div></div></div><script>
+  let pagefind = null
+
+  const overlay = document.querySelector('[data-search-overlay]')
+  const input = document.querySelector('[data-search-input]')
+  const results = document.querySelector('[data-search-results]')
+  const hint = document.querySelector('[data-search-hint]')
+
+  if (!overlay || !input || !results || !hint) throw new Error('search elements missing')
+
+  async function initPagefind() {
+    if (pagefind) return true
+    try {
+      const modUrl = '/pagefind/pagefind.js'
+      pagefind = await import(modUrl)
+      hint.textContent = ''
+      return true
+    } catch {
+      hint.textContent = '搜索索引未生成，请先执行 npm run build'
+      return false
+    }
+  }
+
+  function open() {
+    overlay.classList.remove('hidden')
+    input.value = ''
+    results.innerHTML = ''
+    setTimeout(() => input.focus(), 50)
+    initPagefind()
+  }
+
+  function close() {
+    overlay.classList.add('hidden')
+  }
+
+  document.addEventListener('click', (e) => {
+    const target = e.target
+    if (target.closest('[data-search-open]')) open()
+    else if (target.closest('[data-search-close]')) close()
+  })
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      close()
+      return
+    }
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault()
+      open()
+    }
+  })
+
+  let timer
+  input.addEventListener('input', () => {
+    clearTimeout(timer)
+    timer = setTimeout(runSearch, 200)
+  })
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') runSearch()
+  })
+
+  async function runSearch() {
+    const term = input.value.trim()
+    if (!term) {
+      results.innerHTML = ''
+      return
+    }
+    const ok = await initPagefind()
+    if (!ok) return
+    const search = await pagefind.search(term)
+    const items = (search.results ?? []).slice(0, 12)
+    if (items.length === 0) {
+      results.innerHTML = '<p class="p-3 text-sm text-muted">没有找到相关内容</p>'
+      return
+    }
+    const data = await Promise.all(items.map((r) => r.data()))
+    results.innerHTML = data
+      .map(
+        (d) => `
+        <a href="${d.url}" class="block rounded-xl px-3 py-3 transition-colors hover:bg-line/60">
+          <p class="font-medium">${d.meta?.title ?? ''}</p>
+          <p class="mt-1 line-clamp-2 text-sm text-muted">${d.excerpt ?? ''}</p>
+        </a>
+      `
+      )
+      .join('')
+  }
+</script></body></html><script type="module">var e=document.querySelector(`[data-reading-bar]`),t=document.querySelector(`[data-reading-fill]`);if(e&&t){let e=()=>{let e=document.documentElement.scrollHeight-window.innerHeight,n=e>0?window.scrollY/e:0;t.style.transform=`scaleX(${Math.min(1,Math.max(0,n))})`};addEventListener(`scroll`,e,{passive:!0}),addEventListener(`resize`,e),e()}</script><script type="module" src="/_astro/_slug_.astro_astro_type_script_index_1_lang.B4WhdnhF.js"></script>
